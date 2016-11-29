@@ -1,0 +1,42 @@
+
+{
+    "robert": [
+        {
+            "key": "robert.sprite",
+            "type": "spritesheet",
+            "url": "assets/sprites/char-sprite-robert.png",
+            "frameWidth": 32,
+            "frameHeight": 32,
+            "frameMax": 12,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "key": "robert.portrait",
+            "type": "image",
+            "url": "assets/images/char-portrait-robert.png",
+            "overwrite": false
+        }
+    ],
+
+    "julie": [
+        {
+            "key": "julie.sprite",
+            "type": "spritesheet",
+            "url": "assets/sprites/char-sprite-julie.png",
+            "frameWidth": 32,
+            "frameHeight": 32,
+            "frameMax": 12,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "key": "julie.portrait",
+            "type": "image",
+            "url": "assets/images/char-portrait-julie.png",
+            "overwrite": false
+        }
+    ],
+
+    "meta": {}
+}

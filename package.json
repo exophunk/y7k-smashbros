@@ -1,0 +1,30 @@
+{
+  "name": "phsrtest",
+  "private": true,
+  "description": "Phasertest",
+  "author": {
+    "name": "Robert Krieg",
+    "url": "http://robertkrieg.ch"
+  },
+  "license": "UNLICENSED",
+  "scripts": {
+    "prod": "gulp --production",
+    "dev": "gulp watch"
+  },
+  "dependencies": {
+    "bugsnag-js": "^3.0.6"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.0",
+    "dotenv": "^2.0.0",
+    "eslint-plugin-vue": "^1.0.0",
+    "gulp": "^3.9.1",
+    "json-loader": "^0.5.4",
+    "laravel-elixir": "^6.0.0-14",
+    "laravel-elixir-browsersync-official": "^1.0.0",
+    "laravel-elixir-eslint": "^4.0.0-4",
+    "laravel-elixir-imagemin": "^0.2.3",
+    "laravel-elixir-vue-2": "^0.2.0",
+    "laravel-elixir-webpack-official": "^1.0.9"
+  }
+}
