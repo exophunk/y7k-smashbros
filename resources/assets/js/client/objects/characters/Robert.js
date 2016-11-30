@@ -1,4 +1,4 @@
-import BaseCharacter from 'objects/characters/BaseCharacter';
+import BaseCharacter from 'client/objects/characters/BaseCharacter';
 
 export default class Robert extends BaseCharacter {
 

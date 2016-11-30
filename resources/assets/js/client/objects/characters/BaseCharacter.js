@@ -1,4 +1,4 @@
-import * as config from 'config/Config';
+import * as config from 'client/config/Config';
 
 export default class BaseCharacter extends Phaser.Sprite {
 

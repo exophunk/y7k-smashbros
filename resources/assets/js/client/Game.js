@@ -1,9 +1,9 @@
-import StateMenu from 'states/StateMenu';
-import StatePlayerSelect from 'states/StatePlayerSelect';
-import StateGame from 'states/StateGame';
+import StateMenu from 'client/states/StateMenu';
+import StatePlayerSelect from 'client/states/StatePlayerSelect';
+import StateGame from 'client/states/StateGame';
 
-import GameState from 'handler/GameState';
-import CharacterFactory from 'handler/CharacterFactory';
+import GameState from 'client/handler/GameState';
+import CharacterFactory from 'client/handler/CharacterFactory';
 
 export default class Game extends Phaser.Game {
 

@@ -1,6 +1,6 @@
-import Preloader from 'handler/Preloader';
-import Player from 'objects/Player';
-import Portrait from 'objects/Portrait';
+import Preloader from 'client/handler/Preloader';
+import Player from 'client/objects/Player';
+import Portrait from 'client/objects/Portrait';
 
 export default class StatePlayerSelect extends Phaser.State {
 
@@ -11,7 +11,6 @@ export default class StatePlayerSelect extends Phaser.State {
         this.selectPosX = 0;
         this.selectPosY = 0;
 
-        game.characterFactory.loadCharacters();
         let characters = game.characterFactory.getAllAsArray();
 
         characters.forEach((character) => {
@@ -30,7 +29,6 @@ export default class StatePlayerSelect extends Phaser.State {
         this.rightPressed = false;
         this.upPressed = false;
         this.downPressed = false;
-
 	}
 
 
@@ -78,6 +76,7 @@ export default class StatePlayerSelect extends Phaser.State {
         this.portraits.callAll('deselect');
         this.portraits.getAt(this.selectIndex).select();
     }
+
 
     preload() {
         new Preloader().loadCharacters();

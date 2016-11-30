@@ -1,4 +1,4 @@
-import Game from 'Game';
+import Game from 'client/Game';
 
 global.game = new Game();
 
