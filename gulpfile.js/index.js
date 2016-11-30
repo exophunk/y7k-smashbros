@@ -1,9 +1,14 @@
 var Elixir = require('laravel-elixir');
 var config = require('./config');
 
+var gulp = require('gulp');
+var babel = require('gulp-babel');
+var nodemon = require('gulp-nodemon');
+
 require('laravel-elixir-vue-2');
 require('laravel-elixir-eslint');
 require('laravel-elixir-imagemin');
+
 
 Elixir(function (mix) {
 
@@ -20,7 +25,9 @@ Elixir(function (mix) {
         .eslint(config.eslint.paths)
 
         // Build Javascript with Webpack
-        .webpack('app.js')
+        .webpack('client/app.js')
+
+        .rollup('server/server.js','server/server.js')
 
         // Concatenate all js FILES inside "js/vendor/" - including files in  subfolders - to "build/js/vendor.js"
         .scriptsIn(config.vendorjs.assets.folder, config.vendorjs.build.file)
@@ -38,3 +45,22 @@ Elixir(function (mix) {
         .browserSync(config.browserSync);
 
 });
+
+
+
+
+gulp.task('build-server', () =>
+    gulp.src(['resources/assets/js/server/server.js'])
+    .pipe(babel())
+    .pipe(gulp.dest('server'))
+);
+
+
+
+gulp.task('server', ['build-server'], () => {
+    nodemon({
+        delay: 10,
+        script: 'server/server.js',
+    })
+});
+

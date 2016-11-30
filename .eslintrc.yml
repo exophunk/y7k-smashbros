@@ -39,7 +39,8 @@
     Promise: false,
     Phaser: false,
     Symbol: false,
-    game: false
+    game: false,
+    process: false,
 
   env:
     browser: true
