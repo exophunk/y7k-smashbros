@@ -79,7 +79,7 @@ export default class StatePlayerSelect extends Phaser.State {
 
 
     preload() {
-        new Preloader().loadCharacters();
+
     }
 
 }

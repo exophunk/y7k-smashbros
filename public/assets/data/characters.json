@@ -4,7 +4,7 @@
         {
             "key": "robert.sprite",
             "type": "spritesheet",
-            "url": "assets/sprites/char-sprite-robert.png",
+            "url": "assets/sprites/char-robert.png",
             "frameWidth": 32,
             "frameHeight": 32,
             "frameMax": 12,
@@ -23,7 +23,7 @@
         {
             "key": "julie.sprite",
             "type": "spritesheet",
-            "url": "assets/sprites/char-sprite-julie.png",
+            "url": "assets/sprites/char-julie.png",
             "frameWidth": 32,
             "frameHeight": 32,
             "frameMax": 12,

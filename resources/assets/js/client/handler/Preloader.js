@@ -21,4 +21,8 @@ export default class Preloader {
         game.load.pack('julie', '/assets/data/characters.json');
     }
 
+    loadThrowables() {
+        game.load.spritesheet('throwables', '/assets/sprites/throwables.png', 32, 32);
+    }
+
 }

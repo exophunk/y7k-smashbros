@@ -27,8 +27,6 @@ Elixir(function (mix) {
         // Build Javascript with Webpack
         .webpack('client/app.js')
 
-        .rollup('server/server.js','server/server.js')
-
         // Concatenate all js FILES inside "js/vendor/" - including files in  subfolders - to "build/js/vendor.js"
         .scriptsIn(config.vendorjs.assets.folder, config.vendorjs.build.file)
 

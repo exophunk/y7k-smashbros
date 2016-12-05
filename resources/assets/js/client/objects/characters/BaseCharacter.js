@@ -7,16 +7,18 @@ export default class BaseCharacter extends Phaser.Sprite {
         let spriteKey = key + '.sprite';
         super(game, 0, 0, spriteKey, 1);
 
+        this.player = null;
         this.key = key;
         this.spriteKey = spriteKey;
         this.portraitKey = key + '.portrait';
         this.jingleKey = key + '.jingle';
         this.facing = 'idle';
+        this.isMoving = false;
+        this.anchor.setTo(0.5,0.5);
         //this.portraitImage = game.cache.getImage(portraitKey);
         //this.portraitJingle = game.cache.getSound(jingleKey);
 
         this.addAnimations();
-        this.addPhysics();
     }
 
 
@@ -29,63 +31,85 @@ export default class BaseCharacter extends Phaser.Sprite {
     }
 
 
-    addPhysics() {
-        game.physics.enable(this, Phaser.Physics.ARCADE);
-        this.body.collideWorldBounds = true;
-        this.body.setSize(20, 28, 6, 2);
+    setPhysics() {
+        game.physics.p2.enable(this, game.isDebug);
+        this.body.fixedRotation = true;
+        this.body.data.gravityScale = 0;
+        this.body.setZeroDamping();
+        this.body.setMaterial(game.physicsState.materialPlayer);
     }
 
 
-    handleMovement(cursors) {
+    moveLeft() {
+        this.isMoving = true;
+        this.body.setZeroVelocity();
+        this.body.moveLeft(config.WALK_SPEED);
 
-        this.body.velocity.x = 0;
-        this.body.velocity.y = 0;
-
-        if (cursors.left.isDown) {
-            this.body.velocity.x = -1 * config.WALK_SPEED;
-
-            if (this.facing != 'left') {
-                this.animations.play('walk-left');
-                this.facing = 'left';
-            }
-        } else if (cursors.right.isDown) {
-            this.body.velocity.x = config.WALK_SPEED;
-
-            if (this.facing != 'right') {
-                this.animations.play('walk-right');
-                this.facing = 'right';
-            }
-        } else if (cursors.up.isDown) {
-            this.body.velocity.y = -1 * config.WALK_SPEED;
-
-            if (this.facing != 'up') {
-                this.animations.play('walk-up');
-                this.facing = 'up';
-            }
-        } else if (cursors.down.isDown) {
-            this.body.velocity.y = config.WALK_SPEED;
-
-            if (this.facing != 'down') {
-                this.animations.play('walk-down');
-                this.facing = 'down';
-            }
-        } else {
-            if (this.facing != 'idle') {
-                this.animations.stop();
-
-                if (this.facing == 'left') {
-                    this.frame = 4;
-                } else if (this.facing == 'right') {
-                    this.frame = 7;
-                } else if (this.facing == 'up') {
-                    this.frame = 10;
-                } else if (this.facing == 'down') {
-                    this.frame = 1;
-                }
-
-                this.facing = 'idle';
-            }
+        if (this.facing != 'left') {
+            this.animations.play('walk-left');
+            this.facing = 'left';
         }
-
     }
+
+
+    moveRight() {
+        this.isMoving = true;
+        this.body.setZeroVelocity();
+        this.body.moveRight(config.WALK_SPEED);
+
+        if (this.facing != 'right') {
+            this.animations.play('walk-right');
+            this.facing = 'right';
+        }
+    }
+
+
+    moveUp() {
+        this.isMoving = true;
+        this.body.setZeroVelocity();
+        this.body.moveUp(config.WALK_SPEED);
+
+        if (this.facing != 'up') {
+            this.animations.play('walk-up');
+            this.facing = 'up';
+        }
+    }
+
+
+    moveDown() {
+        this.isMoving = true;
+        this.body.setZeroVelocity();
+        this.body.moveDown(config.WALK_SPEED);
+
+        if (this.facing != 'down') {
+            this.animations.play('walk-down');
+            this.facing = 'down';
+        }
+    }
+
+
+    idle() {
+        this.body.setZeroVelocity();
+        if (this.isMoving) {
+            this.animations.stop();
+
+            switch(this.facing) {
+                case 'left':
+                    this.frame = 4;
+                    break;
+                case 'right':
+                    this.frame = 7;
+                    break;
+                case 'up':
+                    this.frame = 10;
+                    break;
+                case 'down':
+                    this.frame = 1;
+                    break;
+            }
+
+            this.isMoving = false;
+        }
+    }
+
 }
