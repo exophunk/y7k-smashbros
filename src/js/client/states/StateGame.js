@@ -22,6 +22,10 @@ export default class StateGame extends Phaser.State {
         this.initControls();
         this.initPhysics();
 
+        game.server.on('update_state', (data) => {
+            console.log('got update', data);
+        });
+
 	}
 
 

@@ -15,25 +15,28 @@ export default class Player {
 
 
     moveLeft() {
-        game.server.emit('move', 'moving leeeft');
+        game.server.emit('update_player', this.getPosition());
         this.character.moveLeft();
         this.setCarryAnchor();
     }
 
 
     moveRight() {
+        game.server.emit('update_player', this.getPosition());
         this.setCarryAnchor();
         this.character.moveRight();
     }
 
 
     moveUp() {
+        game.server.emit('update_player', this.getPosition());
         this.character.moveUp();
         this.setCarryAnchor();
     }
 
 
     moveDown() {
+        game.server.emit('update_player', this.getPosition());
         this.character.moveDown();
         this.setCarryAnchor();
     }
@@ -45,6 +48,7 @@ export default class Player {
 
 
     doAction() {
+
         if(this.activeThrowable && this.activeThrowable.isCarried()) {
             this.activeThrowable.throw();
         } else {
@@ -100,5 +104,30 @@ export default class Player {
 
     }
 
+
+    getState() {
+        return {
+            character: this.character.key,
+            x: this.character.x,
+            y: this.character.y,
+        }
+    }
+
+    getPosition() {
+        return {
+            x: this.character.x,
+            y: this.character.y,
+            bodyX: this.character.body.x,
+            bodyY: this.character.body.y,
+            velocityX: this.character.body.velocity.x,
+            velocityY: this.character.body.velocity.y,
+            angle: this.character.body.angle,
+            angularVelocity: this.character.body.angularVelocity,
+        }
+    }
+
+    updatePlayer() {
+
+    }
 
 }

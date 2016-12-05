@@ -23,6 +23,9 @@ export default class StateBoot extends Phaser.State {
     testingShortCut() {
         game.gameState.player = new Player(game.characterFactory.get('robert'));
 
+        game.server.emit('join', game.gameState.player.getState());
+
+
         let enemy = new Player(game.characterFactory.get('julie'));
         game.gameState.enemies.push(enemy);
 
