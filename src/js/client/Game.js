@@ -19,6 +19,7 @@ export default class Game extends Phaser.Game {
         this.state.add('StatePlayerSelect', StatePlayerSelect, false);
         this.state.add('StateGame', StateGame, false);
 
+        this.server = null;
         this.gameState = new GameState();
         this.characterFactory = new CharacterFactory();
         this.physicsState = {};

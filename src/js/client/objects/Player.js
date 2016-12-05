@@ -15,6 +15,7 @@ export default class Player {
 
 
     moveLeft() {
+        game.server.emit('move', 'moving leeeft');
         this.character.moveLeft();
         this.setCarryAnchor();
     }

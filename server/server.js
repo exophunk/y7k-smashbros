@@ -24,22 +24,44 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var Server = function () {
     function Server() {
+        var _this = this;
+
         _classCallCheck(this, Server);
 
         this.app = (0, _express2.default)();
         this.server = _http2.default.Server(this.app);
         this.io = new _socket2.default(this.server);
-        this.port = process.env.PORT || 3000;
-
+        this.port = process.env.WEBSOCKET_PORT || 3000;
         this.io.on('connection', this.onConnection);
 
-        console.log("HELLO");
+        this.app.use(_express2.default.static(__dirname + '/../public'));
+
+        this.server.listen(this.port, function () {
+            _this.onListen();
+        });
     }
 
     _createClass(Server, [{
+        key: 'onListen',
+        value: function onListen() {
+            console.log('Listening on Port ' + this.port + '...');
+        }
+    }, {
         key: 'onConnection',
         value: function onConnection(socket) {
-            console.log("connect");
+            console.log('connect');
+
+            socket.on('disconnect', function () {
+                console.log('user disconnected');
+            });
+
+            socket.on('client_update', function (clientData) {
+                console.log('client: ' + clientData);
+            });
+
+            socket.on('move', function (clientData) {
+                console.log('clientmove: ' + clientData);
+            });
         }
     }]);
 
