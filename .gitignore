@@ -3,6 +3,7 @@
 
 # Build Folder
 /public/build
+/server
 
 # Node Modules
 /node_modules
