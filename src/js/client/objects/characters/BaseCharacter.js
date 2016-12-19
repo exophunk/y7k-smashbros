@@ -1,4 +1,7 @@
-import * as config from 'client/config/Config';
+
+export const CharacterConfig = {
+    WALK_SPEED: 300,
+}
 
 export default class BaseCharacter extends Phaser.Sprite {
 
@@ -34,66 +37,61 @@ export default class BaseCharacter extends Phaser.Sprite {
     setPhysics() {
         game.physics.p2.enable(this, game.isDebug);
         this.body.fixedRotation = true;
-        this.body.data.gravityScale = 0;
+        this.body.static = true;
         this.body.setZeroDamping();
         this.body.setMaterial(game.physicsState.materialPlayer);
     }
 
 
-    moveLeft() {
-        this.isMoving = true;
-        this.body.setZeroVelocity();
-        this.body.moveLeft(config.WALK_SPEED);
+    setHostPlayer() {
+        this.body.static = false;
+    }
 
-        if (this.facing != 'left') {
-            this.animations.play('walk-left');
-            this.facing = 'left';
-        }
+
+    moveLeft() {
+        this.body.setZeroVelocity();
+        this.body.moveLeft(CharacterConfig.WALK_SPEED);
+        this.updateAnimation(this.facing, this.isMoving, 'left', true);
     }
 
 
     moveRight() {
-        this.isMoving = true;
         this.body.setZeroVelocity();
-        this.body.moveRight(config.WALK_SPEED);
-
-        if (this.facing != 'right') {
-            this.animations.play('walk-right');
-            this.facing = 'right';
-        }
+        this.body.moveRight(CharacterConfig.WALK_SPEED);
+        this.updateAnimation(this.facing, this.isMoving, 'right', true);
     }
 
 
     moveUp() {
-        this.isMoving = true;
         this.body.setZeroVelocity();
-        this.body.moveUp(config.WALK_SPEED);
-
-        if (this.facing != 'up') {
-            this.animations.play('walk-up');
-            this.facing = 'up';
-        }
+        this.body.moveUp(CharacterConfig.WALK_SPEED);
+        this.updateAnimation(this.facing, this.isMoving, 'up', true);
     }
 
 
     moveDown() {
-        this.isMoving = true;
         this.body.setZeroVelocity();
-        this.body.moveDown(config.WALK_SPEED);
-
-        if (this.facing != 'down') {
-            this.animations.play('walk-down');
-            this.facing = 'down';
-        }
+        this.body.moveDown(CharacterConfig.WALK_SPEED);
+        this.updateAnimation(this.facing, this.isMoving, 'down', true);
     }
 
 
     idle() {
         this.body.setZeroVelocity();
         if (this.isMoving) {
-            this.animations.stop();
+            this.updateAnimation(this.facing, this.isMoving, this.facing, false);
+        }
+    }
 
-            switch(this.facing) {
+    updateAnimation(prevFacing, prevIsMoving, facing, isMoving) {
+        if(isMoving) {
+            if((isMoving && prevFacing != facing) || !prevIsMoving) {
+                this.animations.play('walk-' + facing);
+                this.facing = facing;
+            }
+        } else {
+            this.animations.stop();
+            switch(facing) {
                 case 'left':
                     this.frame = 4;
                     break;
@@ -107,9 +105,10 @@ export default class BaseCharacter extends Phaser.Sprite {
                     this.frame = 1;
                     break;
             }
-
-            this.isMoving = false;
         }
+
+        this.isMoving = isMoving;
+
     }
 
 }

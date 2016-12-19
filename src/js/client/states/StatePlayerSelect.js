@@ -1,5 +1,5 @@
 import Preloader from 'client/handler/Preloader';
-import Player from 'client/objects/Player';
+import Player from 'shared/objects/Player';
 import Portrait from 'client/objects/Portrait';
 
 export default class StatePlayerSelect extends Phaser.State {
@@ -34,10 +34,10 @@ export default class StatePlayerSelect extends Phaser.State {
 
     startGame() {
 
-        let chosenCharacter = this.portraits.getAt(this.selectIndex).character;
+        let chosenCharacter = this.portraits.getAt(this.selectIndex).character.key;
         game.gameState.player = new Player(chosenCharacter);
 
-        this.state.start('StateGame');
+        this.state.start('StatePlaying');
     }
 
     update() {

@@ -1,5 +1,5 @@
 import Preloader from 'client/handler/Preloader';
-import Player from 'client/objects/Player';
+import Player from 'shared/objects/Player';
 
 export default class StateBoot extends Phaser.State {
 
@@ -21,16 +21,11 @@ export default class StateBoot extends Phaser.State {
 
 
     testingShortCut() {
-        game.gameState.player = new Player(game.characterFactory.get('robert'));
 
-        game.server.emit('join', game.gameState.player.getState());
-
-
-        let enemy = new Player(game.characterFactory.get('julie'));
-        game.gameState.enemies.push(enemy);
+        game.gameState.selectedCharKey = 'robert';
 
         game.isDebug = true;
-        this.state.start('StateGame');
+        this.state.start('StatePlaying');
     }
 
 }

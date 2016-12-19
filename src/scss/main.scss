@@ -6,15 +6,15 @@ body {
 }
 
 @mixin bp-s() {
-    @media only screen and (max-width: 667){
+    @media only screen and (max-width: 667px){
         @content;
     }
 }
 
 .game-wrapper {
     position: absolute;
-    width: 95vw;
-    height: 75vw;
+    width: 97vmin;
+    height: 75vmin;
     max-width: 1024px;
     max-height: 768px;
     top: 50%;
@@ -24,11 +24,13 @@ body {
     @include bp-s {
 
     }
+
+    canvas {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
 }
 
-.game-wrapper canvas {
-    width: 100% !important;
-    height: 100% !important;
-}
 
 
