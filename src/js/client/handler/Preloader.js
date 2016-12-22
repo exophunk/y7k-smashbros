@@ -17,8 +17,14 @@ export default class Preloader {
     }
 
     loadCharacters() {
-        game.load.pack('robert', '/assets/data/characters.json');
+        game.load.pack('gabriella', '/assets/data/characters.json');
+        game.load.pack('joris', '/assets/data/characters.json');
         game.load.pack('julie', '/assets/data/characters.json');
+        game.load.pack('robert', '/assets/data/characters.json');
+        game.load.pack('ruben', '/assets/data/characters.json');
+        game.load.pack('tore', '/assets/data/characters.json');
+        game.load.pack('yassin', '/assets/data/characters.json');
+        game.load.pack('yves', '/assets/data/characters.json');
     }
 
     loadThrowables() {

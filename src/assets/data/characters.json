@@ -1,10 +1,10 @@
 
 {
-    "robert": [
+    "gabriella": [
         {
-            "key": "robert.sprite",
+            "key": "gabriella.sprite",
             "type": "spritesheet",
-            "url": "assets/sprites/char-robert.png",
+            "url": "assets/sprites/char-gabriella.png",
             "frameWidth": 32,
             "frameHeight": 32,
             "frameMax": 12,
@@ -12,9 +12,28 @@
             "spacing": 0
         },
         {
-            "key": "robert.portrait",
+            "key": "gabriella.portrait",
             "type": "image",
-            "url": "assets/images/char-portrait-robert.png",
+            "url": "assets/images/char-portrait-gabriella.png",
+            "overwrite": false
+        }
+    ],
+
+    "joris": [
+        {
+            "key": "joris.sprite",
+            "type": "spritesheet",
+            "url": "assets/sprites/char-joris.png",
+            "frameWidth": 32,
+            "frameHeight": 32,
+            "frameMax": 12,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "key": "joris.portrait",
+            "type": "image",
+            "url": "assets/images/char-portrait-joris.png",
             "overwrite": false
         }
     ],
@@ -34,6 +53,101 @@
             "key": "julie.portrait",
             "type": "image",
             "url": "assets/images/char-portrait-julie.png",
+            "overwrite": false
+        }
+    ],
+
+    "robert": [
+        {
+            "key": "robert.sprite",
+            "type": "spritesheet",
+            "url": "assets/sprites/char-robert.png",
+            "frameWidth": 32,
+            "frameHeight": 32,
+            "frameMax": 12,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "key": "robert.portrait",
+            "type": "image",
+            "url": "assets/images/char-portrait-robert.png",
+            "overwrite": false
+        }
+    ],
+
+    "ruben": [
+        {
+            "key": "ruben.sprite",
+            "type": "spritesheet",
+            "url": "assets/sprites/char-ruben.png",
+            "frameWidth": 32,
+            "frameHeight": 32,
+            "frameMax": 12,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "key": "ruben.portrait",
+            "type": "image",
+            "url": "assets/images/char-portrait-ruben.png",
+            "overwrite": false
+        }
+    ],
+
+    "tore": [
+        {
+            "key": "tore.sprite",
+            "type": "spritesheet",
+            "url": "assets/sprites/char-tore.png",
+            "frameWidth": 32,
+            "frameHeight": 32,
+            "frameMax": 12,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "key": "tore.portrait",
+            "type": "image",
+            "url": "assets/images/char-portrait-tore.png",
+            "overwrite": false
+        }
+    ],
+
+    "yassin": [
+        {
+            "key": "yassin.sprite",
+            "type": "spritesheet",
+            "url": "assets/sprites/char-yassin.png",
+            "frameWidth": 32,
+            "frameHeight": 32,
+            "frameMax": 12,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "key": "yassin.portrait",
+            "type": "image",
+            "url": "assets/images/char-portrait-yassin.png",
+            "overwrite": false
+        }
+    ],
+
+    "yves": [
+        {
+            "key": "yves.sprite",
+            "type": "spritesheet",
+            "url": "assets/sprites/char-yves.png",
+            "frameWidth": 32,
+            "frameHeight": 32,
+            "frameMax": 12,
+            "margin": 0,
+            "spacing": 0
+        },
+        {
+            "key": "yves.portrait",
+            "type": "image",
+            "url": "assets/images/char-portrait-yves.png",
             "overwrite": false
         }
     ],
