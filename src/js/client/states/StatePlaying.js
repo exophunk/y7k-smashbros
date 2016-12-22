@@ -45,11 +45,12 @@ export default class StatePlaying extends Phaser.State {
         this.map = game.add.tilemap('tilemap_data');
         this.map.addTilesetImage('tileset_1', 'tilemap_tiles');
 
-        this.layerBackground = this.map.createLayer('ground', null, null, this.background);
+        this.layerGround = this.map.createLayer('ground', null, null, this.background);
+        this.layerGround2 = this.map.createLayer('ground2', null, null, this.background);
         this.layerWalls = this.map.createLayer('walls', null, null, this.background);
-        this.layerObjectsCollide = this.map.createLayer('objects_collide', null, null, this.background);
-        this.layerObjectsNonCollide = this.map.createLayer('objects_non_collide', null, null, this.background);
-        this.layerBackground.resizeWorld();
+        this.layerFurniture = this.map.createLayer('furniture', null, null, this.background);
+        this.layerDeco = this.map.createLayer('deco', null, null, this.decoOverlay);
+        this.layerGround.resizeWorld();
 
     }
 
@@ -92,9 +93,9 @@ export default class StatePlaying extends Phaser.State {
         game.physics.p2.updateBoundsCollisionGroup();
 
         this.map.setCollisionByExclusion([], true, this.layerWalls);
-        this.map.setCollisionByExclusion([], true, this.layerObjectsCollide);
+        this.map.setCollisionByExclusion([], true, this.layerFurniture);
         this.layerWallsTiles = game.physics.p2.convertTilemap(this.map, this.layerWalls);
-        this.layerObjectsCollideTiles = game.physics.p2.convertTilemap(this.map, this.layerObjectsCollide);
+        this.layerFurnitureTiles = game.physics.p2.convertTilemap(this.map, this.layerFurniture);
         game.physics.p2.setBoundsToWorld(true, true, true, true, false);
 
         game.physicsState.playerCollisionGroup = game.physics.p2.createCollisionGroup();
@@ -135,7 +136,7 @@ export default class StatePlaying extends Phaser.State {
         //     tile.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);
         // });
 
-        // this.layerObjectsCollideTiles.forEach((tile) => {
+        // this.layerFurnitureTiles.forEach((tile) => {
         //     tile.setMaterial(game.physicsState.materialWall);
         //     tile.setCollisionGroup(game.physicsState.backgroundCollisionGroup);
         //     tile.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);

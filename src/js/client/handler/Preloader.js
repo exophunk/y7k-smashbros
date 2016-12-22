@@ -12,8 +12,8 @@ export default class Preloader {
     }
 
     loadMap() {
-        game.load.tilemap('tilemap_data', '/assets/tilemaps/maps/tilemap-y7k-1.json', null, Phaser.Tilemap.TILED_JSON);
-        game.load.image('tilemap_tiles', '/assets/tilemaps/tiles/tilemap-y7k-1.png');
+        game.load.tilemap('tilemap_data', '/assets/tilemaps/maps/tilemap-y7k-2.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image('tilemap_tiles', '/assets/tilemaps/tiles/tilemap-y7k-2.png');
     }
 
     loadCharacters() {
