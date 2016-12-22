@@ -22,9 +22,11 @@ export default class StateBoot extends Phaser.State {
 
     testingShortCut() {
 
-        game.gameState.selectedCharKey = 'robert';
+        let allChars = game.characterFactory.getAllAsArray();
+        let char = allChars[Math.floor(Math.random() * allChars.length)];
+        game.gameState.selectedCharKey = char.key;
 
-        game.isDebug = true;
+        game.isDebug = false;
         this.state.start('StatePlaying');
     }
 
