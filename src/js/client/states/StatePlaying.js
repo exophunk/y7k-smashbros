@@ -19,11 +19,11 @@ export default class StatePlaying extends Phaser.State {
         game.stage.disableVisibilityChange = true;
 
         this.level = game.add.group();
-        this.background = game.add.group(this.level);
-        game.gameState.playerChars = game.add.group(this.level);
-        game.gameState.throwables = game.add.group(this.level);
-        this.decoOverlay = game.add.group(this.level);
-        this.collisionBodies = game.add.group(this.level);
+        this.paintLayerBackground = game.add.group(this.level);
+        this.paintLayerChars = game.add.group(this.level);
+        this.paintLayerThrowables = game.add.group(this.level);
+        this.paintLayerOverlay = game.add.group(this.level);
+        this.paintLayerCollisionBodies = game.add.group(this.level);
 
         this.initMap();
         this.initPhysics();
@@ -46,12 +46,12 @@ export default class StatePlaying extends Phaser.State {
         this.map = game.add.tilemap('tilemap_data');
         this.map.addTilesetImage('tileset_1', 'tilemap_tiles');
 
-        this.layerCollision = this.map.createLayer('collision', null, null, this.background);
-        this.layerGround = this.map.createLayer('ground', null, null, this.background);
-        this.layerGround2 = this.map.createLayer('ground2', null, null, this.background);
-        this.layerWalls = this.map.createLayer('walls', null, null, this.background);
-        this.layerFurniture = this.map.createLayer('furniture', null, null, this.background);
-        this.layerDeco = this.map.createLayer('deco', null, null, this.decoOverlay);
+        this.layerCollision = this.map.createLayer('collision', null, null, this.paintLayerBackground);
+        this.layerGround = this.map.createLayer('ground', null, null, this.paintLayerBackground);
+        this.layerGround2 = this.map.createLayer('ground2', null, null, this.paintLayerBackground);
+        this.layerWalls = this.map.createLayer('walls', null, null, this.paintLayerBackground);
+        this.layerFurniture = this.map.createLayer('furniture', null, null, this.paintLayerBackground);
+        this.layerDeco = this.map.createLayer('deco', null, null, this.paintLayerOverlay);
         this.layerGround.resizeWorld();
 
     }
@@ -61,8 +61,8 @@ export default class StatePlaying extends Phaser.State {
     initHostPlayer() {
         let player = new Player(game.gameState.selectedCharKey, true);
         player.char.setPhysics();
-        player.setPos(200,400);
-        game.gameState.playerChars.add(player.char);
+        player.setPos(200,350);
+        this.paintLayerChars.add(player.char);
         game.gameState.player = player;
     }
 
@@ -151,7 +151,7 @@ export default class StatePlaying extends Phaser.State {
 
 
     addCollisionShape(x, y, w, h) {
-        let collisionShape = game.add.sprite(x + w/2, y + h/2, 'collision_dummy', this.collisionBodies);
+        let collisionShape = game.add.sprite(x + w/2, y + h/2, 'collision_dummy', this.paintLayerCollisionBodies);
         game.physics.p2.enable(collisionShape, game.isDebug);
         collisionShape.body.static = true;
         collisionShape.body.setRectangle(w,h);
@@ -161,6 +161,60 @@ export default class StatePlaying extends Phaser.State {
         collisionShape.renderable = false;
     }
 
+
+
+
+
+    update() {
+        this.handleInputControls();
+        this.interpolateEntities();
+    }
+
+
+    inputLoop() {
+
+
+
+        let delta = game.gameState.player.getDeltaSnapshot();
+        if(Object.keys(delta).length > 1) {
+            game.server.emit('update_player', delta);
+        }
+
+        this.inputLoopTimeout = setTimeout(this.inputLoop.bind(this), 1000 / INPUT_RATE);
+    }
+
+
+
+    handleInputControls() {
+
+        if (this.spaceKey.isDown && !this.spaceBarPressed) {
+            this.spaceBarPressed = true;
+            game.gameState.player.doAction();
+        }
+        if (this.spaceKey.isUp) { this.spaceBarPressed = false; }
+
+        if (this.cursors.left.isDown) {
+            game.gameState.player.moveLeft();
+        } else if (this.cursors.right.isDown) {
+            game.gameState.player.moveRight();
+        } else if (this.cursors.up.isDown) {
+            game.gameState.player.moveUp();
+        } else if (this.cursors.down.isDown) {
+            game.gameState.player.moveDown();
+        } else {
+            game.gameState.player.idle();
+        }
+    }
+
+
+
+
+    // --------------------------------------------------------------------------------------------------
+    // NETWORKING METHODS
+    //
+
+
+
     join() {
         game.server.emit('join', game.gameState.player.getFullSnapshot());
     }
@@ -168,9 +222,10 @@ export default class StatePlaying extends Phaser.State {
 
     disconnected() {
         console.log('DISCONNECT FROM SERVER');
-        clearTimeout(this.gameLoopTimeout);
+        clearTimeout(this.inputLoopTimeout);
         //window.location.reload();
     }
+
 
     confirmJoin(data) {
 
@@ -184,7 +239,7 @@ export default class StatePlaying extends Phaser.State {
         game.server.on('disconnect', this.disconnected.bind(this));
 
         console.log("join confirmed");
-        this.gameLoop();
+        this.inputLoop();
     }
 
 
@@ -201,6 +256,7 @@ export default class StatePlaying extends Phaser.State {
             this.buffer.shift();
         }
     }
+
 
     interpolateEntities() {
         let renderTime = new Date().getTime() - NET_OFFSET;
@@ -266,7 +322,7 @@ export default class StatePlaying extends Phaser.State {
         enemy.char.setPhysics();
         enemy.update(enemySnapshot);
         game.gameState.enemies[enemy.id] = enemy;
-        game.gameState.playerChars.add(enemy.char);
+        this.paintLayerChars.add(enemy.char);
         console.log('Enemy joined');
     }
 
@@ -280,51 +336,10 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
-    update() {
-
-        this.interpolateEntities();
-
-    }
-
-
-    gameLoop() {
-
-        this.handleInputControls();
-
-        let delta = game.gameState.player.getDeltaSnapshot();
-        if(Object.keys(delta).length > 1) {
-            game.server.emit('update_player', delta);
-        }
-
-        this.gameLoopTimeout = setTimeout(this.gameLoop.bind(this), 1000 / TICK_RATE);
-    }
 
 
 
-    handleInputControls() {
-
-        if (this.spaceKey.isDown && !this.spaceBarPressed) {
-            this.spaceBarPressed = true;
-            game.gameState.player.doAction();
-        }
-        if (this.spaceKey.isUp) { this.spaceBarPressed = false; }
-
-        if (this.cursors.left.isDown) {
-            game.gameState.player.moveLeft();
-        } else if (this.cursors.right.isDown) {
-            game.gameState.player.moveRight();
-        } else if (this.cursors.up.isDown) {
-            game.gameState.player.moveUp();
-        } else if (this.cursors.down.isDown) {
-            game.gameState.player.moveDown();
-        } else {
-            game.gameState.player.idle();
-        }
-    }
 
 
-    preload() {
-
-    }
 
 }

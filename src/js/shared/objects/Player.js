@@ -22,6 +22,7 @@ export default class Player {
     initClient(charKey) {
         this.char = game.characterFactory.get(charKey);
         this.char.isHost = this.isHost;
+        this.char.player = this;
     }
 
 
@@ -36,6 +37,106 @@ export default class Player {
             }
         }
     }
+
+
+    setPos(x, y) {
+        this.char.body.x = x;
+        this.char.body.y = y;
+    }
+
+
+    moveLeft() {
+        this.char.moveLeft();
+        this.setCarryAnchor();
+    }
+
+
+    moveRight() {
+        this.setCarryAnchor();
+        this.char.moveRight();
+    }
+
+
+    moveUp() {
+        this.char.moveUp();
+        this.setCarryAnchor();
+    }
+
+
+    moveDown() {
+        this.char.moveDown();
+        this.setCarryAnchor();
+    }
+
+
+    idle() {
+        this.char.idle();
+    }
+
+
+    doAction() {
+
+        if(this.activeThrowable && this.activeThrowable.isCarried()) {
+            this.activeThrowable.throw();
+        } else {
+            Object.values(game.gameState.throwables).forEach((throwable) => {
+                if(throwable.canBePickedUp()) {
+                    throwable.pickup();
+                }
+            });
+        }
+
+    }
+
+
+    hitAsEnemy(playerBody, throwableBody) {
+        console.log('hit an enemy');
+        let throwable = throwableBody.sprite.throwable;
+        if(throwable.isThrown()) {
+            console.log("got hit as enemy");
+        }
+    }
+
+
+    hitAsPlayer(playerBody, throwableBody) {
+        console.log('hit a throwable');
+
+        let throwable = throwableBody.sprite.throwable;
+        if(throwable.isThrown()) {
+            if(throwable == this.activeThrowable) {
+                console.log("got hit as player BY OWN");
+            } else {
+                console.log("got hit as player BY ENEMY");
+            }
+        }
+    }
+
+
+    setCarryAnchor() {
+
+        if(this.activeThrowable && this.activeThrowable.isCarried()) {
+            switch(this.char.facing) {
+                case 'left':
+                    this.activeThrowable.item.anchor.setTo(1.25, 0.5);
+                    break;
+                case 'right':
+                    this.activeThrowable.item.anchor.setTo(-0.25, 0.5);
+                    break;
+                case 'up':
+                    this.activeThrowable.item.anchor.setTo(0.5, 1.25);
+                    break;
+                case 'down':
+                    this.activeThrowable.item.anchor.setTo(0.5, -0.25);
+                    break;
+            }
+        }
+    }
+
+
+
+    // --------------------------------------------------------------------------------------------------
+    // NETWORKING METHODS
+    //
 
 
     getFullSnapshot() {
@@ -83,97 +184,8 @@ export default class Player {
     }
 
 
-    setPos(x, y) {
-        this.char.body.x = x;
-        this.char.body.y = y;
-    }
 
 
-    moveLeft() {
-        this.char.moveLeft();
-        this.setCarryAnchor();
-    }
-
-
-    moveRight() {
-        this.setCarryAnchor();
-        this.char.moveRight();
-    }
-
-
-    moveUp() {
-        this.char.moveUp();
-        this.setCarryAnchor();
-    }
-
-
-    moveDown() {
-        this.char.moveDown();
-        this.setCarryAnchor();
-    }
-
-
-    idle() {
-        this.char.idle();
-    }
-
-
-    doAction() {
-
-        if(this.activeThrowable && this.activeThrowable.isCarried()) {
-            this.activeThrowable.throw();
-        } else {
-            game.gameState.throwables.forEach((throwable) => {
-                if(throwable.canBePickedUp()) {
-                    throwable.pickup();
-                }
-            });
-        }
-
-    }
-
-
-    hitAsEnemy(playerBody, throwableBody) {
-        let throwable = throwableBody.sprite;
-        if(throwable.isThrown()) {
-            console.log("got hit as enemy");
-        }
-    }
-
-
-    hitAsPlayer(playerBody, throwableBody) {
-        let player = playerBody.sprite.player;
-        let throwable = throwableBody.sprite;
-
-        if(throwable.isThrown()) {
-            if(throwable == player.activeThrowable) {
-                console.log("got hit as player BY OWN");
-            } else {
-                console.log("got hit as player BY ENEMY");
-            }
-        }
-    }
-
-
-    setCarryAnchor() {
-
-        if(this.activeThrowable && this.activeThrowable.isCarried()) {
-            switch(this.char.facing) {
-                case 'left':
-                    this.activeThrowable.anchor.setTo(1.25, 0.5);
-                    break;
-                case 'right':
-                    this.activeThrowable.anchor.setTo(-0.25, 0.5);
-                    break;
-                case 'up':
-                    this.activeThrowable.anchor.setTo(0.5, 1.25);
-                    break;
-                case 'down':
-                    this.activeThrowable.anchor.setTo(0.5, -0.25);
-                    break;
-            }
-        }
-    }
 
 
 }
