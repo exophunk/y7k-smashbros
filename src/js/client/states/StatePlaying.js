@@ -108,47 +108,21 @@ export default class StatePlaying extends Phaser.State {
         game.physicsState.materialThrowable = game.physics.p2.createMaterial('material-throwable');
 
         let contactMaterialPlayerWall = game.physics.p2.createContactMaterial(game.physicsState.materialPlayer, game.physicsState.materialWall);
-        contactMaterialPlayerWall.restitution = 0.01;
-        contactMaterialPlayerWall.stiffness = Number.MAX_VALUE;
+        contactMaterialPlayerWall.restitution = 0.0;
+        contactMaterialPlayerWall.stiffness = 10000;
 
         let contactMaterialPlayerThrowable = game.physics.p2.createContactMaterial(game.physicsState.materialPlayer, game.physicsState.materialThrowable);
-        contactMaterialPlayerThrowable.restitution = 0.2;
-        contactMaterialPlayerThrowable.stiffness = Number.MAX_VALUE;
+        contactMaterialPlayerThrowable.restitution = 0.5;
+        contactMaterialPlayerThrowable.stiffness = 10000;
 
         let contactMaterialWallThrowable = game.physics.p2.createContactMaterial(game.physicsState.materialWall, game.physicsState.materialThrowable);
-        contactMaterialWallThrowable.restitution = 0.01;
+        contactMaterialWallThrowable.restitution = 0.5;
         contactMaterialWallThrowable.stiffness = Number.MAX_VALUE;
 
         let contactMaterialPlayerPlayer = game.physics.p2.createContactMaterial(game.physicsState.materialPlayer, game.physicsState.materialPlayer);
-        contactMaterialPlayerPlayer.restitution = 0.2;
-        contactMaterialPlayerPlayer.stiffness = 1000;
+        contactMaterialPlayerPlayer.restitution = 0.0;
+        contactMaterialPlayerPlayer.stiffness = 5000;
 
-
-        // let player = game.gameState.player;
-        // player.char.setPhysics();
-        // player.char.body.setCollisionGroup(game.physicsState.playerCollisionGroup);
-        // player.char.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.enemiesCollisionGroup]);
-        // player.char.body.collides(game.physicsState.throwablesCollisionGroup, player.hitAsPlayer, player);
-
-        // this.layerWallsTiles.forEach((tile) => {
-        //     tile.setMaterial(game.physicsState.materialWall);
-        //     tile.setCollisionGroup(game.physicsState.backgroundCollisionGroup);
-        //     tile.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);
-        // });
-
-        // this.layerFurnitureTiles.forEach((tile) => {
-        //     tile.setMaterial(game.physicsState.materialWall);
-        //     tile.setCollisionGroup(game.physicsState.backgroundCollisionGroup);
-        //     tile.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);
-        // });
-
-        // game.gameState.enemies.forEach((enemy) => {
-        //     enemy.char.setPhysics();
-        //     enemy.char.body.static = true;
-        //     enemy.char.body.setCollisionGroup(game.physicsState.enemiesCollisionGroup);
-        //     enemy.char.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.playerCollisionGroup]);
-        //     enemy.char.body.collides(game.physicsState.throwablesCollisionGroup, enemy.hitAsEnemy, enemy);
-        // });
         this.addCollisionShape(544, 96, 95, 119); // Tables WinPC
         this.addCollisionShape(767, 96, 95, 85); // Tables Ruben
         this.addCollisionShape(767, 282, 97, 84); // Tables Yves
