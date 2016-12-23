@@ -4,9 +4,10 @@ import MathHelper from 'shared/util/MathHelper';
 export default class Player {
 
 
-	constructor(charKey) {
+	constructor(charKey, isHost) {
 
         this.id = null;
+        this.isHost = isHost;
 
         if(isClient) {
             this.initClient(charKey);
@@ -20,6 +21,7 @@ export default class Player {
 
     initClient(charKey) {
         this.char = game.characterFactory.get(charKey);
+        this.char.isHost = this.isHost;
     }
 
 
@@ -84,11 +86,6 @@ export default class Player {
     setPos(x, y) {
         this.char.body.x = x;
         this.char.body.y = y;
-    }
-
-
-    setHostPlayer() {
-        this.char.setHostPlayer();
     }
 
 

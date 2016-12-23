@@ -11,6 +11,7 @@ export default class BaseCharacter extends Phaser.Sprite {
         super(game, 0, 0, spriteKey, 1);
 
         this.player = null;
+        this.isHost = false;
         this.key = key;
         this.spriteKey = spriteKey;
         this.portraitKey = key + '.portrait';
@@ -36,15 +37,22 @@ export default class BaseCharacter extends Phaser.Sprite {
 
     setPhysics() {
         game.physics.p2.enable(this, game.isDebug);
+        this.body.setRectangle(24,30);
         this.body.fixedRotation = true;
-        this.body.static = true;
         this.body.setZeroDamping();
         this.body.setMaterial(game.physicsState.materialPlayer);
-    }
 
-
-    setHostPlayer() {
-        this.body.static = false;
+        if(this.isHost) {
+            this.body.static = false;
+            this.body.setCollisionGroup(game.physicsState.playerCollisionGroup);
+            this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.enemiesCollisionGroup]);
+            //this.body.collides(game.physicsState.throwablesCollisionGroup, this.player.hitAsPlayer, this.player);
+        } else {
+            this.body.static = true;
+            this.body.setCollisionGroup(game.physicsState.enemiesCollisionGroup);
+            this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.playerCollisionGroup]);
+            //this.body.collides(game.physicsState.throwablesCollisionGroup, this.player.hitAsEnemy, this.player);
+        }
     }
 
 

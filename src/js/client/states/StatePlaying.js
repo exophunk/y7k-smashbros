@@ -59,10 +59,9 @@ export default class StatePlaying extends Phaser.State {
 
 
     initHostPlayer() {
-        let player = new Player(game.gameState.selectedCharKey);
+        let player = new Player(game.gameState.selectedCharKey, true);
         player.char.setPhysics();
-        player.setHostPlayer();
-        player.setPos(300,300);
+        player.setPos(200,400);
         game.gameState.playerChars.add(player.char);
         game.gameState.player = player;
     }
@@ -268,7 +267,7 @@ export default class StatePlaying extends Phaser.State {
 
 
     addEnemy(enemySnapshot) {
-        let enemy = new Player(enemySnapshot.char.key);
+        let enemy = new Player(enemySnapshot.char.key, false);
         enemy.char.setPhysics();
         enemy.update(enemySnapshot);
         game.gameState.enemies[enemy.id] = enemy;

@@ -34,8 +34,8 @@ export default class StatePlayerSelect extends Phaser.State {
 
     startGame() {
 
-        let chosenCharacter = this.portraits.getAt(this.selectIndex).character.key;
-        game.gameState.player = new Player(chosenCharacter);
+        let chosenCharacterKey = this.portraits.getAt(this.selectIndex).character.key;
+        game.gameState.selectedCharKey = chosenCharacterKey;
 
         this.state.start('StatePlaying');
     }
