@@ -6,7 +6,7 @@ import {ThrowableTypes} from 'shared/objects/Throwable';
 
 import MathHelper from 'shared/util/MathHelper';
 
-const TICK_RATE = 66;
+const INPUT_RATE = 30;
 const NET_OFFSET = 100;
 
 export default class StatePlaying extends Phaser.State {
