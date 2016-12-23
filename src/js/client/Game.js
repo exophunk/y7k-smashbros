@@ -4,6 +4,7 @@ import StatePlayerSelect from 'client/states/StatePlayerSelect';
 import StatePlaying from 'client/states/StatePlaying';
 
 import CharacterFactory from 'client/handler/CharacterFactory';
+import ThrowableItemFactory from 'client/handler/ThrowableItemFactory';
 
 export default class Game extends Phaser.Game {
 
@@ -22,6 +23,7 @@ export default class Game extends Phaser.Game {
         this.server = null;
         //this.gameState = new GameState();
         this.characterFactory = new CharacterFactory();
+        this.throwableItemFactory = new ThrowableItemFactory();
 
         this.gameState = {
             player: null,

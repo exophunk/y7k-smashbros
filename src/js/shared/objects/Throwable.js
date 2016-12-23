@@ -38,6 +38,7 @@ export default class Throwable {
 
     initClient(x, y, throwableType) {
         this.item = game.add.sprite(x, y, 'throwables', throwableType);
+        this.item = game.throwableItemFactory.get(throwableType);
     }
 
 
