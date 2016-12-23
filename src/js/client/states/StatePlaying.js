@@ -23,6 +23,7 @@ export default class StatePlaying extends Phaser.State {
         game.gameState.playerChars = game.add.group(this.level);
         game.gameState.throwables = game.add.group(this.level);
         this.decoOverlay = game.add.group(this.level);
+        this.collisionBodies = game.add.group(this.level);
 
         this.initMap();
         this.initPhysics();
@@ -45,6 +46,7 @@ export default class StatePlaying extends Phaser.State {
         this.map = game.add.tilemap('tilemap_data');
         this.map.addTilesetImage('tileset_1', 'tilemap_tiles');
 
+        this.layerCollision = this.map.createLayer('collision', null, null, this.background);
         this.layerGround = this.map.createLayer('ground', null, null, this.background);
         this.layerGround2 = this.map.createLayer('ground2', null, null, this.background);
         this.layerWalls = this.map.createLayer('walls', null, null, this.background);
@@ -92,10 +94,8 @@ export default class StatePlaying extends Phaser.State {
         game.physics.p2.setImpactEvents(true);
         game.physics.p2.updateBoundsCollisionGroup();
 
-        this.map.setCollisionByExclusion([], true, this.layerWalls);
-        this.map.setCollisionByExclusion([], true, this.layerFurniture);
-        this.layerWallsTiles = game.physics.p2.convertTilemap(this.map, this.layerWalls);
-        this.layerFurnitureTiles = game.physics.p2.convertTilemap(this.map, this.layerFurniture);
+        this.map.setCollisionByExclusion([], true, this.layerCollision);
+        this.layerCollisionTiles = game.physics.p2.convertTilemap(this.map, this.layerCollision);
         game.physics.p2.setBoundsToWorld(true, true, true, true, false);
 
         game.physicsState.playerCollisionGroup = game.physics.p2.createCollisionGroup();
@@ -149,6 +149,29 @@ export default class StatePlaying extends Phaser.State {
         //     enemy.char.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.playerCollisionGroup]);
         //     enemy.char.body.collides(game.physicsState.throwablesCollisionGroup, enemy.hitAsEnemy, enemy);
         // });
+        this.addCollisionShape(544, 96, 95, 119); // Tables WinPC
+        this.addCollisionShape(767, 96, 95, 85); // Tables Ruben
+        this.addCollisionShape(767, 282, 97, 84); // Tables Yves
+        this.addCollisionShape(448, 576, 95, 160); // Tables Devroom
+        this.addCollisionShape(512, 465, 64, 28); // Glasswall left
+        this.addCollisionShape(645, 411, 20, 91); // Glasswall center
+        this.addCollisionShape(735, 465, 191, 28); // Glasswall right
+        this.addCollisionShape(650, 503, 10, 233); // Glasswall vertical
+        this.addCollisionShape(736, 540, 124, 24); // Sofa 1
+        this.addCollisionShape(736, 673, 126, 25); // Sofa 2
+        this.addCollisionShape(758, 608, 79, 15); // Sofatable
+        this.addCollisionShape(130, 512, 172, 14); // Bistrodrawer
+        this.addCollisionShape(118, 420, 10, 88); // Bistrodoor right
+        this.addCollisionShape(62, 420, 10, 88); // Bistrodoor left
+        this.addCollisionShape(32, 511, 31, 14); // Fridge
+        this.addCollisionShape(118, 225, 10, 88); // Entrydoor right
+        this.addCollisionShape(62, 225, 10, 88); // Entrydoor left
+
+        this.layerCollisionTiles.forEach((tile) => {
+            tile.setMaterial(game.physicsState.materialWall);
+            tile.setCollisionGroup(game.physicsState.backgroundCollisionGroup);
+            tile.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);
+        });
 
         // game.gameState.throwables.forEach((throwable) => {
         //     throwable.setPhysics();
@@ -158,6 +181,17 @@ export default class StatePlaying extends Phaser.State {
 
     }
 
+
+    addCollisionShape(x, y, w, h) {
+        let collisionShape = game.add.sprite(x + w/2, y + h/2, 'collision_dummy', this.collisionBodies);
+        game.physics.p2.enable(collisionShape, game.isDebug);
+        collisionShape.body.static = true;
+        collisionShape.body.setRectangle(w,h);
+        collisionShape.body.setMaterial(game.physicsState.materialWall);
+        collisionShape.body.setCollisionGroup(game.physicsState.backgroundCollisionGroup);
+        collisionShape.body.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);
+        collisionShape.renderable = false;
+    }
 
     join() {
         game.server.emit('join', game.gameState.player.getFullSnapshot());
