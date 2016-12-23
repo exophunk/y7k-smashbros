@@ -122,11 +122,12 @@ export default class Throwable {
     pickup() {
         let player = game.gameState.player;
         this.state = ThrowableStates.CARRIED;
-        // this.item.body.setCollisionGroup(game.physics.p2.createCollisionGroup());
-        // this.item.body.static = false;
-        // this.pickupConstraint = game.physics.p2.createLockConstraint(player.char, this.item, [0, 0], 0);
-        //player.activeThrowable = this;
-        //player.setCarryAnchor();
+        this.item.body.setCollisionGroup(game.physics.p2.createCollisionGroup());
+        this.item.body.static = false;
+        this.pickupConstraint = game.physics.p2.createLockConstraint(player.char.body, this.item.body, [0, 0], 0);
+        player.activeThrowable = this;
+        player.setCarryAnchor();
+        console.log('done that');
     }
 
 
@@ -135,11 +136,9 @@ export default class Throwable {
         this.state = ThrowableStates.THROWN;
         game.physics.p2.removeConstraint(this.pickupConstraint);
 
-        setTimeout(() => {
-            this.item.body.setCollisionGroup(game.physicsState.throwablesCollisionGroup);
-        }, 200);
+        this.item.body.setCollisionGroup(game.physicsState.throwablesCollisionGroup);
 
-        this.anchor.setTo(0.5,0.5);
+        this.item.anchor.setTo(0.5,0.5);
         this.item.body.fixedRotation = false;
 
         switch(player.char.facing) {

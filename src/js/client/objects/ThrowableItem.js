@@ -1,4 +1,4 @@
-import ThrowableConfig from 'shared/objects/Throwable';
+import {ThrowableConfig} from 'shared/objects/Throwable';
 
 export default class ThrowableItem extends Phaser.Sprite {
 
