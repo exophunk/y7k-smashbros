@@ -90,7 +90,6 @@ export default class Player {
 
 
     hitAsEnemy(playerBody, throwableBody) {
-        console.log('hit an enemy');
         let throwable = throwableBody.sprite.throwable;
         if(throwable.isThrown()) {
             console.log("got hit as enemy");
@@ -99,8 +98,6 @@ export default class Player {
 
 
     hitAsPlayer(playerBody, throwableBody) {
-        console.log('hit a throwable');
-
         let throwable = throwableBody.sprite.throwable;
         if(throwable.isThrown()) {
             if(throwable == this.activeThrowable) {
