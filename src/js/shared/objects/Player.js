@@ -117,16 +117,16 @@ export default class Player {
         if(this.activeThrowable && this.activeThrowable.isCarried()) {
             switch(this.char.facing) {
                 case 'left':
-                    this.activeThrowable.item.anchor.setTo(1.25, 0.5);
+                    this.activeThrowable.item.anchor.setTo(1.125, 0.5);
                     break;
                 case 'right':
-                    this.activeThrowable.item.anchor.setTo(-0.25, 0.5);
+                    this.activeThrowable.item.anchor.setTo(-0.125, 0.5);
                     break;
                 case 'up':
-                    this.activeThrowable.item.anchor.setTo(0.5, 1.25);
+                    this.activeThrowable.item.anchor.setTo(0.5, 1.125);
                     break;
                 case 'down':
-                    this.activeThrowable.item.anchor.setTo(0.5, -0.25);
+                    this.activeThrowable.item.anchor.setTo(0.5, -0.125);
                     break;
             }
         }
