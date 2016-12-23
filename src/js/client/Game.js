@@ -28,7 +28,7 @@ export default class Game extends Phaser.Game {
         this.gameState = {
             player: null,
             enemies: {},
-            throwables: {}
+            throwables: {},
         };
 
         this.physicsState = {};

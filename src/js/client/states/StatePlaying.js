@@ -28,7 +28,7 @@ export default class StatePlaying extends Phaser.State {
         this.initMap();
         this.initPhysics();
         this.initHostPlayer();
-        // this.initThrowables();
+        this.initThrowables();
         this.initCamera();
         this.initControls();
 
@@ -67,12 +67,13 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
-    // initThrowables() {
-    //     let throwable = new Throwable(ThrowableTypes.BARREL);
-    //     throwable.placeAt(900,300);
-    //     game.gameState.throwables.add(throwable);
-
-    // }
+    initThrowables() {
+        let throwable = new Throwable(ThrowableTypes.BARREL);
+        throwable.item.setPhysics();
+        throwable.setPos(700,330);
+        this.paintLayerThrowables.add(throwable.item);
+        game.gameState.throwables['test'] = throwable;
+    }
 
 
     initCamera() {
@@ -145,12 +146,6 @@ export default class StatePlaying extends Phaser.State {
             tile.setCollisionGroup(game.physicsState.backgroundCollisionGroup);
             tile.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);
         });
-
-        // game.gameState.throwables.forEach((throwable) => {
-        //     throwable.setPhysics();
-        //     throwable.body.setCollisionGroup(game.physicsState.throwablesCollisionGroup);
-        //     throwable.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup]);
-        // });
 
     }
 
