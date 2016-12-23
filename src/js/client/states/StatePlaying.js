@@ -86,6 +86,19 @@ export default class StatePlaying extends Phaser.State {
         this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
         this.spaceBarPressed = false;
+
+        window.onblur = () => {
+            this.cursors.left.isDown = false;
+            this.cursors.right.isDown = false;
+            this.cursors.up.isDown = false;
+            this.cursors.down.isDown = false;
+            game.gameState.player.char.body.setZeroVelocity();
+            game.input.enabled = false;
+        };
+
+        window.onfocus = () => {
+            game.input.enabled = true;
+        };
     }
 
 
@@ -172,8 +185,6 @@ export default class StatePlaying extends Phaser.State {
 
 
     inputLoop() {
-
-
 
         let delta = game.gameState.player.getDeltaSnapshot();
         if(Object.keys(delta).length > 1) {
