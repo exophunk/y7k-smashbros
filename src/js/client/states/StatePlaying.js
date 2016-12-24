@@ -114,6 +114,7 @@ export default class StatePlaying extends Phaser.State {
         game.physicsState.playerCollisionGroup = game.physics.p2.createCollisionGroup();
         game.physicsState.enemiesCollisionGroup = game.physics.p2.createCollisionGroup();
         game.physicsState.throwablesCollisionGroup = game.physics.p2.createCollisionGroup();
+        game.physicsState.throwablesActiveCollisionGroup = game.physics.p2.createCollisionGroup();
         game.physicsState.backgroundCollisionGroup = game.physics.p2.createCollisionGroup();
 
         game.physicsState.materialWall = game.physics.p2.createMaterial('material-wall');
@@ -125,8 +126,8 @@ export default class StatePlaying extends Phaser.State {
         contactMaterialPlayerWall.stiffness = 10000;
 
         let contactMaterialPlayerThrowable = game.physics.p2.createContactMaterial(game.physicsState.materialPlayer, game.physicsState.materialThrowable);
-        contactMaterialPlayerThrowable.restitution = 0.5;
-        contactMaterialPlayerThrowable.stiffness = 10000;
+        contactMaterialPlayerThrowable.restitution = 0.9;
+        contactMaterialPlayerThrowable.stiffness = 1000;
 
         let contactMaterialWallThrowable = game.physics.p2.createContactMaterial(game.physicsState.materialWall, game.physicsState.materialThrowable);
         contactMaterialWallThrowable.restitution = 0.5;
@@ -157,7 +158,7 @@ export default class StatePlaying extends Phaser.State {
         this.layerCollisionTiles.forEach((tile) => {
             tile.setMaterial(game.physicsState.materialWall);
             tile.setCollisionGroup(game.physicsState.backgroundCollisionGroup);
-            tile.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);
+            tile.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesActiveCollisionGroup]);
         });
 
     }
@@ -170,7 +171,7 @@ export default class StatePlaying extends Phaser.State {
         collisionShape.body.setRectangle(w,h);
         collisionShape.body.setMaterial(game.physicsState.materialWall);
         collisionShape.body.setCollisionGroup(game.physicsState.backgroundCollisionGroup);
-        collisionShape.body.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);
+        collisionShape.body.collides([game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesActiveCollisionGroup]);
         collisionShape.renderable = false;
     }
 

@@ -44,13 +44,13 @@ export default class BaseCharacter extends Phaser.Sprite {
 
         if(this.isHost) {
             this.body.setCollisionGroup(game.physicsState.playerCollisionGroup);
-            this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.enemiesCollisionGroup]);
-            this.body.collides(game.physicsState.throwablesCollisionGroup, this.player.hitAsPlayer, this.player);
+            this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);
+            //this.body.collides(game.physicsState.throwablesActiveCollisionGroup, this.player.hitAsPlayer, this.player);
         } else {
             this.body.kinematic = true;
             this.body.setCollisionGroup(game.physicsState.enemiesCollisionGroup);
-            this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.playerCollisionGroup]);
-            this.body.collides(game.physicsState.throwablesCollisionGroup, this.player.hitAsEnemy, this.player);
+            this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.playerCollisionGroup, game.physicsState.throwablesCollisionGroup]);
+            this.body.collides(game.physicsState.throwablesActiveCollisionGroup, this.player.hitAsEnemy, this.player);
         }
     }
 

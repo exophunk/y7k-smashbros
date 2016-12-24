@@ -11,8 +11,8 @@ export const ThrowableTypes = {
 }
 
 export const ThrowableConfig = {
-    THROW_TIME: 600,
-    THROW_SPEED: 600,
+    THROW_TIME: 500,
+    THROW_SPEED: 400,
     THROW_ROTATION: 270,
     DAMPING: 0.7,
     ANGULAR_DAMPING: 0.9
@@ -127,7 +127,6 @@ export default class Throwable {
         this.pickupConstraint = game.physics.p2.createLockConstraint(player.char.body, this.item.body, [0, 0], 0);
         player.activeThrowable = this;
         player.setCarryAnchor();
-        console.log('done that');
     }
 
 
@@ -136,7 +135,7 @@ export default class Throwable {
         this.state = ThrowableStates.THROWN;
         game.physics.p2.removeConstraint(this.pickupConstraint);
 
-        this.item.body.setCollisionGroup(game.physicsState.throwablesCollisionGroup);
+        this.item.body.setCollisionGroup(game.physicsState.throwablesActiveCollisionGroup);
 
         this.item.anchor.setTo(0.5,0.5);
         this.item.body.fixedRotation = false;
@@ -173,6 +172,7 @@ export default class Throwable {
         this.item.angle = 0; // NEEDED?
         this.item.body.fixedRotation = true;
         this.item.body.setZeroVelocity();
+        this.item.body.setCollisionGroup(game.physicsState.throwablesCollisionGroup);
         game.gameState.player.activeThrowable = null;
 
     }

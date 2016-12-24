@@ -18,7 +18,7 @@ export default class ThrowableItem extends Phaser.Sprite {
         this.body.angularDamping = ThrowableConfig.ANGULAR_DAMPING;
         this.body.setMaterial(game.physicsState.materialThrowable);
         this.body.setCollisionGroup(game.physicsState.throwablesCollisionGroup);
-        this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup]);
+        this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesActiveCollisionGroup]);
     }
 
 
