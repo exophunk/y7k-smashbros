@@ -1,4 +1,5 @@
 import {ThrowableConfig} from 'shared/objects/Throwable';
+import {ThrowableStates} from 'shared/objects/Throwable';
 
 export default class ThrowableItem extends Phaser.Sprite {
 
@@ -12,13 +13,39 @@ export default class ThrowableItem extends Phaser.Sprite {
 
     setPhysics() {
         game.physics.p2.enable(this, game.isDebug);
-        this.body.static = true;
-        this.body.fixedRotation = true;
+        this.setStatePhysics();
         this.body.damping = ThrowableConfig.DAMPING;
         this.body.angularDamping = ThrowableConfig.ANGULAR_DAMPING;
         this.body.setMaterial(game.physicsState.materialThrowable);
-        this.body.setCollisionGroup(game.physicsState.throwablesCollisionGroup);
-        this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.playerCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesActiveCollisionGroup]);
+
+        this.body.collides([
+            game.physicsState.backgroundCollisionGroup,
+            game.physicsState.playerCollisionGroup,
+            game.physicsState.enemiesCollisionGroup,
+            game.physicsState.throwablesActiveCollisionGroup,
+            game.physicsState.throwablesCollisionGroup
+        ]);
+    }
+
+
+    setStatePhysics() {
+        switch(this.throwable.state) {
+            case ThrowableStates.IDLE:
+                this.body.static = true;
+                this.body.fixedRotation = true;
+                this.body.angle = 0;
+                this.angle = 0;
+                this.body.setCollisionGroup(game.physicsState.throwablesCollisionGroup);
+                this.body.setZeroVelocity();
+                break;
+            case ThrowableStates.CARRIED:
+                this.body.static = false;
+                this.body.setCollisionGroup(game.physics.p2.createCollisionGroup());
+                break;
+            case ThrowableStates.THROWN:
+                this.body.fixedRotation = false;
+                break;
+        }
     }
 
 

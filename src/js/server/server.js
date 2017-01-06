@@ -9,6 +9,7 @@ import fs from 'fs';
 
 import Player from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
+import {ThrowableStates} from 'shared/objects/Throwable';
 import SnapshotHelper from 'shared/util/SnapshotHelper';
 
 dotenv.config();
@@ -170,7 +171,20 @@ export default class Server {
     }
 
 
+    resetThrowable(throwable) {
+        throwable.state = ThrowableStates.IDLE;
+        throwable.item.anchor = { x: 0.5, y: 0.5 };
+    }
+
+
     leavePlayer(socket, playerId) {
+
+        Object.values(this.state.throwables).forEach((throwable) => {
+            if(throwable.carryingPlayerId == playerId) {
+                this.resetThrowable(throwable);
+            }
+        });
+
         delete this.state.players[playerId];
         delete this.sockets[socket.id];
         socket.broadcast.emit('enemy_left', playerId);

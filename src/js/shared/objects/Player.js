@@ -15,7 +15,6 @@ export default class Player {
             this.initServer(charKey);
         }
 
-        this.activeThrowable = null;
         this.lastSnapshot = {};
     }
 
@@ -77,8 +76,8 @@ export default class Player {
 
     doAction() {
 
-        if(this.activeThrowable && this.activeThrowable.isCarried()) {
-            this.activeThrowable.throw();
+        if(game.gameState.activeThrowable && game.gameState.activeThrowable.isCarried()) {
+            game.gameState.activeThrowable.throw();
         } else {
             let throwablesArr = Object.values(game.gameState.throwables);
             for(let throwable of Object.values(game.gameState.throwables)) {
@@ -114,19 +113,19 @@ export default class Player {
 
     setCarryAnchor() {
 
-        if(this.activeThrowable && this.activeThrowable.isCarried()) {
+        if(game.gameState.activeThrowable && game.gameState.activeThrowable.isCarried()) {
             switch(this.char.facing) {
                 case 'left':
-                    this.activeThrowable.item.anchor.setTo(1.125, 0.5);
+                    game.gameState.activeThrowable.item.anchor.setTo(1.125, 0.5);
                     break;
                 case 'right':
-                    this.activeThrowable.item.anchor.setTo(-0.125, 0.5);
+                    game.gameState.activeThrowable.item.anchor.setTo(-0.125, 0.5);
                     break;
                 case 'up':
-                    this.activeThrowable.item.anchor.setTo(0.5, 1.125);
+                    game.gameState.activeThrowable.item.anchor.setTo(0.5, 1.125);
                     break;
                 case 'down':
-                    this.activeThrowable.item.anchor.setTo(0.5, -0.125);
+                    game.gameState.activeThrowable.item.anchor.setTo(0.5, -0.125);
                     break;
             }
         }

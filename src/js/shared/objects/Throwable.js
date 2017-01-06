@@ -12,7 +12,7 @@ export const ThrowableTypes = {
 }
 
 export const ThrowableConfig = {
-    THROW_TIME: 500,
+    THROW_DURATION: 500,
     THROW_SPEED: 400,
     THROW_ROTATION: 270,
     DAMPING: 0.7,
@@ -25,6 +25,7 @@ export default class Throwable {
     constructor(id, throwableType) {
         this.id = id;
         this.state = ThrowableStates.IDLE;
+        this.carryingPlayerId = null;
 
         if(isClient) {
             this.initClient(throwableType);
@@ -123,10 +124,12 @@ export default class Throwable {
     pickup() {
         let player = game.gameState.player;
         this.state = ThrowableStates.CARRIED;
-        this.item.body.setCollisionGroup(game.physics.p2.createCollisionGroup());
-        this.item.body.static = false;
+        this.item.setStatePhysics();
         this.pickupConstraint = game.physics.p2.createLockConstraint(player.char.body, this.item.body, [0, 0], 0);
-        player.activeThrowable = this;
+
+        this.carryingPlayerId = player.id;
+        game.gameState.activeThrowable = this;
+
         player.setCarryAnchor();
     }
 
@@ -134,12 +137,11 @@ export default class Throwable {
     throw() {
         let player = game.gameState.player;
         this.state = ThrowableStates.THROWN;
+        this.item.setStatePhysics();
+
         game.physics.p2.removeConstraint(this.pickupConstraint);
-
         this.item.body.setCollisionGroup(game.physicsState.throwablesActiveCollisionGroup);
-
         this.item.anchor.setTo(0.5,0.5);
-        this.item.body.fixedRotation = false;
 
         switch(player.char.facing) {
             case 'left':
@@ -162,21 +164,18 @@ export default class Throwable {
 
         setTimeout(() => {
             this.land();
-        }, ThrowableConfig.THROW_TIME);
+        }, ThrowableConfig.THROW_DURATION);
+
     }
 
 
     land() {
         this.state = ThrowableStates.IDLE;
-        this.item.body.static = true;
-        this.item.body.angle = 0;
-        this.item.angle = 0; // NEEDED?
-        this.item.body.fixedRotation = true;
-        this.item.body.setZeroVelocity();
-        this.item.body.setCollisionGroup(game.physicsState.throwablesCollisionGroup);
+        this.item.setStatePhysics();
 
         setTimeout(() => {
-            game.gameState.player.activeThrowable = null;
+            game.gameState.activeThrowable = null;
+            this.carryingPlayerId = null;
         }, 200);
 
     }
@@ -191,11 +190,17 @@ export default class Throwable {
     getFullSnapshot() {
         return {
             id: this.id,
+            state: this.state,
+            carryingPlayerId: this.carryingPlayerId,
             item: {
                 body: {
                     x: this.item.body.x,
                     y: this.item.body.y,
                     angle: this.item.body.angle,
+                },
+                anchor: {
+                    x: this.item.anchor.x,
+                    y: this.item.anchor.y,
                 }
             }
         }
@@ -216,6 +221,7 @@ export default class Throwable {
 
 
     updateInterpolated(previousSnapshot, targetSnapshot, lerpAmmount) {
+
         previousSnapshot = SnapshotHelper.patchObject(this.getFullSnapshot(), previousSnapshot);
         let interpolatedSnapshot = SnapshotHelper.patchObject(this.getFullSnapshot(), targetSnapshot);
 
@@ -223,6 +229,10 @@ export default class Throwable {
         interpolatedSnapshot.item.body.y = MathHelper.interpolate(previousSnapshot.item.body.y, interpolatedSnapshot.item.body.y, lerpAmmount);
         interpolatedSnapshot.item.body.angle = MathHelper.interpolate(previousSnapshot.item.body.angle, interpolatedSnapshot.item.body.angle, lerpAmmount);
         this.update(interpolatedSnapshot);
+
+        if(previousSnapshot.state != interpolatedSnapshot.state) {
+            this.item.setStatePhysics();
+        }
 
     }
 
