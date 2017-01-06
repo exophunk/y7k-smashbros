@@ -77,28 +77,24 @@ export default class Throwable {
            char.y < this.item.y - (heightThrowable / 2) &&
            char.y > this.item.y - (heightThrowable / 2 + heightPlayer / 2 * 1.2)  &&
            char.facing == 'down') {
-            console.log('yes, can pickup from look down');
             return true;
         } else if(char.x < this.item.x + (widthThrowable / 2 * 0.8) &&
            char.x > this.item.x - (widthThrowable / 2 * 0.8) &&
            char.y > this.item.y + (heightThrowable / 2) &&
            char.y < this.item.y + (heightThrowable / 2 + heightPlayer / 2 * 1.2)  &&
            char.facing == 'up') {
-            console.log('yes, can pickup from look up');
             return true;
         } else if(char.y < this.item.y + (heightThrowable / 2 * 0.8) &&
            char.y > this.item.y - (heightThrowable / 2 * 0.8) &&
            char.x < this.item.x - (widthThrowable / 2) &&
            char.x > this.item.x - (widthThrowable / 2 + heightPlayer / 2 * 1.2)  &&
            char.facing == 'right') {
-            console.log('yes, can pickup from look right');
             return true;
         } else if(char.y < this.item.y + (heightThrowable / 2 * 0.8) &&
            char.y > this.item.y - (heightThrowable / 2 * 0.8) &&
            char.x > this.item.x + (widthThrowable / 2) &&
            char.x < this.item.x + (widthThrowable / 2 + heightPlayer / 2 * 1.2)  &&
            char.facing == 'left') {
-            console.log('yes, can pickup from look left');
             return true;
         }
 

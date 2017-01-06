@@ -28,7 +28,6 @@ export default class StatePlaying extends Phaser.State {
         this.initMap();
         this.initPhysics();
         this.initHostPlayer();
-        this.initThrowables();
         this.initCamera();
         this.initControls();
 
@@ -67,12 +66,9 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
-    initThrowables() {
-        // let throwable = new Throwable(ThrowableTypes.BARREL);
-        // throwable.item.setPhysics();
-        // throwable.setPos(700,330);
-        // this.paintLayerThrowables.add(throwable.item);
-        // game.gameState.throwables['test'] = throwable;
+        setTimeout(() => {
+            player.state = PlayerStates.ALIVE;
+        }, PlayerConfig.SPAWN_FREEZE_TIME);
     }
 
 
@@ -176,9 +172,6 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
-
-
-
     update() {
         this.handleInputControls();
         this.interpolateEntities();
@@ -191,8 +184,8 @@ export default class StatePlaying extends Phaser.State {
             player: game.gameState.player.getDeltaSnapshot()
         };
 
-        if(game.gameState.player.activeThrowable) {
-            updatesDelta.throwable = game.gameState.player.activeThrowable.getDeltaSnapshot();
+        if(game.gameState.activeThrowable) {
+            updatesDelta.throwable = game.gameState.activeThrowable.getDeltaSnapshot();
         }
 
         if(Object.keys(updatesDelta.player).length > 1 || (updatesDelta.throwable && Object.keys(updatesDelta.throwable).length > 1)) {
@@ -242,7 +235,7 @@ export default class StatePlaying extends Phaser.State {
     disconnected() {
         console.log('DISCONNECT FROM SERVER');
         clearTimeout(this.inputLoopTimeout);
-        //window.location.reload();
+        this.state.start('StateMenu');
     }
 
 
@@ -252,19 +245,12 @@ export default class StatePlaying extends Phaser.State {
         this.syncWorldSnapshot(data.worldSnapshot);
 
         game.server.on('update_world', this.bufferServerUpdates.bind(this));
-        //game.server.on('confirm_player', this.confirmPlayerInput.bind(this));
         game.server.on('enemy_joined', this.addEnemy.bind(this));
         game.server.on('enemy_left', this.removeEnemy.bind(this));
         game.server.on('disconnect', this.disconnected.bind(this));
 
-        console.log("join confirmed");
         this.inputLoop();
     }
-
-
-    // confirmPlayerInput(updatedPlayer) {
-    //     //game.gameState.player.update(updatedPlayer);
-    // }
 
 
     bufferServerUpdates(snapshot) {
@@ -307,7 +293,7 @@ export default class StatePlaying extends Phaser.State {
             });
 
             Object.keys(game.gameState.throwables).forEach((id) => {
-                if(!game.gameState.player.activeThrowable || id != game.gameState.player.activeThrowable.id) {
+                if(!game.gameState.activeThrowable || id != game.gameState.activeThrowable.id) {
                     game.gameState.throwables[id].updateInterpolated(previousSnapshot.throwables[id], targetSnapshot.throwables[id], lerpAmmount);
                 }
             });
@@ -338,7 +324,7 @@ export default class StatePlaying extends Phaser.State {
 
     syncThrowables(serverThrowables) {
         Object.values(serverThrowables).forEach((serverThrowable) => {
-            if(!game.gameState.player.activeThrowable || game.gameState.player.activeThrowable.id != serverThrowable.id) {
+            if(!game.gameState.activeThrowable || game.gameState.activeThrowable.id != serverThrowable.id) {
                 let localThrowable = game.gameState.throwables[serverThrowable.id];
                 if(localThrowable) {
                     localThrowable.update(serverThrowable);

@@ -52,8 +52,8 @@ export default class Player {
 
 
     moveRight() {
-        this.setCarryAnchor();
         this.char.moveRight();
+        this.setCarryAnchor();
     }
 
 

@@ -44,7 +44,7 @@ export default class Server {
 
         this.lastWorldSnapshot = this.state;
 
-        this.simulationLoop();
+        //this.simulationLoop();
         this.updateLoop();
         this.debugLoop();
     }
@@ -53,8 +53,6 @@ export default class Server {
     initThrowables() {
 
         let throwablesData = JSON.parse(fs.readFileSync('public/assets/data/throwables.json', 'utf8'));
-
-        console.log(throwablesData);
 
         throwablesData.forEach((throwableData) => {
             let throwable = new Throwable(throwableData.id, throwableData.type);
@@ -70,10 +68,10 @@ export default class Server {
 
 
     debugLoop() {
-        console.log('----------');
-        Object.keys(this.state.players).forEach((id) => {
-            console.log(JSON.stringify(this.state.players[id]));
-        });
+        // console.log('----------');
+        // Object.keys(this.state.players).forEach((id) => {
+        //     console.log(JSON.stringify(this.state.players[id]));
+        // });
         this.debugLoopTimeout = setTimeout(this.debugLoop.bind(this), 2000);
     }
 
