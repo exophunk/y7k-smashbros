@@ -1,4 +1,5 @@
 import SnapshotHelper from 'shared/util/SnapshotHelper';
+import MathHelper from 'shared/util/MathHelper';
 
 export const ThrowableStates = {
     IDLE: 0,
@@ -21,8 +22,8 @@ export const ThrowableConfig = {
 export default class Throwable {
 
 
-    constructor(throwableType) {
-        this.id = null;
+    constructor(id, throwableType) {
+        this.id = id;
         this.state = ThrowableStates.IDLE;
 
         if(isClient) {
@@ -173,7 +174,10 @@ export default class Throwable {
         this.item.body.fixedRotation = true;
         this.item.body.setZeroVelocity();
         this.item.body.setCollisionGroup(game.physicsState.throwablesCollisionGroup);
-        game.gameState.player.activeThrowable = null;
+
+        setTimeout(() => {
+            game.gameState.player.activeThrowable = null;
+        }, 200);
 
     }
 
@@ -210,5 +214,16 @@ export default class Throwable {
         SnapshotHelper.patchObject(this, snapshot);
     }
 
+
+    updateInterpolated(previousSnapshot, targetSnapshot, lerpAmmount) {
+        previousSnapshot = SnapshotHelper.patchObject(this.getFullSnapshot(), previousSnapshot);
+        let interpolatedSnapshot = SnapshotHelper.patchObject(this.getFullSnapshot(), targetSnapshot);
+
+        interpolatedSnapshot.item.body.x = MathHelper.interpolate(previousSnapshot.item.body.x, interpolatedSnapshot.item.body.x, lerpAmmount);
+        interpolatedSnapshot.item.body.y = MathHelper.interpolate(previousSnapshot.item.body.y, interpolatedSnapshot.item.body.y, lerpAmmount);
+        interpolatedSnapshot.item.body.angle = MathHelper.interpolate(previousSnapshot.item.body.angle, interpolatedSnapshot.item.body.angle, lerpAmmount);
+        this.update(interpolatedSnapshot);
+
+    }
 
 }

@@ -15,6 +15,7 @@ export default class Player {
             this.initServer(charKey);
         }
 
+        this.activeThrowable = null;
         this.lastSnapshot = {};
     }
 

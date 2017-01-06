@@ -5,6 +5,7 @@ import SocketIO from 'socket.io';
 import dotenv from 'dotenv';
 //import UUID from 'uuid/v1';
 import path from 'path';
+import fs from 'fs';
 
 import Player from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
@@ -38,10 +39,7 @@ export default class Server {
             throwables: {}
         };
 
-        // for(let i = 0; i < 8; i++) {
-        //     let id = UUID();
-        //     this.state.throwables[id] = new Throwable(id, Math.random() * 500, Math.random() * 500);
-        // }
+        this.initThrowables();
 
         this.lastWorldSnapshot = this.state;
 
@@ -49,6 +47,25 @@ export default class Server {
         this.updateLoop();
         this.debugLoop();
     }
+
+
+    initThrowables() {
+
+        let throwablesData = JSON.parse(fs.readFileSync('public/assets/data/throwables.json', 'utf8'));
+
+        console.log(throwablesData);
+
+        throwablesData.forEach((throwableData) => {
+            let throwable = new Throwable(throwableData.id, throwableData.type);
+            throwable.setPos(throwableData.x, throwableData.y);
+            this.state.throwables[throwable.id] = throwable;
+        })
+
+    }
+
+
+    // ---------------------------------------------------------------------------------------------------------
+    // LOOPS
 
 
     debugLoop() {
@@ -76,6 +93,9 @@ export default class Server {
 
         this.updateLoopTimeout = setTimeout(this.updateLoop.bind(this), 1000 / UPDATE_RATE);
     }
+
+
+    // ---------------------------------------------------------------------------------------------------------
 
 
     getWorldSnapshot() {
@@ -121,14 +141,32 @@ export default class Server {
     }
 
 
-    updatePlayer(socket, updatedPlayer) {
-        let player = this.getPlayer(updatedPlayer.id);
-        if(player) {
-            player.update(updatedPlayer);
+    updateFromClient(socket, clientUpdates) {
+
+        if(clientUpdates.player && this.getPlayer(clientUpdates.player.id)) {
+            this.updatePlayer(clientUpdates.player);
         } else {
-            console.log('Unknown player????' + updatedPlayer.id);
+            console.log('Unknown player????' + clientUpdates.player.id);
             socket.disconnect('unknown');
+            return;
         }
+
+        if(clientUpdates.throwable && this.getThrowable(clientUpdates.throwable.id)) {
+            this.updateThrowable(clientUpdates.throwable);
+        }
+
+    }
+
+
+    updatePlayer(updatedPlayer) {
+        let player = this.getPlayer(updatedPlayer.id);
+        player.update(updatedPlayer);
+    }
+
+
+    updateThrowable(updatedThrowable) {
+        let throwable = this.getThrowable(updatedThrowable.id);
+        throwable.update(updatedThrowable);
     }
 
 
@@ -146,7 +184,7 @@ export default class Server {
         let playerId = new Date().getTime();
         this.sockets[socket.id] = socket;
         socket.on('join', (player) => { this.joinPlayer(socket, player, playerId); });
-        socket.on('update_player', (player) => { this.updatePlayer(socket, player); });
+        socket.on('update_from_client', (updates) => { this.updateFromClient(socket, updates); });
         socket.on('disconnect', () => { this.leavePlayer(socket, playerId); });
     }
 

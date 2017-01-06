@@ -68,11 +68,11 @@ export default class StatePlaying extends Phaser.State {
 
 
     initThrowables() {
-        let throwable = new Throwable(ThrowableTypes.BARREL);
-        throwable.item.setPhysics();
-        throwable.setPos(700,330);
-        this.paintLayerThrowables.add(throwable.item);
-        game.gameState.throwables['test'] = throwable;
+        // let throwable = new Throwable(ThrowableTypes.BARREL);
+        // throwable.item.setPhysics();
+        // throwable.setPos(700,330);
+        // this.paintLayerThrowables.add(throwable.item);
+        // game.gameState.throwables['test'] = throwable;
     }
 
 
@@ -187,9 +187,16 @@ export default class StatePlaying extends Phaser.State {
 
     inputLoop() {
 
-        let delta = game.gameState.player.getDeltaSnapshot();
-        if(Object.keys(delta).length > 1) {
-            game.server.emit('update_player', delta);
+        let updatesDelta = {
+            player: game.gameState.player.getDeltaSnapshot()
+        };
+
+        if(game.gameState.player.activeThrowable) {
+            updatesDelta.throwable = game.gameState.player.activeThrowable.getDeltaSnapshot();
+        }
+
+        if(Object.keys(updatesDelta.player).length > 1 || (updatesDelta.throwable && Object.keys(updatesDelta.throwable).length > 1)) {
+            game.server.emit('update_from_client', updatesDelta);
         }
 
         this.inputLoopTimeout = setTimeout(this.inputLoop.bind(this), 1000 / INPUT_RATE);
@@ -298,6 +305,12 @@ export default class StatePlaying extends Phaser.State {
                     game.gameState.enemies[id].updateInterpolated(previousSnapshot.players[id], targetSnapshot.players[id], lerpAmmount);
                 }
             });
+
+            Object.keys(game.gameState.throwables).forEach((id) => {
+                if(!game.gameState.player.activeThrowable || id != game.gameState.player.activeThrowable.id) {
+                    game.gameState.throwables[id].updateInterpolated(previousSnapshot.throwables[id], targetSnapshot.throwables[id], lerpAmmount);
+                }
+            });
         }
 
 
@@ -305,24 +318,32 @@ export default class StatePlaying extends Phaser.State {
 
     syncWorldSnapshot(snapshot) {
         this.syncPlayers(snapshot.players);
+        this.syncThrowables(snapshot.throwables);
     }
 
 
     syncPlayers(serverPlayers) {
-        // Object.keys(game.gameState.enemies).forEach((id) => {
-        //     if(!serverPlayers[id]) {
-        //         game.gameState.enemies[id].char.destroy();
-        //         delete game.gameState.enemies[id];
-        //     }
-        // });
-
         Object.values(serverPlayers).forEach((serverPlayer) => {
-            if(game.gameState.player.id !== serverPlayer.id) {
+            if(game.gameState.player.id != serverPlayer.id) {
                 let localPlayer = game.gameState.enemies[serverPlayer.id];
                 if(localPlayer) {
                     localPlayer.update(serverPlayer);
                 } else {
                     this.addEnemy(serverPlayer);
+                }
+            }
+        });
+    }
+
+
+    syncThrowables(serverThrowables) {
+        Object.values(serverThrowables).forEach((serverThrowable) => {
+            if(!game.gameState.player.activeThrowable || game.gameState.player.activeThrowable.id != serverThrowable.id) {
+                let localThrowable = game.gameState.throwables[serverThrowable.id];
+                if(localThrowable) {
+                    localThrowable.update(serverThrowable);
+                } else {
+                    this.addThrowable(serverThrowable);
                 }
             }
         });
@@ -348,7 +369,13 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
-
+    addThrowable(throwableSnapshot) {
+        let throwable = new Throwable(throwableSnapshot.id, throwableSnapshot.item.type);
+        throwable.item.setPhysics();
+        throwable.update(throwableSnapshot);
+        game.gameState.throwables[throwable.id] = throwable;
+        this.paintLayerThrowables.add(throwable.item);
+    }
 
 
 
