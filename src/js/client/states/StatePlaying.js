@@ -1,10 +1,12 @@
 import * as assets from 'shared/config/CacheKeys';
 import Preloader from 'client/handler/Preloader';
-import Throwable from 'shared/objects/Throwable';
+import MathHelper from 'shared/util/MathHelper';
+
 import Player from 'shared/objects/Player';
+import {PlayerStates, PlayerConfig} from 'shared/objects/Player';
+import Throwable from 'shared/objects/Throwable';
 import {ThrowableTypes} from 'shared/objects/Throwable';
 
-import MathHelper from 'shared/util/MathHelper';
 
 const INPUT_RATE = 30;
 const NET_OFFSET = 100;
@@ -61,10 +63,9 @@ export default class StatePlaying extends Phaser.State {
         let player = new Player(game.gameState.selectedCharKey, true);
         player.char.setPhysics();
         player.setPos(200,350);
+        player.char.blink(250, PlayerConfig.SPAWN_FREEZE_TIME);
         this.paintLayerChars.add(player.char);
         game.gameState.player = player;
-    }
-
 
         setTimeout(() => {
             player.state = PlayerStates.ALIVE;
@@ -118,20 +119,24 @@ export default class StatePlaying extends Phaser.State {
         game.physicsState.materialThrowable = game.physics.p2.createMaterial('material-throwable');
 
         let contactMaterialPlayerWall = game.physics.p2.createContactMaterial(game.physicsState.materialPlayer, game.physicsState.materialWall);
-        contactMaterialPlayerWall.restitution = 0.0;
+        contactMaterialPlayerWall.restitution = 1;
         contactMaterialPlayerWall.stiffness = 10000;
 
         let contactMaterialPlayerThrowable = game.physics.p2.createContactMaterial(game.physicsState.materialPlayer, game.physicsState.materialThrowable);
-        contactMaterialPlayerThrowable.restitution = 0.9;
-        contactMaterialPlayerThrowable.stiffness = 1000;
+        contactMaterialPlayerThrowable.restitution = 0.2;
+        contactMaterialPlayerThrowable.stiffness = 5000;
 
         let contactMaterialWallThrowable = game.physics.p2.createContactMaterial(game.physicsState.materialWall, game.physicsState.materialThrowable);
-        contactMaterialWallThrowable.restitution = 0.5;
-        contactMaterialWallThrowable.stiffness = Number.MAX_VALUE;
+        contactMaterialWallThrowable.restitution = 0.2;
+        contactMaterialWallThrowable.stiffness = 5000;
+
+        let contactMaterialThrowableThrowable = game.physics.p2.createContactMaterial(game.physicsState.materialThrowable, game.physicsState.materialThrowable);
+        contactMaterialThrowableThrowable.restitution = 0.2;
+        contactMaterialThrowableThrowable.stiffness = 5000;
 
         let contactMaterialPlayerPlayer = game.physics.p2.createContactMaterial(game.physicsState.materialPlayer, game.physicsState.materialPlayer);
-        contactMaterialPlayerPlayer.restitution = 0.0;
-        contactMaterialPlayerPlayer.stiffness = 5000;
+        contactMaterialPlayerPlayer.restitution = 1;
+        contactMaterialPlayerPlayer.stiffness = 10000;
 
         this.addCollisionShape(544, 96, 95, 119); // Tables WinPC
         this.addCollisionShape(767, 96, 95, 85); // Tables Ruben
@@ -199,6 +204,10 @@ export default class StatePlaying extends Phaser.State {
 
     handleInputControls() {
 
+        if(game.gameState.player.state != PlayerStates.ALIVE) {
+            return;
+        }
+
         if (this.spaceKey.isDown && !this.spaceBarPressed) {
             this.spaceBarPressed = true;
             game.gameState.player.doAction();
@@ -219,6 +228,56 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
+    playerHit(playerData) {
+        console.log('playahit');
+        if(playerData.id == game.gameState.player.id) {
+            let player = game.gameState.player;
+            player.health = playerData.health;
+            player.state = playerData.state;
+
+            if(player.state == PlayerStates.DEAD) {
+                this.hostDied();
+            } else {
+                this.hostGotHit();
+            }
+        } else {
+            let enemy = game.gameState.enemies[playerData.id];
+            if(enemy) {
+                enemy.update(playerData);
+                if(enemy.state == PlayerStates.DEAD) {
+                    this.enemyDied(enemy);
+                } else {
+                    this.enemyGotHit(enemy);
+                }
+            }
+        }
+
+    }
+
+    hostGotHit() {
+        console.log("host got hit");
+        game.camera.shake(0.01, 1000);
+        game.gameState.player.char.showHitEffects();
+
+        setTimeout(() => {
+            game.gameState.player.state = PlayerStates.ALIVE;
+        }, PlayerConfig.HIT_FREEZE_TIME);
+    }
+
+    hostDied() {
+        console.log("host died");
+        game.gameState.player.char.showDyingEffects();
+    }
+
+    enemyGotHit(enemy) {
+        console.log("enemy got hit");
+        enemy.char.showHitEffects();
+    }
+
+    enemyDied(enemy) {
+        console.log("enemy died");
+        enemy.char.showDyingEffects();
+    }
 
 
     // --------------------------------------------------------------------------------------------------
@@ -245,6 +304,7 @@ export default class StatePlaying extends Phaser.State {
         this.syncWorldSnapshot(data.worldSnapshot);
 
         game.server.on('update_world', this.bufferServerUpdates.bind(this));
+        game.server.on('player_hit', this.playerHit.bind(this));
         game.server.on('enemy_joined', this.addEnemy.bind(this));
         game.server.on('enemy_left', this.removeEnemy.bind(this));
         game.server.on('disconnect', this.disconnected.bind(this));

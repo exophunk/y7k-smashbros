@@ -7,7 +7,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 
+import Config from 'shared/config/Config';
 import Player from 'shared/objects/Player';
+import {PlayerStates} from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
 import {ThrowableStates} from 'shared/objects/Throwable';
 import SnapshotHelper from 'shared/util/SnapshotHelper';
@@ -163,6 +165,30 @@ export default class Server {
     }
 
 
+    hitPlayer(playerId) {
+        let player = this.getPlayer(playerId);
+
+        if(player) {
+            player.health--;
+
+            if(player.health < 0) {
+                player.state = PlayerStates.DEAD;
+            } else {
+                player.state = PlayerStates.HIT;
+
+                setTimeout(() => {
+                    player.state = PlayerStates.ALIVE;
+                }, Config.HIT_FREEZE_TIME);
+
+            }
+
+            this.io.emit('player_hit', player.getFullSnapshot());
+
+        }
+
+    }
+
+
     updateThrowable(updatedThrowable) {
         let throwable = this.getThrowable(updatedThrowable.id);
         throwable.update(updatedThrowable);
@@ -197,6 +223,7 @@ export default class Server {
         this.sockets[socket.id] = socket;
         socket.on('join', (player) => { this.joinPlayer(socket, player, playerId); });
         socket.on('update_from_client', (updates) => { this.updateFromClient(socket, updates); });
+        socket.on('player_hit', (playerId) => { this.hitPlayer(playerId); });
         socket.on('disconnect', () => { this.leavePlayer(socket, playerId); });
     }
 

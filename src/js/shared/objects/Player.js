@@ -1,6 +1,21 @@
 import SnapshotHelper from 'shared/util/SnapshotHelper';
 import MathHelper from 'shared/util/MathHelper';
 
+export const PlayerStates = {
+    ALIVE: 0,
+    HIT: 1,
+    DEAD: 3,
+    SPAWNED: 4
+}
+
+
+export const PlayerConfig = {
+    HEALTH: 3,
+    HIT_FREEZE_TIME: 1000,
+    SPAWN_FREEZE_TIME: 1000,
+    WALK_SPEED: 200
+}
+
 export default class Player {
 
 
@@ -8,6 +23,8 @@ export default class Player {
 
         this.id = null;
         this.isHost = isHost;
+        this.health = PlayerConfig.HEALTH;
+        this.state = PlayerStates.SPAWNED;
 
         if(isClient) {
             this.initClient(charKey);
@@ -94,19 +111,8 @@ export default class Player {
     hitAsEnemy(playerBody, throwableBody) {
         let throwable = throwableBody.sprite.throwable;
         if(throwable.isThrown()) {
-            console.log("got hit as enemy");
-        }
-    }
-
-
-    hitAsPlayer(playerBody, throwableBody) {
-        let throwable = throwableBody.sprite.throwable;
-        if(throwable.isThrown()) {
-            if(throwable == this.activeThrowable) {
-                console.log("got hit as player BY OWN");
-            } else {
-                console.log("got hit as player BY ENEMY");
-            }
+            let enemy = playerBody.sprite.player;
+            game.server.emit('player_hit', enemy.id);
         }
     }
 
@@ -141,6 +147,8 @@ export default class Player {
     getFullSnapshot() {
         return {
             id: this.id,
+            health: this.health,
+            state: this.state,
             char: {
                 key: this.char.key,
                 facing: this.char.facing,

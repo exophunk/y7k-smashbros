@@ -1,7 +1,4 @@
-
-export const CharacterConfig = {
-    WALK_SPEED: 300,
-}
+import {PlayerConfig} from 'shared/objects/Player';
 
 export default class BaseCharacter extends Phaser.Sprite {
 
@@ -45,7 +42,6 @@ export default class BaseCharacter extends Phaser.Sprite {
         if(this.isHost) {
             this.body.setCollisionGroup(game.physicsState.playerCollisionGroup);
             this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.enemiesCollisionGroup, game.physicsState.throwablesCollisionGroup]);
-            //this.body.collides(game.physicsState.throwablesActiveCollisionGroup, this.player.hitAsPlayer, this.player);
         } else {
             this.body.kinematic = true;
             this.body.setCollisionGroup(game.physicsState.enemiesCollisionGroup);
@@ -57,28 +53,28 @@ export default class BaseCharacter extends Phaser.Sprite {
 
     moveLeft() {
         this.body.setZeroVelocity();
-        this.body.moveLeft(CharacterConfig.WALK_SPEED);
+        this.body.moveLeft(PlayerConfig.WALK_SPEED);
         this.updateAnimation(this.facing, this.isMoving, 'left', true);
     }
 
 
     moveRight() {
         this.body.setZeroVelocity();
-        this.body.moveRight(CharacterConfig.WALK_SPEED);
+        this.body.moveRight(PlayerConfig.WALK_SPEED);
         this.updateAnimation(this.facing, this.isMoving, 'right', true);
     }
 
 
     moveUp() {
         this.body.setZeroVelocity();
-        this.body.moveUp(CharacterConfig.WALK_SPEED);
+        this.body.moveUp(PlayerConfig.WALK_SPEED);
         this.updateAnimation(this.facing, this.isMoving, 'up', true);
     }
 
 
     moveDown() {
         this.body.setZeroVelocity();
-        this.body.moveDown(CharacterConfig.WALK_SPEED);
+        this.body.moveDown(PlayerConfig.WALK_SPEED);
         this.updateAnimation(this.facing, this.isMoving, 'down', true);
     }
 
@@ -117,5 +113,19 @@ export default class BaseCharacter extends Phaser.Sprite {
         this.isMoving = isMoving;
 
     }
+
+    showHitEffects() {
+        this.blink(150, PlayerConfig.HIT_FREEZE_TIME);
+    }
+
+    showDyingEffects() {
+
+    }
+
+    blink(speed, duration) {
+        let repetitions = Math.floor(duration / speed) - 1;
+        game.add.tween(this).to( { alpha: 0 }, speed/2, Phaser.Easing.Linear.None, true, 0, repetitions, true);
+    }
+
 
 }
