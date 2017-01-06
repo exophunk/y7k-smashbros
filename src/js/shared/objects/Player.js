@@ -80,11 +80,13 @@ export default class Player {
         if(this.activeThrowable && this.activeThrowable.isCarried()) {
             this.activeThrowable.throw();
         } else {
-            Object.values(game.gameState.throwables).forEach((throwable) => {
+            let throwablesArr = Object.values(game.gameState.throwables);
+            for(let throwable of Object.values(game.gameState.throwables)) {
                 if(throwable.canBePickedUp()) {
                     throwable.pickup();
+                    break;
                 }
-            });
+            }
         }
 
     }
