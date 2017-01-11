@@ -1,5 +1,4 @@
 import * as assets from 'shared/config/CacheKeys';
-import Preloader from 'client/handler/Preloader';
 import MathHelper from 'shared/util/MathHelper';
 
 import Player from 'shared/objects/Player';
@@ -15,7 +14,7 @@ export default class StatePlaying extends Phaser.State {
 
 	create() {
 
-        this.buffer = [];
+        this.netBuffer = [];
 
         game.stage.disableVisibilityChange = true;
 
@@ -36,8 +35,6 @@ export default class StatePlaying extends Phaser.State {
         this.join();
 
 	}
-
-
 
     initMap() {
 
@@ -302,7 +299,7 @@ export default class StatePlaying extends Phaser.State {
         game.gameState.player.id = data.id;
         this.syncWorldSnapshot(data.worldSnapshot);
 
-        game.server.on('update_world', this.bufferServerUpdates.bind(this));
+        game.server.on('update_world', this.netBufferServerUpdates.bind(this));
         game.server.on('player_hit', this.playerHit.bind(this));
         game.server.on('enemy_joined', this.addEnemy.bind(this));
         game.server.on('enemy_left', this.removeEnemy.bind(this));
@@ -314,10 +311,10 @@ export default class StatePlaying extends Phaser.State {
 
     bufferServerUpdates(snapshot) {
         snapshot.clientTime = new Date().getTime();
-        this.buffer.push(snapshot);
+        this.netBuffer.push(snapshot);
 
-        if(this.buffer.length > 8) {
-            this.buffer.shift();
+        if(this.netBuffer.length > 8) {
+            this.netBuffer.shift();
         }
     }
 
@@ -328,10 +325,10 @@ export default class StatePlaying extends Phaser.State {
         let previousSnapshot;
         let targetSnapshot;
 
-        for(let i = 0; i < this.buffer.length; i++) {
+        for(let i = 0; i < this.netBuffer.length; i++) {
 
-            let prev = this.buffer[i];
-            let next = this.buffer[i+1];
+            let prev = this.netBuffer[i];
+            let next = this.netBuffer[i+1];
 
             if(next) {
                 if(renderTime >= prev.clientTime && renderTime <= next.clientTime ) {

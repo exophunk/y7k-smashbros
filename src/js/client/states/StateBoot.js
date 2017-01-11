@@ -1,4 +1,3 @@
-import Preloader from 'client/handler/Preloader';
 
 export default class StateBoot extends Phaser.State {
 
@@ -9,8 +8,8 @@ export default class StateBoot extends Phaser.State {
 
 
     preload() {
-        const preloader = new Preloader();
-        preloader.loadData();
+        game.load.json('throwables', '/build/assets/data/throwables.json');
+        game.load.json('characters', '/build/assets/data/characters.json');
     }
 
 }

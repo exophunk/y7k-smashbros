@@ -1,5 +1,3 @@
-import Preloader from 'client/handler/Preloader';
-import Player from 'shared/objects/Player';
 import Portrait from 'client/objects/Portrait';
 
 export default class StatePlayerSelect extends Phaser.State {

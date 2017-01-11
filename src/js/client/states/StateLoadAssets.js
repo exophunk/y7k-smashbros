@@ -1,24 +1,10 @@
-import Preloader from 'client/handler/Preloader';
-import Player from 'shared/objects/Player';
 
 export default class StateLoadAssets extends Phaser.State {
 
 	create() {
-
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        //this.state.start('StateMenu');
-        this.testingShortCut();
+        this.state.start('StateMenu');
 	}
-
-
-    testingShortCut() {
-        let allChars = game.characterFactory.getAll();
-        let char = allChars[Math.floor(Math.random() * allChars.length)];
-        game.gameState.selectedCharKey = char.key;
-
-        game.isDebug = false;
-        this.state.start('StatePlaying');
-    }
 
 
     preload() {
