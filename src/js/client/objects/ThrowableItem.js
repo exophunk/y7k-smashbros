@@ -3,8 +3,8 @@ import {ThrowableStates} from 'shared/objects/Throwable';
 
 export default class ThrowableItem extends Phaser.Sprite {
 
-    constructor(throwableType) {
-        super(game, 0, 0, 'throwables', throwableType);
+    constructor(spriteKey) {
+        super(game, 0, 0, spriteKey);
 
         this.throwable = null;
         this.anchor.setTo(0.5,0.5);

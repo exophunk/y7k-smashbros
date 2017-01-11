@@ -21,6 +21,7 @@ global.isServer = true;
 
 const TICK_RATE = 66;
 const UPDATE_RATE = 22;
+const THROWABLES_DATA_PATH = 'public/build/assets/data/throwables.json';
 
 export default class Server {
 
@@ -54,10 +55,10 @@ export default class Server {
 
     initThrowables() {
 
-        let throwablesData = JSON.parse(fs.readFileSync('public/assets/data/throwables.json', 'utf8'));
+        let throwablesData = JSON.parse(fs.readFileSync(THROWABLES_DATA_PATH, 'utf8'));
 
         throwablesData.forEach((throwableData) => {
-            let throwable = new Throwable(throwableData.id, throwableData.type);
+            let throwable = new Throwable(throwableData.id, throwableData.key);
             throwable.setPos(throwableData.x, throwableData.y);
             this.state.throwables[throwable.id] = throwable;
         })

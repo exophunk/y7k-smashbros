@@ -5,7 +5,6 @@ import MathHelper from 'shared/util/MathHelper';
 import Player from 'shared/objects/Player';
 import {PlayerStates, PlayerConfig} from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
-import {ThrowableTypes} from 'shared/objects/Throwable';
 
 
 const INPUT_RATE = 30;
@@ -416,7 +415,7 @@ export default class StatePlaying extends Phaser.State {
 
 
     addThrowable(throwableSnapshot) {
-        let throwable = new Throwable(throwableSnapshot.id, throwableSnapshot.item.type);
+        let throwable = new Throwable(throwableSnapshot.id, throwableSnapshot.item.key);
         throwable.item.setPhysics();
         throwable.update(throwableSnapshot);
         game.gameState.throwables[throwable.id] = throwable;

@@ -12,8 +12,8 @@ export default class ThrowableItemFactory {
     }
 
 
-    get(throwableType) {
-        return new ThrowableItem(throwableType);
+    get(throwableKey) {
+        return new ThrowableItem(throwableKey);
     }
 
 }

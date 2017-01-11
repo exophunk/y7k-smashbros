@@ -7,10 +7,6 @@ export const ThrowableStates = {
     THROWN: 2
 }
 
-export const ThrowableTypes = {
-    BARREL: 186,
-}
-
 export const ThrowableConfig = {
     THROW_DURATION: 500,
     THROW_SPEED: 400,
@@ -22,30 +18,30 @@ export const ThrowableConfig = {
 export default class Throwable {
 
 
-    constructor(id, throwableType) {
+    constructor(id, spriteKey) {
         this.id = id;
         this.state = ThrowableStates.IDLE;
         this.carryingPlayerId = null;
 
         if(isClient) {
-            this.initClient(throwableType);
+            this.initClient(spriteKey);
         } else {
-            this.initServer(throwableType);
+            this.initServer(spriteKey);
         }
 
         this.lastSnapshot = {};
     }
 
 
-    initClient(throwableType) {
-        this.item = game.throwableItemFactory.get(throwableType);
+    initClient(spriteKey) {
+        this.item = game.throwableItemFactory.get(spriteKey);
         this.item.throwable = this;
     }
 
 
-    initServer(throwableType) {
+    initServer(spriteKey) {
         this.item = {
-            type: throwableType,
+            key: spriteKey,
             body: {
                 x: 0,
                 y: 0,

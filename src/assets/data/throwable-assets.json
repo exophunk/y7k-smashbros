@@ -1,0 +1,19 @@
+{
+    "throwables": [
+        {
+            "type": "image",
+            "key": "obj-chair-right",
+            "url": "build/assets/sprites/throwables/obj-chair-right.png"
+        },
+        {
+            "type": "image",
+            "key": "obj-plant-1",
+            "url": "build/assets/sprites/throwables/obj-plant-1.png"
+        },
+        {
+            "type": "image",
+            "key": "obj-plant-2",
+            "url": "build/assets/sprites/throwables/obj-plant-2.png"
+        }
+    ]
+}
