@@ -48,7 +48,7 @@ gulp.task('concat-vendor', () =>
 
 gulp.task('copy-assets', () =>
     gulp.src(['src/assets/**/*.*'])
-    .pipe(gulp.dest('public/assets/'))
+    .pipe(gulp.dest('public/build/assets'))
 );
 
 
