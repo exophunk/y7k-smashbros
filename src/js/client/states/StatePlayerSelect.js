@@ -11,7 +11,7 @@ export default class StatePlayerSelect extends Phaser.State {
         this.selectPosX = 0;
         this.selectPosY = 0;
 
-        let characters = game.characterFactory.getAllAsArray();
+        let characters = game.characterFactory.getAll();
 
         characters.forEach((character) => {
             this.portraits.add(new Portrait(character));

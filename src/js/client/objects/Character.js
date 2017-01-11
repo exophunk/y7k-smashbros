@@ -1,18 +1,18 @@
 import {PlayerConfig} from 'shared/objects/Player';
 
-export default class BaseCharacter extends Phaser.Sprite {
+export default class Character extends Phaser.Sprite {
 
-    constructor(key) {
+    constructor(key, name) {
 
-        let spriteKey = key + '.sprite';
+        let spriteKey = key + '-sprite';
         super(game, 0, 0, spriteKey, 1);
 
         this.player = null;
         this.isHost = false;
         this.key = key;
         this.spriteKey = spriteKey;
-        this.portraitKey = key + '.portrait';
-        this.jingleKey = key + '.jingle';
+        this.portraitKey = key + '-portrait';
+        this.jingleKey = key + '-jingle';
         this.facing = 'idle';
         this.isMoving = false;
         this.anchor.setTo(0.5,0.5);
