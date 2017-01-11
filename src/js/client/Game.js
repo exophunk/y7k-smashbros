@@ -1,5 +1,6 @@
 import StateMenu from 'client/states/StateMenu';
 import StateBoot from 'client/states/StateBoot';
+import StateLoadAssets from 'client/states/StateLoadAssets';
 import StatePlayerSelect from 'client/states/StatePlayerSelect';
 import StatePlaying from 'client/states/StatePlaying';
 
@@ -16,12 +17,12 @@ export default class Game extends Phaser.Game {
 		super(640, 480, Phaser.AUTO, 'app', null);
 
 		this.state.add('StateBoot', StateBoot, false);
+        this.state.add('StateLoadAssets', StateLoadAssets, false);
         this.state.add('StateMenu', StateMenu, false);
         this.state.add('StatePlayerSelect', StatePlayerSelect, false);
         this.state.add('StatePlaying', StatePlaying, false);
 
         this.server = null;
-        //this.gameState = new GameState();
         this.characterFactory = new CharacterFactory();
         this.throwableItemFactory = new ThrowableItemFactory();
 
