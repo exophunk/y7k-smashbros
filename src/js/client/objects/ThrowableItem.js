@@ -13,10 +13,11 @@ export default class ThrowableItem extends Phaser.Sprite {
 
     setPhysics() {
         game.physics.p2.enable(this, game.isDebug);
-        this.setStatePhysics();
+        this.body.setCircle(12);
         this.body.damping = ThrowableConfig.DAMPING;
         this.body.angularDamping = ThrowableConfig.ANGULAR_DAMPING;
         this.body.setMaterial(game.physicsState.materialThrowable);
+        this.setStatePhysics();
 
         this.body.collides([
             game.physicsState.backgroundCollisionGroup,
