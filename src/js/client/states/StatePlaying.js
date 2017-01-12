@@ -299,7 +299,7 @@ export default class StatePlaying extends Phaser.State {
         game.gameState.player.id = data.id;
         this.syncWorldSnapshot(data.worldSnapshot);
 
-        game.server.on('update_world', this.netBufferServerUpdates.bind(this));
+        game.server.on('update_world', this.bufferServerUpdates.bind(this));
         game.server.on('player_hit', this.playerHit.bind(this));
         game.server.on('enemy_joined', this.addEnemy.bind(this));
         game.server.on('enemy_left', this.removeEnemy.bind(this));
