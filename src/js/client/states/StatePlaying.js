@@ -1,4 +1,3 @@
-import * as assets from 'shared/config/CacheKeys';
 import MathHelper from 'shared/util/MathHelper';
 
 import Player from 'shared/objects/Player';
