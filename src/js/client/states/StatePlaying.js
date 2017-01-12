@@ -339,14 +339,18 @@ export default class StatePlaying extends Phaser.State {
             }
         }
 
+
         if(previousSnapshot && targetSnapshot) {
             let lerpAmmount = MathHelper.mapToNormal(renderTime, previousSnapshot.clientTime, targetSnapshot.clientTime);
 
-            Object.keys(game.gameState.enemies).forEach((id) => {
-                if(game.gameState.enemies[id] && id != game.gameState.player.id) {
-                    game.gameState.enemies[id].updateInterpolated(previousSnapshot.players[id], targetSnapshot.players[id], lerpAmmount);
-                }
-            });
+            if(previousSnapshot.players && targetSnapshot.players) {
+                Object.keys(game.gameState.enemies).forEach((id) => {
+                    if(game.gameState.enemies[id] && id != game.gameState.player.id) {
+                        game.gameState.enemies[id].updateInterpolated(previousSnapshot.players[id], targetSnapshot.players[id], lerpAmmount);
+                    }
+                });
+
+            }
 
             Object.keys(game.gameState.throwables).forEach((id) => {
                 if(!game.gameState.activeThrowable || id != game.gameState.activeThrowable.id) {
