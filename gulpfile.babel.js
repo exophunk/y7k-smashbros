@@ -1,55 +1,62 @@
-'use strict';
+'use strict'
 
-import gulp from 'gulp';
-import sass from 'gulp-sass';
-import concat from 'gulp-concat';
-import sourcemaps from 'gulp-sourcemaps';
-import webpackStream  from 'webpack-stream';
-import nodemon from 'gulp-nodemon';
-import babel from 'gulp-babel';
+import gulp from 'gulp'
+import sass from 'gulp-sass'
+import concat from 'gulp-concat'
+import sourcemaps from 'gulp-sourcemaps'
+import webpackStream  from 'webpack-stream'
+import nodemon from 'gulp-nodemon'
+import babel from 'gulp-babel'
 
-gulp.task('build', ['build-client', 'build-server']);
+let production = false
 
-gulp.task('build-client', ['copy-assets', 'build-sass', 'concat-vendor'], () =>
+
+gulp.task('build-dev', () => {
+    production = false
+    gulp.start('build-client')
+    gulp.start('build-server')
+})
+
+gulp.task('build-prod', () => {
+    production = true
+    gulp.start('build-client')
+    gulp.start('build-server')
+})
+
+gulp.task('build-client', ['copy-assets', 'build-sass'], () => {
+    let webpackConfig = production ? require('./webpack.client.production.config.js') : require('./webpack.client.config.js')
+    webpackConfig.watch = false
     gulp.src('src/js/client/app.js')
-        .pipe(webpackStream(require('./webpack.config.js')))
+        .pipe(webpackStream(webpackConfig))
         .pipe(gulp.dest('public/build/js/'))
-);
+})
 
 
 gulp.task('build-server', () =>
     gulp.src('src/js/server/server.js')
         .pipe(webpackStream(require('./webpack.server.config.js')))
         .pipe(gulp.dest('server/'))
-);
+)
 
 
-gulp.task('watch-client', ['build-client'], () => {
-    gulp.watch(['src/scss/**/*.*'], ['build-sass']);
-    gulp.watch(['src/js/client/**/*.*'], ['build-client']);
-    gulp.watch(['src/js/shared/**/*.*'], ['build-client']);
-    gulp.watch(['src/assets/**/*.*'], ['copy-assets']);
-});
+gulp.task('watch', ['build-server'], () => {
+    gulp.watch(['src/scss/**/*.*'], ['build-sass'])
+    gulp.watch(['src/assets/**/*.*'], ['copy-assets'])
+    gulp.watch(['src/js/server/**/*.*', 'src/js/server/**/*.*'], ['build-server'])
+    gulp.start('run-server')
 
+    let webpackConfig = require('./webpack.client.config.js')
+    gulp.src('src/js/client/app.js')
+        .pipe(webpackStream(webpackConfig))
+        .pipe(gulp.dest('public/build/js/'))
 
-gulp.task('watch-server', ['build-server'], () => {
-    gulp.watch(['src/js/server/**/*.*'], ['build-server']);
-    gulp.watch(['src/js/shared/**/*.*'], ['build-server']);
-    gulp.start('run');
-});
-
-
-gulp.task('concat-vendor', () =>
-    gulp.src(['src/js/client/vendor/**/*.*'])
-    .pipe(concat('vendor.js'))
-    .pipe(gulp.dest('public/build/js/'))
-);
+})
 
 
 gulp.task('copy-assets', () =>
     gulp.src(['src/assets/**/*.*'])
     .pipe(gulp.dest('public/build/assets'))
-);
+)
 
 
 gulp.task('build-sass', function () {
@@ -57,19 +64,19 @@ gulp.task('build-sass', function () {
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('public/build/css'));
-});
+        .pipe(gulp.dest('public/build/css'))
+})
 
 
-gulp.task('run', () => {
+gulp.task('run-server', () => {
     nodemon({
         delay: 10,
         script: 'server/server.js',
-        // args: ["config.json"],
         ext: 'js',
         watch: 'server'
     })
-});
+})
 
-gulp.task('watch', ['watch-client']);
-gulp.task('default', ['build']);
+
+gulp.task('default', ['build-prod'])
+gulp.task('build', ['build-dev'])

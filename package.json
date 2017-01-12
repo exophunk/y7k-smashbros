@@ -9,8 +9,9 @@
   "license": "UNLICENSED",
   "main": "server/server.js",
   "scripts": {
-    "prod": "gulp --production",
-    "dev": "gulp watch"
+    "dev": "webpack --config webpack.client.config.js",
+    "deploy": "webpack --config webpack.client.production.config.js",
+    "test": "standard"
   },
   "dependencies": {
     "assign-deep": "^0.4.5",
@@ -18,21 +19,30 @@
     "express": "^4.14.0",
     "socket.io": "^1.7.1",
     "socket.io-client": "^1.7.1",
-    "uuid": "^3.0.1"
+    "uuid": "^3.0.1",
+    "phaser-ce": "^2.7.1"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
-    "babel-loader": "^6.2.4",
+    "babel-loader": "^6.2.8",
     "babel-polyfill": "^6.16.0",
-    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-es2015": "^6.18.0",
+    "browser-sync": "^2.18.2",
+    "browser-sync-webpack-plugin": "^1.1.3",
     "dotenv": "^2.0.0",
+    "eslint": "^3.12.2",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "expose-loader": "^0.7.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
     "gulp-nodemon": "^2.0.7",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.9.1",
-    "webpack": "^1.13.0",
+    "webfontloader": "^1.6.27",
+    "webpack": "^1.13.3",
     "webpack-stream": "^3.2.0"
   }
 }
