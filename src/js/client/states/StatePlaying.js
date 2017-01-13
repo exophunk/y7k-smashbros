@@ -199,9 +199,7 @@ export default class StatePlaying extends Phaser.State {
 
     handleInputControls() {
 
-        if(game.gameState.player.state != PlayerStates.ALIVE) {
-            return;
-        }
+        if(this.freezeInput) return;
 
         if (this.spaceKey.isDown && !this.spaceBarPressed) {
             this.spaceBarPressed = true;
@@ -253,14 +251,19 @@ export default class StatePlaying extends Phaser.State {
         console.log("host got hit");
         game.camera.shake(0.01, 1000);
         game.gameState.player.char.showHitEffects();
+        this.freezeInput = true;
 
         setTimeout(() => {
             game.gameState.player.state = PlayerStates.ALIVE;
+        }, PlayerConfig.HIT_IMMUNE_TIME);
+
+        setTimeout(() => {
+            this.freezeInput = false;
         }, PlayerConfig.HIT_FREEZE_TIME);
     }
 
     hostDied() {
-        console.log("host died");
+        this.freezeInput = true;
         game.gameState.player.char.showDyingEffects();
     }
 

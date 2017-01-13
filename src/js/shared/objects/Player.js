@@ -12,6 +12,8 @@ export const PlayerStates = {
 export const PlayerConfig = {
     HEALTH: 3,
     HIT_FREEZE_TIME: 1000,
+    HIT_IMMUNE_TIME: 2000,
+    HIT_FREEZE_TIME: 500,
     SPAWN_FREEZE_TIME: 1000,
     WALK_SPEED: 200
 }
@@ -110,7 +112,8 @@ export default class Player {
 
     hitAsEnemy(playerBody, throwableBody) {
         let throwable = throwableBody.sprite.throwable;
-        if(throwable.isThrown()) {
+        let player = playerBody.sprite.player;
+        if(throwable.isThrown() && player.state == PlayerStates.ALIVE) {
             let enemy = playerBody.sprite.player;
             game.server.emit('player_hit', enemy.id);
         }
