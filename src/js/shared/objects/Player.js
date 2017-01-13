@@ -10,8 +10,7 @@ export const PlayerStates = {
 
 
 export const PlayerConfig = {
-    HEALTH: 3,
-    HIT_FREEZE_TIME: 1000,
+    HEALTH: 100,
     HIT_IMMUNE_TIME: 2000,
     HIT_FREEZE_TIME: 500,
     SPAWN_FREEZE_TIME: 1000,

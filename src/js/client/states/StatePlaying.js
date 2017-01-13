@@ -212,8 +212,8 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
-    playerHit(playerData) {
-        console.log('playahit');
+    playerGotHit(playerData) {
+        console.log('playa got hit', playerData.id);
         if(playerData.id == game.gameState.player.id) {
             let player = game.gameState.player;
             player.health = playerData.health;
@@ -238,6 +238,7 @@ export default class StatePlaying extends Phaser.State {
 
     }
 
+
     hostGotHit() {
         console.log("host got hit");
         game.camera.shake(0.01, 1000);
@@ -253,15 +254,18 @@ export default class StatePlaying extends Phaser.State {
         }, PlayerConfig.HIT_FREEZE_TIME);
     }
 
+
     hostDied() {
         this.freezeInput = true;
         game.gameState.player.char.showDyingEffects();
     }
 
+
     enemyGotHit(enemy) {
         console.log("enemy got hit");
         enemy.char.showHitEffects();
     }
+
 
     enemyDied(enemy) {
         console.log("enemy died");
@@ -293,7 +297,7 @@ export default class StatePlaying extends Phaser.State {
         this.syncWorldSnapshot(data.worldSnapshot);
 
         game.server.on('update_world', this.bufferServerUpdates.bind(this));
-        game.server.on('player_hit', this.playerHit.bind(this));
+        game.server.on('player_got_hit', this.playerGotHit.bind(this));
         game.server.on('enemy_joined', this.addEnemy.bind(this));
         game.server.on('enemy_left', this.removeEnemy.bind(this));
         game.server.on('disconnect', this.disconnected.bind(this));

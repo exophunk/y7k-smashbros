@@ -50,4 +50,14 @@ export default class ThrowableItem extends Phaser.Sprite {
     }
 
 
+    // glow(speed, duration) {
+    //     let repetitions = Math.floor(duration / speed) - 1;
+    //     game.add.tween(this).to( { alpha: 0 }, speed/2, Phaser.Easing.Linear.None, true, 0, repetitions, true);
+
+    //     setTimeout(() => {
+    //         this.alpha = 1;
+    //     }, duration);
+    // }
+
+
 }
