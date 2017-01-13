@@ -1,12 +1,10 @@
-import Config from 'shared/config/Config';
+import ServerConfig from 'server/ServerConfig';
 import Player from 'shared/objects/Player';
 import {PlayerStates} from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
 import {ThrowableStates} from 'shared/objects/Throwable';
 import SnapshotHelper from 'shared/util/SnapshotHelper';
 
-const TICK_RATE = 66;
-const UPDATE_RATE = 22;
 
 export default class GameRoom {
 
@@ -57,7 +55,7 @@ export default class GameRoom {
 
 
     simulationLoop() {
-        this.simulationLoopTimeout = setTimeout(this.simulationLoop.bind(this), 1000 / TICK_RATE);
+        this.simulationLoopTimeout = setTimeout(this.simulationLoop.bind(this), 1000 / ServerConfig.TICK_RATE);
     }
 
 
@@ -71,7 +69,7 @@ export default class GameRoom {
             this.io.to(this.roomKey).emit('update_world', snapshot);
         }
 
-        this.updateLoopTimeout = setTimeout(this.updateLoop.bind(this), 1000 / UPDATE_RATE);
+        this.updateLoopTimeout = setTimeout(this.updateLoop.bind(this), 1000 / ServerConfig.UPDATE_RATE);
     }
 
 

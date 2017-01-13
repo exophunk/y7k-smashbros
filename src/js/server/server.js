@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 
+import ServerConfig from 'server/ServerConfig';
 import GameRoom from 'server/GameRoom';
 import Player from 'shared/objects/Player';
 
@@ -15,9 +16,6 @@ dotenv.config();
 global.isClient = false;
 global.isServer = true;
 
-const MAX_ROOMS = 10;
-const MAX_ROOM_PLAYERS = 2;
-const THROWABLES_DATA_PATH = 'public/build/assets/data/throwables.json';
 
 export default class Server {
 
@@ -33,7 +31,7 @@ export default class Server {
 
         this.gameRooms = [];
         this.data = {};
-        this.data.throwablesData = JSON.parse(fs.readFileSync(THROWABLES_DATA_PATH, 'utf8'));
+        this.data.throwablesData = JSON.parse(fs.readFileSync(ServerConfig.THROWABLES_DATA_PATH, 'utf8'));
 
         this.io.on('connection', (socket) => { this.onConnection(socket) });
 
@@ -68,7 +66,7 @@ export default class Server {
     getGameRoom() {
         let room = null;
         for(let gameRoom of this.gameRooms) {
-            if(gameRoom.getPlayersCount() < MAX_ROOM_PLAYERS) {
+            if(gameRoom.getPlayersCount() < ServerConfig.MAX_ROOM_PLAYERS) {
                 room = gameRoom;
                 break;
             }
