@@ -14,6 +14,7 @@ export default class GameRoom {
         this.io = io;
         this.roomKey = roomKey;
         this.data = data;
+        this.updateCounter = 0;
 
         this.state = {
             players: {},
@@ -60,9 +61,14 @@ export default class GameRoom {
 
 
     updateLoop() {
+        this.updateCounter++;
 
-        let snapshot = this.getWorldDelta();
-        //let snapshot = this.getWorldSnapshot();
+        let snapshot;
+        if(this.updateCounter%(ServerConfig.UPDATE_RATE * 3) == 0) {
+            snapshot = this.getWorldSnapshot();
+        } else {
+            snapshot = this.getWorldDelta();
+        }
 
         if(snapshot) {
             snapshot.serverTime = new Date().getTime();
