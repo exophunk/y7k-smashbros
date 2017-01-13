@@ -1,0 +1,129 @@
+[
+    {
+        "name": "Tables WinPC",
+        "x": 544,
+        "y": 96,
+        "w": 95,
+        "h": 119
+    },
+    {
+        "name": "Tables Ruben",
+        "x": 767,
+        "y": 96,
+        "w": 95,
+        "h": 85
+    },
+    {
+        "name": "Tables Yves",
+        "x": 767,
+        "y": 282,
+        "w": 97,
+        "h": 84
+    },
+    {
+        "name": "Tables Devroom",
+        "x": 448,
+        "y": 576,
+        "w": 95,
+        "h": 160
+    },
+    {
+        "name": "Glasswall left",
+        "x": 512,
+        "y": 465,
+        "w": 64,
+        "h": 28
+    },
+    {
+        "name": "Glasswall center",
+        "x": 645,
+        "y": 411,
+        "w": 20,
+        "h": 91
+    },
+    {
+        "name": "Glasswall right",
+        "x": 735,
+        "y": 465,
+        "w": 191,
+        "h": 28
+    },
+    {
+        "name": "Glasswall vertical",
+        "x": 650,
+        "y": 503,
+        "w": 10,
+        "h": 233
+    },
+    {
+        "name": "Sofa 1",
+        "x": 736,
+        "y": 540,
+        "w": 124,
+        "h": 24
+    },
+    {
+        "name": "Sofa 2",
+        "x": 736,
+        "y": 673,
+        "w": 126,
+        "h": 25
+    },
+    {
+        "name": "Sofatable",
+        "x": 758,
+        "y": 608,
+        "w": 79,
+        "h": 15
+    },
+    {
+        "name": "Bistrodrawer",
+        "x": 130,
+        "y": 512,
+        "w": 172,
+        "h": 14
+    },
+    {
+        "name": "Bistrodoor right",
+        "x": 118,
+        "y": 420,
+        "w": 10,
+        "h": 88
+    },
+    {
+        "name": "Bistrodoor left",
+        "x": 62,
+        "y": 420,
+        "w": 10,
+        "h": 88
+    },
+    {
+        "name": "Fridge",
+        "x": 32,
+        "y": 511,
+        "w": 31,
+        "h": 14
+    },
+    {
+        "name": "Entrydoor right",
+        "x": 118,
+        "y": 225,
+        "w": 10,
+        "h": 88
+    },
+    {
+        "name": "Entrydoor left",
+        "x": 62,
+        "y": 225,
+        "w": 10,
+        "h": 88
+    },
+    {
+        "name": "Bistro Tables",
+        "x": 110,
+        "y": 587,
+        "w": 145,
+        "h": 40
+    }
+
+]

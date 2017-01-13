@@ -133,23 +133,10 @@ export default class StatePlaying extends Phaser.State {
         contactMaterialPlayerPlayer.restitution = 1;
         contactMaterialPlayerPlayer.stiffness = 10000;
 
-        this.addCollisionShape(544, 96, 95, 119); // Tables WinPC
-        this.addCollisionShape(767, 96, 95, 85); // Tables Ruben
-        this.addCollisionShape(767, 282, 97, 84); // Tables Yves
-        this.addCollisionShape(448, 576, 95, 160); // Tables Devroom
-        this.addCollisionShape(512, 465, 64, 28); // Glasswall left
-        this.addCollisionShape(645, 411, 20, 91); // Glasswall center
-        this.addCollisionShape(735, 465, 191, 28); // Glasswall right
-        this.addCollisionShape(650, 503, 10, 233); // Glasswall vertical
-        this.addCollisionShape(736, 540, 124, 24); // Sofa 1
-        this.addCollisionShape(736, 673, 126, 25); // Sofa 2
-        this.addCollisionShape(758, 608, 79, 15); // Sofatable
-        this.addCollisionShape(130, 512, 172, 14); // Bistrodrawer
-        this.addCollisionShape(118, 420, 10, 88); // Bistrodoor right
-        this.addCollisionShape(62, 420, 10, 88); // Bistrodoor left
-        this.addCollisionShape(32, 511, 31, 14); // Fridge
-        this.addCollisionShape(118, 225, 10, 88); // Entrydoor right
-        this.addCollisionShape(62, 225, 10, 88); // Entrydoor left
+        let collisionShapes = game.cache.getJSON('collision-shapes');
+        collisionShapes.forEach((shape) => {
+            this.addCollisionShape(shape.x, shape.y, shape.w, shape.h);
+        })
 
         this.layerCollisionTiles.forEach((tile) => {
             tile.setMaterial(game.physicsState.materialWall);

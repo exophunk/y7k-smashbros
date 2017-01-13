@@ -11,6 +11,7 @@ export default class StateLoadAssets extends Phaser.State {
         this.loadMap();
         this.loadCharacters();
         this.loadThrowables();
+        this.loadData();
     }
 
 
@@ -33,6 +34,11 @@ export default class StateLoadAssets extends Phaser.State {
 
     loadThrowables() {
         game.load.pack('throwables', '/build/assets/data/throwable-assets.json');
+    }
+
+
+    loadData() {
+        game.load.json('collision-shapes', '/build/assets/data/collision-shapes.json');
     }
 
 }
