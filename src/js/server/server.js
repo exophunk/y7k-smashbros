@@ -52,7 +52,10 @@ export default class Server {
 
     joinPlayer(socket, playerData) {
 
-        let playerId = new Date().getTime();
+        let id = new Date().getTime().toString();
+        id = id.substr(id.length - 6, 6);
+        let playerId = playerData.char.key + '-' + id;
+
         let player = new Player();
         player.update(playerData);
         player.id = playerId;
