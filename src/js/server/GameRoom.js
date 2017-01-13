@@ -121,7 +121,7 @@ export default class GameRoom {
         socket.broadcast.to(this.roomKey).emit('enemy_joined', player.getFullSnapshot());
 
         socket.on('update_from_client', (updates) => { this.updateFromClient(socket, updates); });
-        socket.on('player_hit', (playerId) => { this.hitPlayer(player.id); });
+        socket.on('player_hit', (hitPlayerId) => { this.hitPlayer(hitPlayerId); });
         socket.on('disconnect', () => { this.leavePlayer(socket, player.id); });
         console.log('Client (' + player.id + ') entered Room ' + this.roomKey);
     }
@@ -160,14 +160,9 @@ export default class GameRoom {
                 player.state = PlayerStates.DEAD;
             } else {
                 player.state = PlayerStates.HIT;
-
-                setTimeout(() => {
-                    player.state = PlayerStates.ALIVE;
-                }, Config.HIT_FREEZE_TIME);
-
             }
 
-            this.io.to(this.roomKey).emit('player_hit', player.getFullSnapshot());
+            this.io.to(this.roomKey).emit('player_got_hit', player.getFullSnapshot());
 
         }
 
