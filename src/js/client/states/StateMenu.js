@@ -2,6 +2,11 @@
 export default class StateMenu extends Phaser.State {
 
 	create() {
+        this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-start');
+        let scaleFactor = game.gameHeight / this.background.height;
+        this.background.anchor.setTo(0.5, 0.5);
+        this.background.scale.set(scaleFactor, scaleFactor);
+
         //this.testingShortcut();
 	}
 

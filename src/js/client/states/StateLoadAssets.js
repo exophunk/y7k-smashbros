@@ -12,6 +12,8 @@ export default class StateLoadAssets extends Phaser.State {
         this.loadMap();
         this.loadCharacters();
         this.loadThrowables();
+        this.loadImages();
+        this.loadAudio();
         this.loadData();
     }
 
@@ -42,6 +44,21 @@ export default class StateLoadAssets extends Phaser.State {
     loadData() {
         game.load.json('spawnpoints', '/build/assets/data/spawnpoints.json');
         game.load.json('collision-shapes', '/build/assets/data/collision-shapes.json');
+    }
+
+
+    loadImages() {
+        game.load.image('screen-start', '/build/assets/images/screen-start.png');
+        game.load.image('screen-playerselect', '/build/assets/images/screen-playerselect.png');
+        game.load.image('screen-name', '/build/assets/images/screen-name.png');
+        game.load.image('screen-tutorial', '/build/assets/images/screen-tutorial.png');
+        game.load.image('select-cursor', '/build/assets/images/select-cursor.png');
+        game.load.image('text-1-credit', '/build/assets/images/text-1-credit.png');
+    }
+
+
+    loadAudio() {
+
     }
 
 }

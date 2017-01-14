@@ -9,7 +9,7 @@ export default class Portrait extends Phaser.Sprite {
 
         this.key = key;
 
-        this.scale.set(3,3);
+        this.scale.set(2, 2);
         this.animations.add('walk', [0,1,2], 8, true);
         this.frame = 1;
 
