@@ -33,6 +33,8 @@ export default class StatePlaying extends Phaser.State {
         game.server.on('confirm_join', this.confirmJoin.bind(this));
         this.join();
 
+
+
 	}
 
     initMap() {
@@ -287,7 +289,7 @@ export default class StatePlaying extends Phaser.State {
     disconnected() {
         console.log('DISCONNECT FROM SERVER');
         clearTimeout(this.inputLoopTimeout);
-        this.state.start('StateMenu');
+        game.state.start('StateMenu');
     }
 
 

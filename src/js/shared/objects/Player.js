@@ -10,7 +10,7 @@ export const PlayerStates = {
 
 
 export const PlayerConfig = {
-    HEALTH: 100,
+    HEALTH: 5,
     HIT_IMMUNE_TIME: 2000,
     HIT_FREEZE_TIME: 500,
     SPAWN_FREEZE_TIME: 1000,
@@ -125,15 +125,19 @@ export default class Player {
             switch(this.char.facing) {
                 case 'left':
                     game.gameState.activeThrowable.item.anchor.setTo(1.125, 0.5);
+                    game.gameState.activeThrowable.item.overlay.anchor.setTo(1.125, 0.5);
                     break;
                 case 'right':
                     game.gameState.activeThrowable.item.anchor.setTo(-0.125, 0.5);
+                    game.gameState.activeThrowable.item.overlay.anchor.setTo(-0.125, 0.5);
                     break;
                 case 'up':
                     game.gameState.activeThrowable.item.anchor.setTo(0.5, 1.125);
+                    game.gameState.activeThrowable.item.overlay.anchor.setTo(0.5, 1.125);
                     break;
                 case 'down':
                     game.gameState.activeThrowable.item.anchor.setTo(0.5, -0.125);
+                    game.gameState.activeThrowable.item.overlay.anchor.setTo(0.5, -0.125);
                     break;
             }
         }

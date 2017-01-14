@@ -35,6 +35,7 @@ export default class StateLoadAssets extends Phaser.State {
 
     loadThrowables() {
         game.load.pack('throwables', '/build/assets/data/throwable-assets.json');
+        game.load.pack('throwable-overlays', '/build/assets/data/throwable-assets.json');
     }
 
 

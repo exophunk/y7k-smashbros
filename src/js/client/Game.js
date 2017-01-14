@@ -2,10 +2,9 @@ import StateMenu from 'client/states/StateMenu';
 import StateBoot from 'client/states/StateBoot';
 import StateLoadAssets from 'client/states/StateLoadAssets';
 import StatePlayerSelect from 'client/states/StatePlayerSelect';
+import StateNameSelect from 'client/states/StateNameSelect';
+import StateTutorial from 'client/states/StateTutorial';
 import StatePlaying from 'client/states/StatePlaying';
-
-import CharacterFactory from 'client/handler/CharacterFactory';
-import ThrowableItemFactory from 'client/handler/ThrowableItemFactory';
 
 export default class Game extends Phaser.Game {
 
@@ -20,19 +19,11 @@ export default class Game extends Phaser.Game {
         this.state.add('StateLoadAssets', StateLoadAssets, false);
         this.state.add('StateMenu', StateMenu, false);
         this.state.add('StatePlayerSelect', StatePlayerSelect, false);
+        this.state.add('StateNameSelect', StateNameSelect, false);
+        this.state.add('StateTutorial', StateTutorial, false);
         this.state.add('StatePlaying', StatePlaying, false);
 
         this.server = null;
-        this.characterFactory = new CharacterFactory();
-        this.throwableItemFactory = new ThrowableItemFactory();
-
-        this.gameState = {
-            player: null,
-            enemies: {},
-            throwables: {},
-        };
-
-        this.physicsState = {};
     }
 
     start() {
