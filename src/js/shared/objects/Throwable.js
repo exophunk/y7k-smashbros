@@ -66,8 +66,8 @@ export default class Throwable {
         }
 
         let char = game.gameState.player.char;
-        let widthThrowable = game.physics.p2.mpx(this.item.body.data.aabb.upperBound[0] - this.item.body.data.aabb.lowerBound[0]);
-        let heightThrowable = game.physics.p2.mpx(this.item.body.data.aabb.upperBound[1] - this.item.body.data.aabb.lowerBound[1]);
+        let widthThrowable = this.item.width;//game.physics.p2.mpx(this.item.body.data.aabb.upperBound[0] - this.item.body.data.aabb.lowerBound[0]);
+        let heightThrowable = this.item.height;//game.physics.p2.mpx(this.item.body.data.aabb.upperBound[1] - this.item.body.data.aabb.lowerBound[1]);
         let widthPlayer = game.physics.p2.mpx(char.body.data.aabb.upperBound[0] - char.body.data.aabb.lowerBound[0]);
         let heightPlayer = game.physics.p2.mpx(char.body.data.aabb.upperBound[1] - char.body.data.aabb.lowerBound[1]);
 
