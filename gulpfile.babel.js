@@ -7,6 +7,7 @@ import sourcemaps from 'gulp-sourcemaps'
 import webpackStream  from 'webpack-stream'
 import nodemon from 'gulp-nodemon'
 import babel from 'gulp-babel'
+import uglify from 'gulp-uglify'
 
 let production = false
 
@@ -23,7 +24,7 @@ gulp.task('build-prod', () => {
     gulp.start('build-server')
 })
 
-gulp.task('build-client', ['copy-assets', 'build-sass'], () => {
+gulp.task('build-client', ['concat-vendor', 'copy-assets', 'build-sass'], () => {
     let webpackConfig = production ? require('./webpack.client.production.config.js') : require('./webpack.client.config.js')
     webpackConfig.watch = false
     gulp.src('src/js/client/app.js')
@@ -57,6 +58,26 @@ gulp.task('copy-assets', () =>
     gulp.src(['src/assets/**/*.*'])
     .pipe(gulp.dest('public/build/assets'))
 )
+
+gulp.task('concat-vendor', () => {
+
+    if(production) {
+        gulp.src(['src/js/libs/**/*.*'])
+            .pipe(concat('libs.js'))
+            .pipe(uglify())
+            .pipe(gulp.dest('public/build/js/'))
+    } else {
+        gulp.src(['src/js/libs/**/*.*'])
+            .pipe(sourcemaps.init())
+            .pipe(concat('libs.js'))
+            .pipe(sourcemaps.write('./'))
+            .pipe(gulp.dest('public/build/js/'))
+
+    }
+
+
+})
+
 
 
 gulp.task('build-sass', function () {

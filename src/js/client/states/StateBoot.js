@@ -4,6 +4,7 @@ export default class StateBoot extends Phaser.State {
 	create() {
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.state.start('StateLoadAssets');
+        game.add.plugin(Fabrique.Plugins.InputField);
 	}
 
 
