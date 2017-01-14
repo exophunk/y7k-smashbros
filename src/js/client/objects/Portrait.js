@@ -7,6 +7,8 @@ export default class Portrait extends Phaser.Sprite {
         let spriteKey = 'sprite-' + key;
         super(game, 0, 0, spriteKey);
 
+        this.key = key;
+
         this.scale.set(3,3);
         this.animations.add('walk', [0,1,2], 8, true);
         this.frame = 1;

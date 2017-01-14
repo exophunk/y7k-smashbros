@@ -40,7 +40,7 @@ export default class Player {
 
 
     initClient(charKey) {
-        this.char = game.characterFactory.get(charKey);
+        this.char = game.characterFactory.getCharacter(charKey);
         this.char.isHost = this.isHost;
         this.char.player = this;
     }
