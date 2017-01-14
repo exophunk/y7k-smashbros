@@ -14,6 +14,7 @@ export default class StateNameSelect extends Phaser.State {
         this.nameField = game.add.inputField(nameFieldX, nameFieldY, {
             width: nameFieldWidth,
             padding: padding,
+            blockInput: true,
             fillAlpha: 0,
             textAlign: 'center',
             font: fontSize +'px Arial',
@@ -23,8 +24,23 @@ export default class StateNameSelect extends Phaser.State {
         });
 
         this.nameField.startFocus();
+        this.keyListenerFunc = this.checkKeydown.bind(this);
+        document.addEventListener('keydown', this.keyListenerFunc);
 	}
 
+
+    checkKeydown(e) {
+        if(e.keyCode == Phaser.Keyboard.ENTER || e.keyCode == Phaser.Keyboard.SPACEBAR) {
+            this.nextStep();
+        }
+    }
+
+
+    nextStep() {
+        this.nameField.endFocus();
+        document.removeEventListener('keydown', this.keyListenerFunc);
+        game.state.start('StateTutorial');
+    }
 
 
 }
