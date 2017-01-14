@@ -30,7 +30,7 @@ export default class StatePlayerSelect extends Phaser.State {
 	}
 
 
-    startGame() {
+    nextStep() {
         let chosenCharacterKey = this.portraits.getAt(this.selectIndex).key;
         game.gameState.selectedCharKey = chosenCharacterKey;
         game.state.start('StateNameSelect');
@@ -38,8 +38,8 @@ export default class StatePlayerSelect extends Phaser.State {
 
     update() {
 
-        if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-            this.startGame();
+        if (game.input.keyboard.isDown(Phaser.Keyboard.ENTER) || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            this.nextStep();
         }
 
         if (this.cursors.left.isDown && !this.leftPressed) {

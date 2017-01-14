@@ -2,13 +2,18 @@
 export default class StateMenu extends Phaser.State {
 
 	create() {
-        let button = game.add.button(game.world.centerX, game.world.centerY, 'btn_start', this.startSelectPlayer, this);
-
         //this.testingShortcut();
 	}
 
 
-    startSelectPlayer() {
+    update() {
+        if (game.input.keyboard.isDown(Phaser.Keyboard.ENTER) || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+            this.nextStep();
+        }
+    }
+
+
+    nextStep() {
         game.state.start('StatePlayerSelect');
     }
 
