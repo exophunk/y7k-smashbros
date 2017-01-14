@@ -2,18 +2,36 @@
     "throwables": [
         {
             "type": "image",
-            "key": "obj-chair-right",
+            "key": "sprite-chair-right",
             "url": "build/assets/sprites/throwables/obj-chair-right.png"
         },
         {
             "type": "image",
-            "key": "obj-plant-1",
+            "key": "sprite-plant-1",
             "url": "build/assets/sprites/throwables/obj-plant-1.png"
         },
         {
             "type": "image",
-            "key": "obj-plant-2",
+            "key": "sprite-plant-2",
             "url": "build/assets/sprites/throwables/obj-plant-2.png"
+        }
+    ],
+
+    "throwable-overlays": [
+        {
+            "type": "image",
+            "key": "overlay-chair-right",
+            "url": "build/assets/sprites/throwables/overlay-chair-right.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-plant-1",
+            "url": "build/assets/sprites/throwables/overlay-plant-1.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-plant-2",
+            "url": "build/assets/sprites/throwables/overlay-plant-2.png"
         }
     ]
 }

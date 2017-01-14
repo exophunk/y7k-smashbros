@@ -3,19 +3,19 @@
         "id": 1,
         "x" : 530,
         "y": 400,
-        "key": "obj-chair-right"
+        "key": "chair-right"
     },
     {
         "id": 2,
         "x" : 600,
         "y": 400,
-        "key": "obj-plant-1"
+        "key": "plant-1"
     },
     {
         "id": 3,
         "x" : 650,
         "y": 400,
-        "key": "obj-plant-2"
+        "key": "plant-2"
     }
 ]
 

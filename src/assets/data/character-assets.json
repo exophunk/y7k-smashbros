@@ -2,7 +2,7 @@
 {
     "gabriella": [
         {
-            "key": "gabriella-sprite",
+            "key": "sprite-gabriella",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-gabriella.png",
             "frameWidth": 32,
@@ -12,7 +12,7 @@
             "spacing": 0
         },
         {
-            "key": "gabriella-portrait",
+            "key": "portrait-gabriella",
             "type": "image",
             "url": "build/assets/images/portraits/char-portrait-gabriella.png",
             "overwrite": false
@@ -21,7 +21,7 @@
 
     "joris": [
         {
-            "key": "joris-sprite",
+            "key": "sprite-joris",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-joris.png",
             "frameWidth": 32,
@@ -31,7 +31,7 @@
             "spacing": 0
         },
         {
-            "key": "joris-portrait",
+            "key": "portrait-joris",
             "type": "image",
             "url": "build/assets/images/portraits/char-portrait-joris.png",
             "overwrite": false
@@ -40,7 +40,7 @@
 
     "julie": [
         {
-            "key": "julie-sprite",
+            "key": "sprite-julie",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-julie.png",
             "frameWidth": 32,
@@ -50,7 +50,7 @@
             "spacing": 0
         },
         {
-            "key": "julie-portrait",
+            "key": "portrait-julie",
             "type": "image",
             "url": "build/assets/images/portraits/char-portrait-julie.png",
             "overwrite": false
@@ -59,7 +59,7 @@
 
     "robert": [
         {
-            "key": "robert-sprite",
+            "key": "sprite-robert",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-robert.png",
             "frameWidth": 32,
@@ -69,7 +69,7 @@
             "spacing": 0
         },
         {
-            "key": "robert-portrait",
+            "key": "portrait-robert",
             "type": "image",
             "url": "build/assets/images/portraits/char-portrait-robert.png",
             "overwrite": false
@@ -78,7 +78,7 @@
 
     "ruben": [
         {
-            "key": "ruben-sprite",
+            "key": "sprite-ruben",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-ruben.png",
             "frameWidth": 32,
@@ -88,7 +88,7 @@
             "spacing": 0
         },
         {
-            "key": "ruben-portrait",
+            "key": "portrait-ruben",
             "type": "image",
             "url": "build/assets/images/portraits/char-portrait-ruben.png",
             "overwrite": false
@@ -97,7 +97,7 @@
 
     "tore": [
         {
-            "key": "tore-sprite",
+            "key": "sprite-tore",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-tore.png",
             "frameWidth": 32,
@@ -107,7 +107,7 @@
             "spacing": 0
         },
         {
-            "key": "tore-portrait",
+            "key": "portrait-tore",
             "type": "image",
             "url": "build/assets/images/portraits/char-portrait-tore.png",
             "overwrite": false
@@ -116,7 +116,7 @@
 
     "yassin": [
         {
-            "key": "yassin-sprite",
+            "key": "sprite-yassin",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-yassin.png",
             "frameWidth": 32,
@@ -126,7 +126,7 @@
             "spacing": 0
         },
         {
-            "key": "yassin-portrait",
+            "key": "portrait-yassin",
             "type": "image",
             "url": "build/assets/images/portraits/char-portrait-yassin.png",
             "overwrite": false
@@ -135,7 +135,7 @@
 
     "yves": [
         {
-            "key": "yves-sprite",
+            "key": "sprite-yves",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-yves.png",
             "frameWidth": 32,
@@ -145,7 +145,7 @@
             "spacing": 0
         },
         {
-            "key": "yves-portrait",
+            "key": "portrait-yves",
             "type": "image",
             "url": "build/assets/images/portraits/char-portrait-yves.png",
             "overwrite": false

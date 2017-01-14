@@ -3,11 +3,19 @@ import {ThrowableStates} from 'shared/objects/Throwable';
 
 export default class ThrowableItem extends Phaser.Sprite {
 
-    constructor(spriteKey) {
+    constructor(key) {
+        let spriteKey = 'sprite-' + key;
+        let overlayKey = 'overlay-' + key;
         super(game, 0, 0, spriteKey);
+
 
         this.throwable = null;
         this.anchor.setTo(0.5,0.5);
+
+        this.overlay = game.add.sprite(0, 0, overlayKey, this.paintLayerThrowables);
+        this.overlay.anchor.setTo(0.5,0.5);
+        this.overlay.alpha = 0;
+        game.time.events.repeat(ThrowableConfig.GLOW_ANIM_FREQUENCY, Number.MAX_VALUE, this.showObjectGlow, this);
     }
 
 
@@ -26,6 +34,8 @@ export default class ThrowableItem extends Phaser.Sprite {
             game.physicsState.throwablesActiveCollisionGroup,
             game.physicsState.throwablesCollisionGroup
         ]);
+
+        this.addChild(this.overlay);
     }
 
 
@@ -50,14 +60,11 @@ export default class ThrowableItem extends Phaser.Sprite {
     }
 
 
-    // glow(speed, duration) {
-    //     let repetitions = Math.floor(duration / speed) - 1;
-    //     game.add.tween(this).to( { alpha: 0 }, speed/2, Phaser.Easing.Linear.None, true, 0, repetitions, true);
-
-    //     setTimeout(() => {
-    //         this.alpha = 1;
-    //     }, duration);
-    // }
+    showObjectGlow() {
+        if(this.throwable.isIdle()) {
+            game.add.tween(this.overlay).to( { alpha: 0.4 }, ThrowableConfig.GLOW_ANIM_SPEED, Phaser.Easing.Linear.None, true, 0, 0, true);
+        }
+    }
 
 
 }
