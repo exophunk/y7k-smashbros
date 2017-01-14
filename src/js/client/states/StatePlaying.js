@@ -121,11 +121,11 @@ export default class StatePlaying extends Phaser.State {
 
         let contactMaterialPlayerWall = game.physics.p2.createContactMaterial(game.physicsState.materialPlayer, game.physicsState.materialWall);
         contactMaterialPlayerWall.restitution = 1;
-        contactMaterialPlayerWall.stiffness = 10000;
+        contactMaterialPlayerWall.stiffness = 8000;
 
         let contactMaterialPlayerThrowable = game.physics.p2.createContactMaterial(game.physicsState.materialPlayer, game.physicsState.materialThrowable);
         contactMaterialPlayerThrowable.restitution = 0.2;
-        contactMaterialPlayerThrowable.stiffness = 5000;
+        contactMaterialPlayerThrowable.stiffness = 8000;
 
         let contactMaterialWallThrowable = game.physics.p2.createContactMaterial(game.physicsState.materialWall, game.physicsState.materialThrowable);
         contactMaterialWallThrowable.restitution = 0.2;
@@ -137,7 +137,7 @@ export default class StatePlaying extends Phaser.State {
 
         let contactMaterialPlayerPlayer = game.physics.p2.createContactMaterial(game.physicsState.materialPlayer, game.physicsState.materialPlayer);
         contactMaterialPlayerPlayer.restitution = 1;
-        contactMaterialPlayerPlayer.stiffness = 10000;
+        contactMaterialPlayerPlayer.stiffness = 8000;
 
         let collisionShapes = game.cache.getJSON('collision-shapes');
         collisionShapes.forEach((shape) => {
