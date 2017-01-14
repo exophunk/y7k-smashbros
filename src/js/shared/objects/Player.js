@@ -26,6 +26,8 @@ export default class Player {
         this.isHost = isHost;
         this.health = PlayerConfig.HEALTH;
         this.state = PlayerStates.SPAWNED;
+        this.score = 0;
+        this.name = 'Unknown Player';
 
         if(isClient) {
             this.initClient(charKey);
@@ -154,6 +156,8 @@ export default class Player {
         return {
             id: this.id,
             health: this.health,
+            name: this.name,
+            score: this.score,
             state: this.state,
             char: {
                 key: this.char.key,
