@@ -4,20 +4,15 @@ export default class Character extends Phaser.Sprite {
 
     constructor(key, name) {
 
-        let spriteKey = key + '-sprite';
+        let spriteKey = 'sprite-' + key;
         super(game, 0, 0, spriteKey, 1);
-
+        this.key = key;
         this.player = null;
         this.isHost = false;
-        this.key = key;
-        this.spriteKey = spriteKey;
-        this.portraitKey = key + '-portrait';
-        this.jingleKey = key + '-jingle';
+        this.name = name;
         this.facing = 'idle';
         this.isMoving = false;
         this.anchor.setTo(0.5,0.5);
-        //this.portraitImage = game.cache.getImage(portraitKey);
-        //this.portraitJingle = game.cache.getSound(jingleKey);
 
         this.addAnimations();
     }
@@ -28,7 +23,7 @@ export default class Character extends Phaser.Sprite {
         this.animations.add('walk-left', [3,4,5], 8, true);
         this.animations.add('walk-right', [6,7,8], 8, true);
         this.animations.add('walk-up', [9,10,11], 8, true);
-        //this.frame = 1;
+        this.frame = 1;
     }
 
 
