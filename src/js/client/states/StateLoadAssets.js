@@ -2,9 +2,7 @@
 export default class StateLoadAssets extends Phaser.State {
 
 	create() {
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        game.state.start('StateMenu');
-        //game.state.start('StatePlayerSelect');
+        game.state.start('StatePrepareAssets');
 	}
 
 
