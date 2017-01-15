@@ -13,6 +13,7 @@ export default class StateLoadAssets extends Phaser.State {
         this.loadImages();
         this.loadAudio();
         this.loadData();
+        this.loadFonts();
     }
 
 
@@ -63,6 +64,11 @@ export default class StateLoadAssets extends Phaser.State {
 
 
     loadAudio() {
+    loadFonts() {
+        game.load.bitmapFont('font-white', '/build/assets/fonts/font-white.png', '/build/assets/fonts/font-white.fnt');
+        game.load.bitmapFont('font-white-big', '/build/assets/fonts/font-white-big.png', '/build/assets/fonts/font-white-big.fnt');
+        game.load.bitmapFont('font-color', '/build/assets/fonts/font-color.png', '/build/assets/fonts/font-color.fnt');
+    }
 
     }
 
