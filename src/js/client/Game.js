@@ -14,12 +14,14 @@ export default class Game extends Phaser.Game {
         // const canvasWidth = window.innerWidth * window.devicePixelRatio * 0.6;
         // const canvasHeight = window.innerHeight * window.devicePixelRatio * 0.6;
 
-        let gameWidth, gameHeight;
+        let gameWidth, gameHeight, mobile;
 
         if(window.innerWidth > 667) {
+            mobile = false;
             gameWidth = 640;
             gameHeight = 480;
         } else {
+            mobile = true;
             gameWidth = 667;
             gameHeight = 375;
         }
@@ -38,6 +40,9 @@ export default class Game extends Phaser.Game {
         this.server = null;
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
+        this.mobile = mobile;
+        this.scaleFactor = this.gameHeight / 480;
+
     }
 
     start() {
