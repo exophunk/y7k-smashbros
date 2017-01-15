@@ -55,21 +55,28 @@ export default class StateLoadAssets extends Phaser.State {
 
     loadImages() {
         game.load.image('screen-start', '/build/assets/images/screen-start.png');
-        game.load.image('screen-playerselect', '/build/assets/images/screen-playerselect.png');
-        game.load.image('screen-name', '/build/assets/images/screen-name.png');
-        game.load.image('screen-tutorial', '/build/assets/images/screen-tutorial.png');
+        game.load.image('screen-background', '/build/assets/images/screen-background.png');
+        // game.load.image('screen-playerselect', '/build/assets/images/screen-playerselect.png');
+        // game.load.image('screen-name', '/build/assets/images/screen-name.png');
+        // game.load.image('screen-tutorial', '/build/assets/images/screen-tutorial.png');
+        game.load.image('portrait-box', '/build/assets/images/portrait-box.png');
+        game.load.image('name-box', '/build/assets/images/name-box.png');
+        game.load.image('tutorial-box', '/build/assets/images/tutorial-box.png');
         game.load.image('select-cursor', '/build/assets/images/select-cursor.png');
-        game.load.image('text-1-credit', '/build/assets/images/text-1-credit.png');
     }
 
 
-    loadAudio() {
     loadFonts() {
         game.load.bitmapFont('font-white', '/build/assets/fonts/font-white.png', '/build/assets/fonts/font-white.fnt');
         game.load.bitmapFont('font-white-big', '/build/assets/fonts/font-white-big.png', '/build/assets/fonts/font-white-big.fnt');
         game.load.bitmapFont('font-color', '/build/assets/fonts/font-color.png', '/build/assets/fonts/font-color.fnt');
     }
 
+
+    loadAudio() {
+        game.load.audio('click', '/build/assets/audio/click.mp3');
+        game.load.audio('click-ok', '/build/assets/audio/click-ok.mp3');
+        game.load.audio('music', '/build/assets/audio/music-wham.mp3');
     }
 
 }

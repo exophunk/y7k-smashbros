@@ -18,6 +18,8 @@ export default class StateBoot extends Phaser.State {
         };
 
         game.physicsState = {};
+        game.sounds = {};
+        game.texts = {};
 
         game.state.start('StateLoadAssets');
 	}

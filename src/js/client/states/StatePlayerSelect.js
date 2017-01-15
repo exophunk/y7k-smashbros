@@ -4,47 +4,56 @@ export default class StatePlayerSelect extends Phaser.State {
 
 	create() {
 
+        this.selectIndex = 0;
+
         this.initBackground();
         this.initPortraits();
         this.initCursor();
         this.initControls();
 
-        this.portraits.getAt(this.selectIndex).select();
+        this.portraits[this.selectIndex].select();
 	}
 
 
     initBackground() {
-        this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-playerselect');
-        this.scaleFactor = game.gameHeight / this.background.height;
+        this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
         this.background.anchor.setTo(0.5, 0.5);
-        this.background.scale.set(this.scaleFactor, this.scaleFactor);
+        this.background.scale.set(game.scaleFactor, game.scaleFactor);
+
+        let titleText = game.add.bitmapText(0, 0, 'font-color', game.texts.TITLE_SELECT_PLAYER, 38);
+        titleText.anchor.setTo(0.5, 0);
+        titleText.position.setTo(game.world.centerX, 40);
+
+        let textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
+        textContinue.anchor.setTo(0.5, 1);
+        textContinue.position.setTo(game.world.centerX, game.world.height - 40);
     }
 
 
     initCursor() {
-        this.cursor = game.add.image(this.portraits.x - 12, this.portraits.y - 13, 'select-cursor');
-        this.cursor.scale.set(this.scaleFactor, this.scaleFactor);
+        this.selectCursor = game.add.image(0, 0, 'select-cursor');
+        this.selectCursor.scale.set(game.scaleFactor, game.scaleFactor);
+        this.moveCursor(this.selectIndex, false);
     }
 
 
     initPortraits() {
-        this.portraits = game.add.group();
-        this.selectIndex = 0;
-        this.selectPosX = 0;
-        this.selectPosY = 0;
 
-        game.characterFactory.getAllPortraits().forEach((portrait) => {
-            this.portraits.add(portrait);
+        this.portraitBoxes = game.add.group();
+        this.portraits = game.characterFactory.getAllPortraits();
+
+        this.portraits.forEach((portrait) => {
+            this.portraitBoxes.add(portrait.portraitBox);
         });
 
-        let paddingX = 35;
-        let paddingY = 70;
-        let portraitWidth = this.portraits.getAt(0).width + paddingX;
-        let portraitHeight = this.portraits.getAt(0).height + paddingY;
+        let paddingX = 20;
+        let paddingY = 40;
+        let gridWidth = this.portraitBoxes.getAt(0).width + paddingX;
+        let gridHeight = this.portraitBoxes.getAt(0).height + paddingY;
+        this.portraitBoxes.align(4, -1, gridWidth, gridHeight);
+        this.portraitBoxes.x = game.world.centerX - ((4 * gridWidth) / 2) + (paddingX / 2);
+        this.portraitBoxes.y = game.world.centerY - ((2 * gridHeight) / 2) + (paddingY / 2);
 
-        this.portraits.align(4, -1, portraitWidth, portraitHeight);
-        this.portraits.x = game.world.centerX - ((4 * portraitWidth) / 2) + (paddingX / 2);
-        this.portraits.y = game.world.centerY - ((2 * portraitHeight) / 2) + (paddingY / 2) - 8;
     }
 
 
@@ -58,8 +67,10 @@ export default class StatePlayerSelect extends Phaser.State {
 
 
     nextStep() {
-        let chosenCharacterKey = this.portraits.getAt(this.selectIndex).key;
+        let chosenCharacterKey = this.portraits[this.selectIndex].key;
         game.gameState.selectedCharKey = chosenCharacterKey;
+
+        game.sounds.clickOk.play();
         game.state.start('StateNameSelect');
     }
 
@@ -73,22 +84,22 @@ export default class StatePlayerSelect extends Phaser.State {
         if (this.cursors.left.isDown && !this.leftPressed) {
             this.leftPressed = true;
             if(this.selectIndex - 1 >= 0 && this.selectIndex != 4) {
-                this.moveCursor(this.selectIndex - 1);
+                this.moveCursor(this.selectIndex - 1, true);
             }
         } else if (this.cursors.right.isDown && !this.rightPressed) {
             this.rightPressed = true;
             if(this.selectIndex + 1 < this.portraits.length && this.selectIndex != 3) {
-                this.moveCursor(this.selectIndex + 1);
+                this.moveCursor(this.selectIndex + 1, true);
             }
         } else if (this.cursors.up.isDown && !this.upPressed) {
             this.upPressed = true;
             if(this.selectIndex - 4 >= 0) {
-                this.moveCursor(this.selectIndex - 4);
+                this.moveCursor(this.selectIndex - 4, true);
             }
         } else if (this.cursors.down.isDown && !this.downPressed) {
             this.downPressed = true;
             if(this.selectIndex + 4 < this.portraits.length) {
-                this.moveCursor(this.selectIndex + 4);
+                this.moveCursor(this.selectIndex + 4, true);
             }
         }
 
@@ -100,14 +111,22 @@ export default class StatePlayerSelect extends Phaser.State {
     }
 
 
-    moveCursor(newIndex) {
+    moveCursor(newIndex, animate) {
+        this.portraits[this.selectIndex].deselect();
         this.selectIndex = newIndex;
-        this.portraits.callAll('deselect');
-        this.portraits.getAt(this.selectIndex).select();
+        this.portraits[this.selectIndex].select();
 
-        let newCursorX = this.portraits.x + this.portraits.getAt(this.selectIndex).x - 12;
-        let newCursorY = this.portraits.y + this.portraits.getAt(this.selectIndex).y - 13;
-        game.add.tween(this.cursor).to( { x: newCursorX, y: newCursorY }, 100, Phaser.Easing.Linear.None, true);
+        let newCursorX = this.portraitBoxes.x + this.portraits[this.selectIndex].portraitBox.x;
+        let newCursorY = this.portraitBoxes.y + this.portraits[this.selectIndex].portraitBox.y;
+
+        if(animate) {
+            game.sounds.click.play();
+            game.add.tween(this.selectCursor).to( { x: newCursorX, y: newCursorY }, 100, Phaser.Easing.Linear.None, true);
+        } else {
+            this.selectCursor.position.setTo(newCursorX, newCursorY);
+        }
+
+
     }
 
     preload() {
