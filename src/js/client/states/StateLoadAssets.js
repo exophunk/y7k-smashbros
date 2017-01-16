@@ -67,6 +67,7 @@ export default class StateLoadAssets extends Phaser.State {
 
 
     loadFonts() {
+        game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
         game.load.bitmapFont('font-white', '/build/assets/fonts/font-white.png', '/build/assets/fonts/font-white.fnt');
         game.load.bitmapFont('font-white-big', '/build/assets/fonts/font-white-big.png', '/build/assets/fonts/font-white-big.fnt');
         game.load.bitmapFont('font-color', '/build/assets/fonts/font-color.png', '/build/assets/fonts/font-color.fnt');
