@@ -2,7 +2,7 @@
 @import "vendor/normalize.3.0.3.min";
 
 body {
-    background: #333;
+    background: #333 url('/build/assets/images/bg-texture.png') left top;
 }
 
 @mixin bp-s() {
@@ -13,10 +13,10 @@ body {
 
 .game-wrapper {
     position: absolute;
-    width: 110vmin;
-    height: 85vmin;
-    max-width: 1280px;
-    max-height: 960px;
+    width: 97vmin;
+    height: 75vmin;
+    max-width: 1024px;
+    max-height: 768px;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
