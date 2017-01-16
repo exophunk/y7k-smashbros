@@ -15,6 +15,8 @@ export default class StateBoot extends Phaser.State {
             player: null,
             enemies: {},
             throwables: {},
+            selectedCharKey: null,
+            selectedName: null,
         };
 
         game.physicsState = {};

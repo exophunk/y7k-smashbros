@@ -20,14 +20,14 @@ export const PlayerConfig = {
 export default class Player {
 
 
-	constructor(charKey, isHost) {
+	constructor(charKey, name, isHost) {
 
         this.id = null;
         this.isHost = isHost;
         this.health = PlayerConfig.HEALTH;
         this.state = PlayerStates.SPAWNED;
         this.score = 0;
-        this.name = 'Unknown Player';
+        this.name = name;
 
         if(isClient) {
             this.initClient(charKey);
@@ -43,6 +43,7 @@ export default class Player {
         this.char = game.characterFactory.getCharacter(charKey);
         this.char.isHost = this.isHost;
         this.char.player = this;
+        this.char.addNameText(this.name);
     }
 
 

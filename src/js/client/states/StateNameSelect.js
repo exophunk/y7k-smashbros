@@ -31,11 +31,11 @@ export default class StateNameSelect extends Phaser.State {
         this.nameBox = game.add.sprite(game.world.centerX, game.world.centerY, 'name-box');
         this.nameBox.anchor.setTo(0.5,0.5);
 
-        let fontSize = 40;
+        let fontSize = 25;
         let nameFieldWidth = 400;
         let nameFieldHeight = fontSize;
         let nameFieldX = game.world.centerX - nameFieldWidth / 2;
-        let nameFieldY = game.world.centerY - nameFieldHeight / 2 - 5;
+        let nameFieldY = game.world.centerY - nameFieldHeight / 2;
 
         this.nameField = game.add.inputField(nameFieldX, nameFieldY, {
             width: nameFieldWidth,
@@ -43,10 +43,12 @@ export default class StateNameSelect extends Phaser.State {
             blockInput: true,
             fillAlpha: 0,
             textAlign: 'center',
-            font: fontSize +'px arial',
-            fontWeight: 'bold',
+            font: fontSize +'px Press Start 2P',
+            fontWeight: 'normal',
             fill: '#ffffff',
             cursorColor: '#ffffff',
+            focusOutOnEnter: false,
+            max: 10
         });
 
         this.nameField.startFocus();
@@ -56,7 +58,18 @@ export default class StateNameSelect extends Phaser.State {
 
     checkKeydown(e) {
         if(e.keyCode == Phaser.Keyboard.ENTER || e.keyCode == Phaser.Keyboard.SPACEBAR) {
-            this.nextStep();
+            let name = this.nameField.value;
+
+            if(name.length > 3 && name.length < 10) {
+                game.gameState.selectedName = this.nameField.value;
+                this.nextStep();
+            } else {
+                setTimeout(() => {
+                    this.nameField.startFocus();
+                }, 500);
+
+            }
+
         }
     }
 
