@@ -19,6 +19,7 @@ export default class StateBoot extends Phaser.State {
             selectedName: null,
         };
 
+        game.paintLayers = {};
         game.physicsState = {};
         game.sounds = {};
         game.texts = {};

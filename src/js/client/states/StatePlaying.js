@@ -17,12 +17,14 @@ export default class StatePlaying extends Phaser.State {
 
         game.stage.disableVisibilityChange = true;
 
+
         this.level = game.add.group();
-        this.paintLayerBackground = game.add.group(this.level);
-        this.paintLayerThrowables = game.add.group(this.level);
-        this.paintLayerChars = game.add.group(this.level);
-        this.paintLayerOverlay = game.add.group(this.level);
-        this.paintLayerCollisionBodies = game.add.group(this.level);
+        game.paintLayers.background = game.add.group(this.level);
+        game.paintLayers.throwables = game.add.group(this.level);
+        game.paintLayers.chars = game.add.group(this.level);
+        game.paintLayers.overlay = game.add.group(this.level);
+        game.paintLayers.collisionBodies = game.add.group(this.level);
+        game.paintLayers.ui = game.add.group();
 
         this.initMap();
         this.initPhysics();
@@ -44,12 +46,12 @@ export default class StatePlaying extends Phaser.State {
         this.map = game.add.tilemap('tilemap_data');
         this.map.addTilesetImage('tileset_1', 'tilemap_tiles');
 
-        this.layerCollision = this.map.createLayer('collision', null, null, this.paintLayerBackground);
-        this.layerGround = this.map.createLayer('ground', null, null, this.paintLayerBackground);
-        this.layerGround2 = this.map.createLayer('ground2', null, null, this.paintLayerBackground);
-        this.layerWalls = this.map.createLayer('walls', null, null, this.paintLayerBackground);
-        this.layerFurniture = this.map.createLayer('furniture', null, null, this.paintLayerBackground);
-        this.layerDeco = this.map.createLayer('deco', null, null, this.paintLayerOverlay);
+        this.layerCollision = this.map.createLayer('collision', null, null, game.paintLayers.background);
+        this.layerGround = this.map.createLayer('ground', null, null, game.paintLayers.background);
+        this.layerGround2 = this.map.createLayer('ground2', null, null, game.paintLayers.background);
+        this.layerWalls = this.map.createLayer('walls', null, null, game.paintLayers.background);
+        this.layerFurniture = this.map.createLayer('furniture', null, null, game.paintLayers.background);
+        this.layerDeco = this.map.createLayer('deco', null, null, game.paintLayers.overlay);
         this.layerGround.resizeWorld();
 
     }
@@ -65,7 +67,7 @@ export default class StatePlaying extends Phaser.State {
         player.setPos(randomSpawnPoint.x,randomSpawnPoint.y);
 
         player.char.blink(250, PlayerConfig.SPAWN_FREEZE_TIME);
-        this.paintLayerChars.add(player.char);
+        game.paintLayers.chars.add(player.char);
         game.gameState.player = player;
 
         setTimeout(() => {
@@ -154,7 +156,7 @@ export default class StatePlaying extends Phaser.State {
 
 
     addCollisionShape(x, y, w, h) {
-        let collisionShape = game.add.sprite(x + w/2, y + h/2, 'collision_dummy', this.paintLayerCollisionBodies);
+        let collisionShape = game.add.sprite(x + w/2, y + h/2, 'collision_dummy', game.paintLayers.collisionBodies);
         game.physics.p2.enable(collisionShape, game.isDebug);
         collisionShape.body.static = true;
         collisionShape.body.setRectangle(w,h);
@@ -400,7 +402,7 @@ export default class StatePlaying extends Phaser.State {
         enemy.char.setPhysics();
         enemy.update(enemySnapshot);
         game.gameState.enemies[enemy.id] = enemy;
-        this.paintLayerChars.add(enemy.char);
+        game.paintLayers.chars.add(enemy.char);
         console.log('Enemy joined');
     }
 
@@ -419,7 +421,7 @@ export default class StatePlaying extends Phaser.State {
         throwable.item.setPhysics();
         throwable.update(throwableSnapshot);
         game.gameState.throwables[throwable.id] = throwable;
-        this.paintLayerThrowables.add(throwable.item);
+        game.paintLayers.throwables.add(throwable.item);
     }
 
 
