@@ -39,7 +39,6 @@ export default class Character extends Phaser.Sprite {
         this.nameText.anchor.setTo(0.5, 1);
         this.nameText.position.setTo(0, - this.height / 2 - 5);
         //this.nameText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 0);
-        this.addChild(this.nameText);
         //game.paintLayers.ui.add(this.nameText);
     }
 
@@ -60,6 +59,8 @@ export default class Character extends Phaser.Sprite {
             this.body.collides([game.physicsState.backgroundCollisionGroup, game.physicsState.playerCollisionGroup, game.physicsState.throwablesCollisionGroup]);
             this.body.collides(game.physicsState.throwablesActiveCollisionGroup, this.player.hitAsEnemy, this.player);
         }
+
+        this.addChild(this.nameText);
     }
 
 
