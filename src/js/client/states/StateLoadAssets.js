@@ -20,7 +20,6 @@ export default class StateLoadAssets extends Phaser.State {
     loadMap() {
         game.load.tilemap('tilemap_data', '/build/assets/tilemaps/tilemap-y7k.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('tilemap_tiles', '/build/assets/tilemaps/tilemap-y7k.png');
-        game.load.image('collision_dummy', '/build/assets/sprites/other/collision-dummy.png');
     }
 
 
@@ -56,9 +55,6 @@ export default class StateLoadAssets extends Phaser.State {
     loadImages() {
         game.load.image('screen-start', '/build/assets/images/screen-start.png');
         game.load.image('screen-background', '/build/assets/images/screen-background.png');
-        // game.load.image('screen-playerselect', '/build/assets/images/screen-playerselect.png');
-        // game.load.image('screen-name', '/build/assets/images/screen-name.png');
-        // game.load.image('screen-tutorial', '/build/assets/images/screen-tutorial.png');
         game.load.image('portrait-box', '/build/assets/images/portrait-box.png');
         game.load.image('name-box', '/build/assets/images/name-box.png');
         game.load.image('tutorial-box', '/build/assets/images/tutorial-box.png');

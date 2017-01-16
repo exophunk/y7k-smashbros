@@ -23,7 +23,6 @@ export default class StatePlaying extends Phaser.State {
         game.paintLayers.throwables = game.add.group(this.level);
         game.paintLayers.chars = game.add.group(this.level);
         game.paintLayers.overlay = game.add.group(this.level);
-        game.paintLayers.collisionBodies = game.add.group(this.level);
         game.paintLayers.ui = game.add.group();
 
         this.initMap();
@@ -156,7 +155,7 @@ export default class StatePlaying extends Phaser.State {
 
 
     addCollisionShape(x, y, w, h) {
-        let collisionShape = game.add.sprite(x + w/2, y + h/2, 'collision_dummy', game.paintLayers.collisionBodies);
+        let collisionShape = game.add.sprite(x + w/2, y + h/2, null);
         game.physics.p2.enable(collisionShape, game.isDebug);
         collisionShape.body.static = true;
         collisionShape.body.setRectangle(w,h);
