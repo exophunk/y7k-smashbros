@@ -114,11 +114,11 @@
         }
     ],
 
-    "yassin": [
+    "yassine": [
         {
-            "key": "sprite-yassin",
+            "key": "sprite-yassine",
             "type": "spritesheet",
-            "url": "build/assets/sprites/chars/char-yassin.png",
+            "url": "build/assets/sprites/chars/char-yassine.png",
             "frameWidth": 32,
             "frameHeight": 32,
             "frameMax": 12,
@@ -126,9 +126,9 @@
             "spacing": 0
         },
         {
-            "key": "portrait-yassin",
+            "key": "portrait-yassine",
             "type": "image",
-            "url": "build/assets/images/portraits/char-portrait-yassin.png",
+            "url": "build/assets/images/portraits/char-portrait-yassine.png",
             "overwrite": false
         }
     ],
