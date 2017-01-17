@@ -15,6 +15,7 @@ export default class GameRoom {
         this.roomKey = roomKey;
         this.data = data;
         this.updateCounter = 0;
+        this.forceFullWorldSnapshot = false;
 
         this.state = {
             players: {},
@@ -72,7 +73,8 @@ export default class GameRoom {
         this.updateCounter++;
 
         let snapshot;
-        if(this.updateCounter%(ServerConfig.UPDATE_RATE * 3) == 0) {
+        if(this.updateCounter%(ServerConfig.UPDATE_RATE * 3) == 0 || this.forceFullWorldSnapshot) {
+            this.forceFullWorldSnapshot = false;
             snapshot = this.getWorldSnapshot();
         } else {
             snapshot = this.getWorldDelta();
