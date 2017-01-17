@@ -19,7 +19,7 @@ export default class StateMenu extends Phaser.State {
         textFooter1.anchor.setTo(1, 1);
         textFooter1.position.setTo(game.world.width - 10, game.world.height - 10 - textFooter2.height - 3);
 
-        game.time.events.loop(Phaser.Timer.SECOND, () => {
+        game.time.events.loop(700, () => {
             textFooter1.alpha = textFooter1.alpha ? 0 : 1;
         }, this);
 
