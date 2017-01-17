@@ -14,7 +14,9 @@ export default class GameRoom {
         this.io = io;
         this.roomKey = roomKey;
         this.data = data;
+        this.playTime = 0;
         this.updateCounter = 0;
+        this.openedOn = new Date();
         this.forceFullWorldSnapshot = false;
 
         this.state = {
@@ -48,11 +50,12 @@ export default class GameRoom {
 
 
     debugLoop() {
-        // console.log('----------');
-        // Object.keys(this.state.players).forEach((id) => {
-        //     console.log(JSON.stringify(this.state.players[id]));
-        // });
-        this.debugLoopTimeout = setTimeout(this.debugLoop.bind(this), 2000);
+        console.log('----------');
+        console.log('THROWABLES: ' + Object.keys(this.state.throwables).length);
+        Object.values(this.state.throwables).forEach((throwable) => {
+            console.log(throwable.item.body.x, throwable.item.body.y);
+        });
+        this.debugLoopTimeout = setTimeout(this.debugLoop.bind(this), 1000);
     }
 
 
@@ -132,11 +135,13 @@ export default class GameRoom {
 
         const confirmData = { id: player.id, worldSnapshot: this.getWorldSnapshot() };
         socket.emit('confirm_join', confirmData);
+
         socket.broadcast.to(this.roomKey).emit('enemy_joined', player.getFullSnapshot());
 
         socket.on('update_from_client', (updates) => { this.updateFromClient(socket, updates); });
         socket.on('player_hit', (hitPlayerId) => { this.hitPlayer(hitPlayerId); });
         socket.on('disconnect', () => { this.leavePlayer(socket, player.id); });
+
         console.log('Client (' + player.id + ') entered Room ' + this.roomKey);
     }
 
@@ -145,10 +150,6 @@ export default class GameRoom {
 
         if(clientUpdates.player && this.getPlayer(clientUpdates.player.id)) {
             this.updatePlayer(clientUpdates.player);
-        } else {
-            console.log('Unknown player????' + clientUpdates.player.id);
-            socket.disconnect('unknown');
-            return;
         }
 
         if(clientUpdates.throwable && this.getThrowable(clientUpdates.throwable.id)) {
@@ -191,7 +192,15 @@ export default class GameRoom {
 
     resetThrowable(throwable) {
         throwable.state = ThrowableStates.IDLE;
+        throwable.carryingPlayerId = null;
         throwable.item.anchor = { x: 0.5, y: 0.5 };
+    }
+
+
+    resetAllThrowables() {
+        this.initThrowables();
+        this.forceFullWorldSnapshot = true;
+        this.io.to(this.roomKey).emit('reset_throwables');
     }
 
 
