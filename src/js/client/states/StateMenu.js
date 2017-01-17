@@ -45,6 +45,7 @@ export default class StateMenu extends Phaser.State {
         let allChars = game.characterFactory.getAllCharacters();
         let char = allChars[Math.floor(Math.random() * allChars.length)];
         game.gameState.selectedCharKey = char.key;
+        game.gameState.selectedName = 'Peter';
         game.isDebug = true;
         game.state.start('StatePlaying');
     }
