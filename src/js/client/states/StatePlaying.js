@@ -1,6 +1,7 @@
 import SocketIO from 'socket.io-client';
 import MathHelper from 'shared/util/MathHelper';
 import Player from 'shared/objects/Player';
+import Spectator from 'client/objects/Spectator';
 import {PlayerStates, PlayerConfig} from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
 
@@ -28,12 +29,22 @@ export default class StatePlaying extends Phaser.State {
 
         this.initMap();
         this.initPhysics();
-        this.initHostPlayer();
+
+        if(game.gameState.spectate) {
+            this.initSpectator();
+        } else {
+            this.initHostPlayer();
+        }
+
         this.initCamera();
         this.initControls();
 
-        game.server.on('confirm_join', this.confirmJoin.bind(this));
-        this.join();
+
+        if(game.gameState.spectate) {
+            this.joinSpectator();
+        } else {
+            this.join();
+        }
 
 
 
@@ -57,7 +68,6 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
-
     initHostPlayer() {
         let player = new Player(game.gameState.selectedCharKey, game.gameState.selectedName, true);
         player.char.setPhysics();
@@ -73,6 +83,11 @@ export default class StatePlaying extends Phaser.State {
         setTimeout(() => {
             player.state = PlayerStates.ALIVE;
         }, PlayerConfig.SPAWN_FREEZE_TIME);
+    }
+
+
+    initSpectator() {
+        game.gameState.player = new Spectator();
     }
 
 
@@ -288,9 +303,23 @@ export default class StatePlaying extends Phaser.State {
     //
 
 
-
     join() {
-        game.server.emit('join', game.gameState.player.getFullSnapshot());
+        game.server.on('confirm_join', this.confirmJoin.bind(this));
+        game.server.on('room_not_found', this.disconnected.bind(this));
+        game.server.on('disconnect', this.disconnected.bind(this));
+
+        game.server.emit('join', {
+            playerData: game.gameState.player.getFullSnapshot(),
+            forcedRoom: game.gameState.forcedRoom
+        });
+    }
+
+
+    joinSpectator() {
+        game.server.on('confirm_join', this.confirmJoin.bind(this));
+        game.server.on('disconnect', this.disconnected.bind(this));
+        game.server.on('room_not_found', this.disconnected.bind(this));
+        game.server.emit('join_spectator', game.gameState.forcedRoom);
     }
 
 
@@ -298,7 +327,7 @@ export default class StatePlaying extends Phaser.State {
         console.log('DISCONNECT FROM SERVER');
         clearTimeout(this.inputLoopTimeout);
         //game.state.start('StateMenu', true);
-        window.location.reload();
+        window.location = window.location.href.split("?")[0];
     }
 
 
@@ -312,9 +341,11 @@ export default class StatePlaying extends Phaser.State {
         game.server.on('enemy_joined', this.addEnemy.bind(this));
         game.server.on('enemy_left', this.removeEnemy.bind(this));
         game.server.on('reset_throwables', this.resetThrowables.bind(this));
-        game.server.on('disconnect', this.disconnected.bind(this));
 
-        this.inputLoop();
+        if(!game.gameState.spectate) {
+            this.inputLoop();
+        }
+
     }
 
 

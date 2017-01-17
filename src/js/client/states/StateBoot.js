@@ -40,6 +40,21 @@ export default class StateBoot extends Phaser.State {
 
         };
 
+        let params = {};
+
+        if (location.search) {
+        let parts = location.search.substring(1).split('&');
+
+        for (let i = 0; i < parts.length; i++) {
+            let nv = parts[i].split('=');
+            if (!nv[0]) continue;
+                params[nv[0]] = nv[1] || true;
+            }
+        }
+
+        game.gameState.spectate = params.spectate ? true : false;
+        game.gameState.forcedRoom = params.room ? params.room : null;
+
         game.state.start('StateLoadAssets');
 	}
 

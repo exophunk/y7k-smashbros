@@ -146,6 +146,12 @@ export default class GameRoom {
     }
 
 
+    joinSpectator(socket) {
+        const confirmData = { id: null, worldSnapshot: this.getWorldSnapshot() };
+        socket.emit('confirm_join', confirmData);
+    }
+
+
     updateFromClient(socket, clientUpdates) {
 
         if(clientUpdates.player && this.getPlayer(clientUpdates.player.id)) {

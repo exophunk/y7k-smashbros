@@ -3,6 +3,13 @@ export default class StateMenu extends Phaser.State {
 
 	create() {
 
+
+        if(game.gameState.forcedRoom && game.gameState.spectate) {
+            this.spectate();
+        }
+
+        //this.testingShortcut();
+
         this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-start');
         this.background.anchor.setTo(0.5, 0.5);
         this.background.scale.set(game.scaleFactor, game.scaleFactor);
@@ -24,7 +31,7 @@ export default class StateMenu extends Phaser.State {
         }, this);
 
         //game.sounds.music.play();
-        //this.testingShortcut();
+
 	}
 
 
@@ -40,6 +47,11 @@ export default class StateMenu extends Phaser.State {
         game.state.start('StatePlayerSelect');
     }
 
+
+    spectate() {
+        game.isDebug = true;
+        game.state.start('StatePlaying');
+    }
 
     testingShortcut() {
         let allChars = game.characterFactory.getAllCharacters();

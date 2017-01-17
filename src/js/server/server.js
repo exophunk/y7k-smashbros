@@ -52,28 +52,47 @@ export default class Server {
 
 
     onConnection(socket) {
-        socket.on('join', (playerData) => { this.joinPlayer(socket, playerData); });
+        socket.on('join', (data) => { this.joinPlayer(socket, data); });
+        socket.on('join_spectator', (roomKey) => { this.joinSpectator(socket, roomKey); });
         socket.on('disconnect', () => { this.closeEmptyRooms(); });
     }
 
 
-    joinPlayer(socket, playerData) {
+    joinPlayer(socket, data) {
 
         let id = new Date().getTime().toString();
         id = id.substr(id.length - 6, 6);
-        let playerId = playerData.char.key + '-' + id;
+        let playerId = data.playerData.char.key + '-' + id;
 
         let player = new Player();
-        player.update(playerData);
+        player.update(data.playerData);
         player.id = playerId;
 
-        let gameRoom = this.getGameRoom();
-        gameRoom.joinRoom(socket, player);
-        socket.join(gameRoom.roomKey);
+        let gameRoom = data.forcedRoom ? this.getGameRoom(data.forcedRoom) : this.getNewGameRoom();
+        if(gameRoom) {
+            gameRoom.joinRoom(socket, player);
+            socket.join(gameRoom.roomKey);
+        } else {
+            socket.emit('room_not_found');
+        }
+
     }
 
 
-    getGameRoom() {
+    joinSpectator(socket, roomKey) {
+        let gameRoom = this.getGameRoom(roomKey);
+
+        if(gameRoom) {
+            gameRoom.joinSpectator(socket);
+            socket.join(roomKey);
+        } else {
+            console.log('Room to spectate doesn\'t exist');
+            socket.emit('room_not_found');
+        }
+    }
+
+
+    getNewGameRoom() {
         let room = null;
         for(let gameRoom of this.gameRooms) {
             if(gameRoom.getPlayersCount() < ServerConfig.MAX_ROOM_PLAYERS) {
@@ -83,13 +102,22 @@ export default class Server {
         };
 
         if(!room) {
-            let roomKey = 'Room ' + (this.gameRooms.length + 1);
+            let roomKey = 'room-' + (this.gameRooms.length + 1);
             room = new GameRoom(this.io, roomKey, this.data);
             this.gameRooms.push(room);
             console.log('New Room created! (' + roomKey + ') Currently: ' + this.gameRooms.length + ' open rooms');
         }
 
         return room;
+    }
+
+
+    getGameRoom(roomKey) {
+        for(let gameRoom of this.gameRooms) {
+            if(gameRoom.roomKey == roomKey) {
+                return gameRoom;
+            }
+        }
     }
 
 

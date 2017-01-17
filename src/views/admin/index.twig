@@ -43,11 +43,11 @@
                     <td class="text-right">
 
                         {% set disabled = gameRoom.state.players|length >= ServerConfig.MAX_ROOM_PLAYERS %}
-                        <a href="/#room={{ gameRoom.roomKey }}" target="_blank" class="btn btn-sm btn-default" {{ disabled ? 'disabled="disabled"' }}>
+                        <a href="/?room={{ gameRoom.roomKey }}" target="_blank" class="btn btn-sm btn-default" {{ disabled ? 'disabled="disabled"' }}>
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Join
                         </a>
 
-                        <a href="/#room={{ gameRoom.roomKey }}&spectate=true" target="_blank" class="btn btn-sm btn-default">
+                        <a href="/?room={{ gameRoom.roomKey }}&spectate=true" target="_blank" class="btn btn-sm btn-default">
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Spectate
                         </a>
 
