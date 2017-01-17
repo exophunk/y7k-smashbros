@@ -291,7 +291,8 @@ export default class StatePlaying extends Phaser.State {
     disconnected() {
         console.log('DISCONNECT FROM SERVER');
         clearTimeout(this.inputLoopTimeout);
-        game.state.start('StateMenu');
+        //game.state.start('StateMenu', true);
+        window.location.reload();
     }
 
 
