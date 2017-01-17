@@ -51,7 +51,9 @@ export default class StateNameSelect extends Phaser.State {
             max: 10
         });
 
-        this.nameField.startFocus();
+        setTimeout(() => {
+            this.nameField.startFocus();
+        }, 300);
         this.keyListenerFunc = this.checkKeydown.bind(this);
         document.addEventListener('keydown', this.keyListenerFunc);
     }
@@ -66,7 +68,7 @@ export default class StateNameSelect extends Phaser.State {
             } else {
                 setTimeout(() => {
                     this.nameField.startFocus();
-                }, 500);
+                }, 300);
 
             }
 

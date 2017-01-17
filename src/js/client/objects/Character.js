@@ -30,15 +30,15 @@ export default class Character extends Phaser.Sprite {
     addNameText(name) {
         //this.nameText = game.add.bitmapText(0, 0, 'font-small', name.toLowerCase(), 14);
         let style = {
-            font: "12px Press Start 2P",
+            font: "12px VT323",
             fill: "#fff",
-            stroke: "#000",
-            strokeThickness: 1
+            //stroke: "#000",
+            //strokeThickness: 1
         };
         this.nameText = game.add.text(0, 0, name.toLowerCase(), style);
         this.nameText.anchor.setTo(0.5, 1);
         this.nameText.position.setTo(0, - this.height / 2 - 5);
-        //this.nameText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 0);
+        //this.nameText.setShadow(1, 1, 'rgba(0,0,0,0.5)', 0);
         //game.paintLayers.ui.add(this.nameText);
     }
 
