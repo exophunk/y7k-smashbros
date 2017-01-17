@@ -165,8 +165,8 @@ export default class Player {
                 facing: this.char.facing,
                 isMoving: this.char.isMoving,
                 body: {
-                    x: this.char.body.x,
-                    y: this.char.body.y,
+                    x: this.char.body ? this.char.body.x : 0,
+                    y: this.char.body ? this.char.body.y : 0,
                 }
             }
         }
