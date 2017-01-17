@@ -1,5 +1,5 @@
 export default {
-    TICK_RATE: 66,
+    TICK_RATE: 10,
     UPDATE_RATE: 22,
     MAX_ROOMS: 10,
     MAX_ROOM_PLAYERS: 2,

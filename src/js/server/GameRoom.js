@@ -25,7 +25,7 @@ export default class GameRoom {
 
         this.lastWorldSnapshot = this.state;
 
-        //this.simulationLoop();
+        this.simulationLoop();
         this.updateLoop();
         this.debugLoop();
     }
@@ -56,6 +56,14 @@ export default class GameRoom {
 
 
     simulationLoop() {
+
+        Object.values(this.state.throwables).forEach((throwable) => {
+            if(throwable.carryingPlayerId && !this.state.players[throwable.carryingPlayerId]) {
+                console.log('Reset stuck throwable ID: ' + throwable.id);
+                this.resetThrowable(throwable);
+            }
+        });
+
         this.simulationLoopTimeout = setTimeout(this.simulationLoop.bind(this), 1000 / ServerConfig.TICK_RATE);
     }
 
