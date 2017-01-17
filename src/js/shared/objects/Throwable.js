@@ -14,8 +14,8 @@ export const ThrowableConfig = {
     DAMPING: 0.7,
     BODY_SIZE: 20,
     ANGULAR_DAMPING: 0.9,
-    GLOW_ANIM_SPEED: 200,
-    GLOW_ANIM_FREQUENCY: 10000,
+    GLOW_ANIM_SPEED: 400,
+    GLOW_ANIM_FREQUENCY: 7000,
 }
 
 export default class Throwable {

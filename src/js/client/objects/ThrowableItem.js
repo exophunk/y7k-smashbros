@@ -62,7 +62,7 @@ export default class ThrowableItem extends Phaser.Sprite {
 
     showObjectGlow() {
         if(this.throwable.isIdle()) {
-            game.add.tween(this.overlay).to( { alpha: 0.4 }, ThrowableConfig.GLOW_ANIM_SPEED, Phaser.Easing.Linear.None, true, 0, 0, true);
+            game.add.tween(this.overlay).to( { alpha: 0.6 }, ThrowableConfig.GLOW_ANIM_SPEED, Phaser.Easing.Linear.None, true, 0, 0, true);
         }
     }
 
