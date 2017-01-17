@@ -66,38 +66,21 @@ export default class Throwable {
         }
 
         let char = game.gameState.player.char;
-        let widthThrowable = this.item.width;//game.physics.p2.mpx(this.item.body.data.aabb.upperBound[0] - this.item.body.data.aabb.lowerBound[0]);
-        let heightThrowable = this.item.height;//game.physics.p2.mpx(this.item.body.data.aabb.upperBound[1] - this.item.body.data.aabb.lowerBound[1]);
-        let widthPlayer = game.physics.p2.mpx(char.body.data.aabb.upperBound[0] - char.body.data.aabb.lowerBound[0]);
-        let heightPlayer = game.physics.p2.mpx(char.body.data.aabb.upperBound[1] - char.body.data.aabb.lowerBound[1]);
+        let checkCoord = new Phaser.Point();
+        checkCoord.copyFrom(char.position);
 
-        if(char.x < this.item.x + (widthThrowable / 2 * 0.8) &&
-           char.x > this.item.x - (widthThrowable / 2 * 0.8) &&
-           char.y < this.item.y - (heightThrowable / 2) &&
-           char.y > this.item.y - (heightThrowable / 2 + heightPlayer / 2 * 1.2)  &&
-           char.facing == 'down') {
-            return true;
-        } else if(char.x < this.item.x + (widthThrowable / 2 * 0.8) &&
-           char.x > this.item.x - (widthThrowable / 2 * 0.8) &&
-           char.y > this.item.y + (heightThrowable / 2) &&
-           char.y < this.item.y + (heightThrowable / 2 + heightPlayer / 2 * 1.2)  &&
-           char.facing == 'up') {
-            return true;
-        } else if(char.y < this.item.y + (heightThrowable / 2 * 0.8) &&
-           char.y > this.item.y - (heightThrowable / 2 * 0.8) &&
-           char.x < this.item.x - (widthThrowable / 2) &&
-           char.x > this.item.x - (widthThrowable / 2 + heightPlayer / 2 * 1.2)  &&
-           char.facing == 'right') {
-            return true;
-        } else if(char.y < this.item.y + (heightThrowable / 2 * 0.8) &&
-           char.y > this.item.y - (heightThrowable / 2 * 0.8) &&
-           char.x > this.item.x + (widthThrowable / 2) &&
-           char.x < this.item.x + (widthThrowable / 2 + heightPlayer / 2 * 1.2)  &&
-           char.facing == 'left') {
-            return true;
+        if(char.facing == 'down') {
+            checkCoord.y += char.height / 2;
+        } else if(char.facing == 'up') {
+            checkCoord.y -= char.height / 2;
+        } else if(char.facing == 'right') {
+            checkCoord.x += char.width / 2;
+        } else if(char.facing == 'left') {
+            checkCoord.x -= char.width / 2;
         }
 
-        return false;
+        let itemRect = new Phaser.Rectangle(this.item.x - this.item.width / 2, this.item.y - this.item.height / 2, this.item.width, this.item.height);
+        return itemRect.contains(checkCoord.x, checkCoord.y);
     }
 
 

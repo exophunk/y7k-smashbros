@@ -11,7 +11,6 @@ const NET_OFFSET = 100;
 
 export default class StatePlaying extends Phaser.State {
 
-
 	create() {
 
         game.server = SocketIO();
@@ -297,6 +296,7 @@ export default class StatePlaying extends Phaser.State {
             throwable.reset();
         }
     }
+
 
     // --------------------------------------------------------------------------------------------------
     // NETWORKING METHODS
