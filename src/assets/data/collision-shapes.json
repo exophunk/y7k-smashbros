@@ -87,14 +87,14 @@
         "name": "Bistrodoor right",
         "x": 118,
         "y": 420,
-        "w": 10,
+        "w": 50,
         "h": 88
     },
     {
         "name": "Bistrodoor left",
-        "x": 62,
+        "x": 22,
         "y": 420,
-        "w": 10,
+        "w": 50,
         "h": 88
     },
     {
@@ -108,14 +108,14 @@
         "name": "Entrydoor right",
         "x": 118,
         "y": 225,
-        "w": 10,
+        "w": 50,
         "h": 88
     },
     {
         "name": "Entrydoor left",
-        "x": 62,
+        "x": 12,
         "y": 225,
-        "w": 10,
+        "w": 50,
         "h": 88
     },
     {
