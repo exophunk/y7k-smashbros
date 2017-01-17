@@ -27,7 +27,7 @@ export default class Player {
         this.health = PlayerConfig.HEALTH;
         this.state = PlayerStates.SPAWNED;
         this.score = 0;
-        this.name = name;
+        this.name = name ? name : 'Unknown';
 
         if(isClient) {
             this.initClient(charKey);

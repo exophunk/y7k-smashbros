@@ -5,6 +5,8 @@ export default class StateTutorial extends Phaser.State {
 
         this.initBackground();
         this.initTutorialBoxes();
+
+        game.input.onTap.add(this.startPlaying, this);
 	}
 
 

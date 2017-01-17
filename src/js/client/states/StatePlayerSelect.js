@@ -24,9 +24,9 @@ export default class StatePlayerSelect extends Phaser.State {
         titleText.anchor.setTo(0.5, 0);
         titleText.position.setTo(game.world.centerX, 40);
 
-        let textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
-        textContinue.anchor.setTo(0.5, 1);
-        textContinue.position.setTo(game.world.centerX, game.world.height - 40);
+        this.textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
+        this.textContinue.anchor.setTo(0.5, 1);
+        this.textContinue.position.setTo(game.world.centerX, game.world.height - 40);
     }
 
 
@@ -63,6 +63,21 @@ export default class StatePlayerSelect extends Phaser.State {
         this.rightPressed = false;
         this.upPressed = false;
         this.downPressed = false;
+
+        if(game.mobile) {
+            this.portraits.forEach((portrait) => {
+                portrait.portraitBox.inputEnabled = true;
+                portrait.portraitBox.events.onInputDown.add(() => {
+                    this.moveCursor(this.portraits.indexOf(portrait), true);
+                }, this);
+            });
+
+            this.textContinue.inputEnabled = true;
+            this.textContinue.events.onInputDown.add(() => {
+                this.nextStep();
+            }, this);
+        }
+
     }
 
 

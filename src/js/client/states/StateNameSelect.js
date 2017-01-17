@@ -3,10 +3,9 @@ import Portrait from 'client/objects/Portrait';
 export default class StateNameSelect extends Phaser.State {
 
 	create() {
-
         this.initBackground();
         this.initNameBox();
-
+        this.initControls();
 	}
 
 
@@ -19,9 +18,9 @@ export default class StateNameSelect extends Phaser.State {
         titleText.anchor.setTo(0.5, 0);
         titleText.position.setTo(game.world.centerX, 40);
 
-        let textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
-        textContinue.anchor.setTo(0.5, 1);
-        textContinue.position.setTo(game.world.centerX, game.world.height - 40);
+        this.textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
+        this.textContinue.anchor.setTo(0.5, 1);
+        this.textContinue.position.setTo(game.world.centerX, game.world.height - 40);
     }
 
 
@@ -54,33 +53,48 @@ export default class StateNameSelect extends Phaser.State {
         setTimeout(() => {
             this.nameField.startFocus();
         }, 300);
+
+    }
+
+
+    initControls() {
+
         this.keyListenerFunc = this.checkKeydown.bind(this);
         document.addEventListener('keydown', this.keyListenerFunc);
+
+        if(game.mobile) {
+            this.textContinue.inputEnabled = true;
+            this.textContinue.events.onInputDown.add(() => {
+                this.nextStep();
+            }, this);
+        }
+
     }
+
 
     checkKeydown(e) {
         if(e.keyCode == Phaser.Keyboard.ENTER || e.keyCode == Phaser.Keyboard.SPACEBAR) {
-            let name = this.nameField.value;
-
-            if(name.length > 3 && name.length < 10) {
-                game.gameState.selectedName = this.nameField.value;
-                this.nextStep();
-            } else {
-                setTimeout(() => {
-                    this.nameField.startFocus();
-                }, 300);
-
-            }
-
+            this.nextStep();
         }
     }
 
 
     nextStep() {
-        this.nameField.endFocus();
-        document.removeEventListener('keydown', this.keyListenerFunc);
-        game.sounds.clickOk.play();
-        game.state.start('StateTutorial');
+        let name = this.nameField.value;
+
+        if(name.length > 3 && name.length < 10) {
+            game.gameState.selectedName = this.nameField.value;
+            this.nameField.endFocus();
+            document.removeEventListener('keydown', this.keyListenerFunc);
+            game.sounds.clickOk.play();
+            game.state.start('StateTutorial');
+        } else {
+            setTimeout(() => {
+                this.nameField.startFocus();
+            }, 300);
+
+        }
+
     }
 
 

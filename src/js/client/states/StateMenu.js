@@ -8,7 +8,7 @@ export default class StateMenu extends Phaser.State {
             this.spectate();
         }
 
-        //this.testingShortcut();
+        this.testingShortcut();
 
         this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-start');
         this.background.anchor.setTo(0.5, 0.5);
@@ -32,6 +32,10 @@ export default class StateMenu extends Phaser.State {
 
         //game.sounds.music.play();
 
+        game.input.onTap.add((pointer, doubleTap) => {
+            console.log(pointer.x, pointer.y);
+            this.nextStep();
+        }, this);
 	}
 
 
