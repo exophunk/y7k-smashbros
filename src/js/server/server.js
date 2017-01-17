@@ -87,12 +87,18 @@ export default class Server {
 
 
     closeEmptyRooms() {
-        for(let gameRoom of this.gameRooms) {
-            if(gameRoom.getPlayersCount() == 0) {
-                console.log('Closing empty room (' + gameRoom.roomKey + ') Currently: ' + this.gameRooms.length + ' open rooms');
-                this.gameRooms.splice(this.gameRooms.indexOf(gameRoom), 1);
-            }
-        };
+        setTimeout(() => {
+            for(let gameRoom of this.gameRooms) {
+                if(gameRoom.getPlayersCount() == 0) {
+                    gameRoom.closeRoom();
+                    this.gameRooms.splice(this.gameRooms.indexOf(gameRoom), 1);
+                    console.log('Closing empty room (' + gameRoom.roomKey + ') Now: ' + this.gameRooms.length + ' open rooms');
+                } else {
+                    console.log('Can\'t close');
+                }
+            };
+        }, 500);
+
 
     }
 }

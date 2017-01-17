@@ -207,6 +207,12 @@ export default class GameRoom {
     }
 
 
+    closeRoom() {
+        this.io.to(this.roomKey).emit('disconnect');
+        clearTimeout(this.debugLoopTimeout);
+        clearTimeout(this.simulationLoopTimeout);
+        clearTimeout(this.updateLoopTimeout);
+    }
 
 
 }
