@@ -1,0 +1,35 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <title>Y7K Smashbros – Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width, height=device-height" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/build/images/meta/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/build/images/meta/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/build/images/meta/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/build/images/meta/manifest.json">
+    <link rel="mask-icon" href="/build/images/meta/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="build/css/admin.css">
+
+</head>
+<body>
+
+    <div class="main">
+        {% include 'navigation.twig' %}
+        <div class="container">
+            {% block main %}{% endblock %}
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<script type="text/javascript">
+
+    var resetThrowableButtons = document.querySelectorAll('#js-reset-throwables');
+    var closeRoomButtons = document.querySelectorAll('#js-close-room');
+    var resetServerButton = document.querySelector('#js-reset-server');
+
+    Array.prototype.forEach.call(resetThrowableButtons, function(el, i) {
+        el.addEventListener('click', function(e) {
+            var btn = e.target;
+            var roomKey = btn.getAttribute('data-room-key');
+            var request = new XMLHttpRequest();
+
+            request.open('POST', '/admin/reset-throwables', true);
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            request.send(JSON.stringify({roomKey: roomKey}));
+        });
+    });
+
+
+    Array.prototype.forEach.call(closeRoomButtons, function(el, i) {
+        el.addEventListener('click', function(e) {
+            var btn = e.target;
+            var roomKey = btn.getAttribute('data-room-key');
+            var request = new XMLHttpRequest();
+
+            request.open('POST', '/admin/close-room', true);
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            request.send(JSON.stringify({roomKey: roomKey}));
+        });
+    });
+
+    resetServerButton.addEventListener('click', function(e) {
+        var btn = e.target;
+        var request = new XMLHttpRequest();
+
+        request.open('POST', '/admin/reset-server', true);
+        request.send();
+    });
+
+</script>

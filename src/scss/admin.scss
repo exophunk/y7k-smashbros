@@ -1,0 +1,19 @@
+@import "vendor/reset.2.0.min";
+@import "vendor/normalize.3.0.3.min";
+
+body {
+
+}
+
+.table th {
+    font-weight: bold;
+}
+
+.table td {
+    vertical-align: middle !important;
+}
+
+
+.dropdown:hover > ul.dropdown-menu {
+    display: block;
+}

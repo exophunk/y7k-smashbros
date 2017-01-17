@@ -1,0 +1,87 @@
+{% extends 'layout.twig' %}
+
+{% block main %}
+
+<div class="page-header">
+    <h1>Y7K Smashbros Admin <small>Overview</small></h1>
+</div>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">Active Rooms <span class="badge">{{ gameRooms|length }}</span></div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Room Name</th>
+                <th>Players</th>
+                <th>Opened on</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gameRoom in gameRooms %}
+
+                <tr>
+                    <td>{{ gameRoom.roomKey }}</td>
+                    <td>
+
+
+                        <div class="dropdown">
+                            <span class="badge dropdown-toggle" id="players-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{ gameRoom.state.players|length }}/{{ ServerConfig.MAX_ROOM_PLAYERS }}
+                            </span> <span class="caret"></span>
+                            <ul class="dropdown-menu" aria-labelledby="players-dropdown">
+                                {% for player in gameRoom.state.players %}
+                                    <li><a><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ player.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </td>
+                    <td>{{ gameRoom.openedOn|date('d.m.Y G:i:s') }}</td>
+                    <td class="text-right">
+
+                        {% set disabled = gameRoom.state.players|length >= ServerConfig.MAX_ROOM_PLAYERS %}
+                        <a href="/#room={{ gameRoom.roomKey }}" target="_blank" class="btn btn-sm btn-default" {{ disabled ? 'disabled="disabled"' }}>
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Join
+                        </a>
+
+                        <a href="/#room={{ gameRoom.roomKey }}&spectate=true" target="_blank" class="btn btn-sm btn-default">
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Spectate
+                        </a>
+
+                        <button type="button" class="btn btn-sm btn-default" id="js-reset-throwables" data-room-key="{{ gameRoom.roomKey }}">
+                            <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Reset Throwables
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-danger" id="js-close-room" data-room-key="{{ gameRoom.roomKey }}">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Close
+                        </button>
+                    </td>
+
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">Manage Server</div>
+    <div class="panel-body">
+        <button type="button" class="btn btn btn-danger" id="js-reset-server">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Reset Server
+        </button>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+    {% include 'scripts.twig' %}
+{% endblock %}

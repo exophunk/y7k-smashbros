@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 
+import AdminBoard from 'server/admin/AdminBoard';
 import ServerConfig from 'server/ServerConfig';
 import GameRoom from 'server/GameRoom';
 import Player from 'shared/objects/Player';
@@ -27,6 +28,7 @@ export default class Server {
         this.port = process.env.WEBSOCKET_PORT || 3000;
         this.app.use(express.static(path.resolve('public')))
         this.server.listen(this.port, () => { this.onListen() });
+
         this.io = new SocketIO(this.server);
 
         this.gameRooms = [];
@@ -35,6 +37,11 @@ export default class Server {
 
         this.io.on('connection', (socket) => { this.onConnection(socket) });
 
+        let adminData = {
+            gameRooms: this.gameRooms,
+            ServerConfig: ServerConfig
+        }
+        this.adminBoard = new AdminBoard(this.app, adminData);
 
     }
 
