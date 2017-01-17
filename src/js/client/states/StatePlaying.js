@@ -277,6 +277,12 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
+    resetThrowables() {
+        for(let throwable of Object.values(game.gameState.throwables)) {
+            throwable.reset();
+        }
+    }
+
     // --------------------------------------------------------------------------------------------------
     // NETWORKING METHODS
     //
@@ -305,6 +311,7 @@ export default class StatePlaying extends Phaser.State {
         game.server.on('player_got_hit', this.playerGotHit.bind(this));
         game.server.on('enemy_joined', this.addEnemy.bind(this));
         game.server.on('enemy_left', this.removeEnemy.bind(this));
+        game.server.on('reset_throwables', this.resetThrowables.bind(this));
         game.server.on('disconnect', this.disconnected.bind(this));
 
         this.inputLoop();

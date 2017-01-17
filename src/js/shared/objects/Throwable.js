@@ -177,6 +177,16 @@ export default class Throwable {
     }
 
 
+    reset() {
+        game.gameState.activeThrowable = null;
+        this.carryingPlayerId = null;
+        this.state = ThrowableStates.IDLE;
+        this.item.setStatePhysics();
+        game.physics.p2.removeConstraint(this.pickupConstraint);
+        this.item.anchor.setTo(0.5,0.5);
+        this.item.overlay.anchor.setTo(0.5,0.5);
+    }
+
 
     // --------------------------------------------------------------------------------------------------
     // NETWORKING METHODS
