@@ -1,5 +1,5 @@
+import SocketIO from 'socket.io-client';
 import MathHelper from 'shared/util/MathHelper';
-
 import Player from 'shared/objects/Player';
 import {PlayerStates, PlayerConfig} from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
@@ -13,6 +13,7 @@ export default class StatePlaying extends Phaser.State {
 
 	create() {
 
+        game.server = SocketIO();
         this.netBuffer = [];
 
         game.stage.disableVisibilityChange = true;
