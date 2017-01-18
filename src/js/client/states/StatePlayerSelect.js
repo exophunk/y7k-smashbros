@@ -2,6 +2,10 @@ import Portrait from 'client/objects/Portrait';
 
 export default class StatePlayerSelect extends Phaser.State {
 
+
+    /**
+     *
+     */
 	create() {
 
         this.selectIndex = 0;
@@ -15,6 +19,9 @@ export default class StatePlayerSelect extends Phaser.State {
 	}
 
 
+    /**
+     *
+     */
     initBackground() {
         this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
         this.background.anchor.setTo(0.5, 0.5);
@@ -30,6 +37,9 @@ export default class StatePlayerSelect extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     initCursor() {
         this.selectCursor = game.add.image(0, 0, 'select-cursor');
         this.selectCursor.scale.set(game.scaleFactor, game.scaleFactor);
@@ -37,6 +47,9 @@ export default class StatePlayerSelect extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     initPortraits() {
 
         this.portraitBoxes = game.add.group();
@@ -57,6 +70,9 @@ export default class StatePlayerSelect extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     initControls() {
         this.cursors = game.input.keyboard.createCursorKeys();
         this.leftPressed = false;
@@ -81,6 +97,9 @@ export default class StatePlayerSelect extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     nextStep() {
         let chosenCharacterKey = this.portraits[this.selectIndex].key;
         game.gameState.selectedCharKey = chosenCharacterKey;
@@ -90,6 +109,9 @@ export default class StatePlayerSelect extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     update() {
 
         if (game.input.keyboard.isDown(Phaser.Keyboard.ENTER) || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
@@ -126,6 +148,9 @@ export default class StatePlayerSelect extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     moveCursor(newIndex, animate) {
         this.portraits[this.selectIndex].deselect();
         this.selectIndex = newIndex;
@@ -140,13 +165,8 @@ export default class StatePlayerSelect extends Phaser.State {
         } else {
             this.selectCursor.position.setTo(newCursorX, newCursorY);
         }
-
-
     }
 
-    preload() {
-
-    }
 
 }
 

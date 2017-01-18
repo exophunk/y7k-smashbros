@@ -2,6 +2,10 @@ import {PlayerConfig} from 'shared/objects/Player';
 
 export default class Character extends Phaser.Sprite {
 
+
+    /**
+     *
+     */
     constructor(key, name) {
 
         let spriteKey = 'sprite-' + key;
@@ -18,6 +22,9 @@ export default class Character extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     addAnimations() {
         this.animations.add('walk-down', [0,1,2], 8, true);
         this.animations.add('walk-left', [3,4,5], 8, true);
@@ -27,6 +34,9 @@ export default class Character extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     addNameText(name) {
         //this.nameText = game.add.bitmapText(0, 0, 'font-small', name.toLowerCase(), 14);
         let style = {
@@ -43,6 +53,9 @@ export default class Character extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     setPhysics() {
         game.physics.p2.enable(this, game.isDebug);
         this.body.setRectangle(24,30);
@@ -64,6 +77,9 @@ export default class Character extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     moveLeft() {
         this.body.setZeroVelocity();
         this.body.moveLeft(PlayerConfig.WALK_SPEED);
@@ -71,6 +87,9 @@ export default class Character extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     moveRight() {
         this.body.setZeroVelocity();
         this.body.moveRight(PlayerConfig.WALK_SPEED);
@@ -78,6 +97,9 @@ export default class Character extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     moveUp() {
         this.body.setZeroVelocity();
         this.body.moveUp(PlayerConfig.WALK_SPEED);
@@ -85,6 +107,9 @@ export default class Character extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     moveDown() {
         this.body.setZeroVelocity();
         this.body.moveDown(PlayerConfig.WALK_SPEED);
@@ -92,6 +117,9 @@ export default class Character extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     idle() {
         this.body.setZeroVelocity();
         if (this.isMoving) {
@@ -99,6 +127,10 @@ export default class Character extends Phaser.Sprite {
         }
     }
 
+
+    /**
+     *
+     */
     updateAnimation(prevFacing, prevIsMoving, facing, isMoving) {
         if(isMoving) {
             if((isMoving && prevFacing != facing) || !prevIsMoving) {
@@ -128,16 +160,25 @@ export default class Character extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     showHitEffects() {
         this.blink(150, PlayerConfig.HIT_IMMUNE_TIME);
     }
 
 
+    /**
+     *
+     */
     showDyingEffects() {
 
     }
 
 
+    /**
+     *
+     */
     blink(speed, duration) {
         let repetitions = Math.floor(duration / speed) - 1;
         game.add.tween(this).to( { alpha: 0 }, speed/2, Phaser.Easing.Linear.None, true, 0, repetitions, true);

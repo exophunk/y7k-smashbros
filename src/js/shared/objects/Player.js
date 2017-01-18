@@ -1,6 +1,10 @@
 import SnapshotHelper from 'shared/util/SnapshotHelper';
 import MathHelper from 'shared/util/MathHelper';
 
+
+/**
+ *
+ */
 export const PlayerStates = {
     ALIVE: 0,
     HIT: 1,
@@ -9,6 +13,9 @@ export const PlayerStates = {
 }
 
 
+/**
+ *
+ */
 export const PlayerConfig = {
     HEALTH: 5,
     HIT_IMMUNE_TIME: 2000,
@@ -20,6 +27,9 @@ export const PlayerConfig = {
 export default class Player {
 
 
+    /**
+     *
+     */
 	constructor(charKey, name, isHost) {
 
         this.id = null;
@@ -39,6 +49,9 @@ export default class Player {
     }
 
 
+    /**
+     *
+     */
     initClient(charKey) {
         this.char = game.characterFactory.getCharacter(charKey);
         this.char.isHost = this.isHost;
@@ -47,6 +60,9 @@ export default class Player {
     }
 
 
+    /**
+     *
+     */
     initServer(charKey) {
         this.char = {
             key: charKey,
@@ -60,41 +76,62 @@ export default class Player {
     }
 
 
+    /**
+     *
+     */
     setPos(x, y) {
         this.char.body.x = x;
         this.char.body.y = y;
     }
 
 
+    /**
+     *
+     */
     moveLeft() {
         this.char.moveLeft();
         this.setCarryAnchor();
     }
 
 
+    /**
+     *
+     */
     moveRight() {
         this.char.moveRight();
         this.setCarryAnchor();
     }
 
 
+    /**
+     *
+     */
     moveUp() {
         this.char.moveUp();
         this.setCarryAnchor();
     }
 
 
+    /**
+     *
+     */
     moveDown() {
         this.char.moveDown();
         this.setCarryAnchor();
     }
 
 
+    /**
+     *
+     */
     idle() {
         this.char.idle();
     }
 
 
+    /**
+     *
+     */
     doAction() {
 
         if(game.gameState.activeThrowable && game.gameState.activeThrowable.isCarried()) {
@@ -112,6 +149,9 @@ export default class Player {
     }
 
 
+    /**
+     *
+     */
     hitAsEnemy(playerBody, throwableBody) {
         let throwable = throwableBody.sprite.throwable;
         let player = playerBody.sprite.player;
@@ -122,6 +162,9 @@ export default class Player {
     }
 
 
+    /**
+     *
+     */
     setCarryAnchor() {
 
         if(game.gameState.activeThrowable && game.gameState.activeThrowable.isCarried()) {
@@ -153,6 +196,9 @@ export default class Player {
     //
 
 
+    /**
+     *
+     */
     getFullSnapshot() {
         return {
             id: this.id,
@@ -173,6 +219,9 @@ export default class Player {
     }
 
 
+    /**
+     *
+     */
     getDeltaSnapshot() {
         let snapshot = this.getFullSnapshot();
         let delta = SnapshotHelper.getObjectDelta(snapshot, this.lastSnapshot, ['id']);
@@ -181,11 +230,17 @@ export default class Player {
     }
 
 
+    /**
+     *
+     */
     update(snapshot) {
         SnapshotHelper.patchObject(this, snapshot);
     }
 
 
+    /**
+     *
+     */
     updateInterpolated(previousSnapshot, targetSnapshot, lerpAmmount) {
         previousSnapshot = SnapshotHelper.patchObject(this.getFullSnapshot(), previousSnapshot);
         let interpolatedSnapshot = SnapshotHelper.patchObject(this.getFullSnapshot(), targetSnapshot);
@@ -200,10 +255,6 @@ export default class Player {
         this.char.updateAnimation(prevFacing, prevIsMoving, interpolatedSnapshot.char.facing, interpolatedSnapshot.char.isMoving);
 
     }
-
-
-
-
 
 
 }

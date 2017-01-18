@@ -4,6 +4,9 @@ import assignDeep from 'assign-deep';
 class SnapshotHelper {
 
 
+    /**
+     *
+     */
     getObjectDelta(newObj, oldObj, keepKeys) {
 
         let delta = {};
@@ -26,6 +29,9 @@ class SnapshotHelper {
     }
 
 
+    /**
+     *
+     */
     patchObject(target, patch) {
         if(patch) {
             return assignDeep(target, patch);

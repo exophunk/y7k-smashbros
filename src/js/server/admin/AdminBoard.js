@@ -7,6 +7,10 @@ import ServerConfig from 'server/ServerConfig';
 
 export default class AdminBoard {
 
+
+    /**
+     *
+     */
     constructor(app, data) {
         this.app = app;
         this.data = data;
@@ -29,11 +33,17 @@ export default class AdminBoard {
     }
 
 
+    /**
+     *
+     */
     getAdminBoard(req, res) {
         res.render('index.twig', this.data);
     }
 
 
+    /**
+     *
+     */
     resetThrowables(req, res) {
         let gameRoom = this.getRoom(req.body.roomKey);
         if(gameRoom) {
@@ -46,6 +56,9 @@ export default class AdminBoard {
     }
 
 
+    /**
+     *
+     */
     resetStats(req, res) {
         let gameRoom = this.getRoom(req.body.roomKey);
         if(gameRoom) {
@@ -57,6 +70,10 @@ export default class AdminBoard {
         return res.sendStatus(500);
     }
 
+
+    /**
+     *
+     */
     closeRoom(req, res) {
         let gameRoom = this.getRoom(req.body.roomKey);
         if(gameRoom) {
@@ -70,6 +87,9 @@ export default class AdminBoard {
     }
 
 
+    /**
+     *
+     */
     resetServer(req, res) {
         process.exit(1);
     }
@@ -84,6 +104,9 @@ export default class AdminBoard {
     }
 
 
+    /**
+     *
+     */
     authMiddleware(req, res, next) {
 
         let middleWareRes = res;

@@ -3,6 +3,9 @@
 export default class Portrait {
 
 
+    /**
+     *
+     */
     constructor(key, name) {
 
         this.key = key;
@@ -34,11 +37,18 @@ export default class Portrait {
     }
 
 
+    /**
+     *
+     */
     select() {
         this.selected = true;
         this.character.animations.play('walk');
     }
 
+
+    /**
+     *
+     */
     deselect() {
         this.selected = false;
         this.character.animations.stop();

@@ -1,12 +1,20 @@
 import SnapshotHelper from 'shared/util/SnapshotHelper';
 import MathHelper from 'shared/util/MathHelper';
 
+
+/**
+ *
+ */
 export const ThrowableStates = {
     IDLE: 0,
     CARRIED: 1,
     THROWN: 2
 }
 
+
+/**
+ *
+ */
 export const ThrowableConfig = {
     THROW_DURATION: 500,
     THROW_SPEED: 400,
@@ -21,6 +29,9 @@ export const ThrowableConfig = {
 export default class Throwable {
 
 
+    /**
+     *
+     */
     constructor(id, spriteKey) {
         this.id = id;
         this.state = ThrowableStates.IDLE;
@@ -36,12 +47,18 @@ export default class Throwable {
     }
 
 
+    /**
+     *
+     */
     initClient(spriteKey) {
         this.item = game.throwableItemFactory.get(spriteKey);
         this.item.throwable = this;
     }
 
 
+    /**
+     *
+     */
     initServer(spriteKey) {
         this.item = {
             key: spriteKey,
@@ -54,12 +71,18 @@ export default class Throwable {
     }
 
 
+    /**
+     *
+     */
     setPos(x, y) {
         this.item.body.x = x;
         this.item.body.y = y;
     }
 
 
+    /**
+     *
+     */
     canBePickedUp() {
         if(!this.isIdle()) {
             return false;
@@ -84,21 +107,33 @@ export default class Throwable {
     }
 
 
+    /**
+     *
+     */
     isCarried() {
         return this.state == ThrowableStates.CARRIED;
     }
 
 
+    /**
+     *
+     */
     isIdle() {
         return this.state == ThrowableStates.IDLE;
     }
 
 
+    /**
+     *
+     */
     isThrown() {
         return this.state == ThrowableStates.THROWN;
     }
 
 
+    /**
+     *
+     */
     pickup() {
         let player = game.gameState.player;
         this.state = ThrowableStates.CARRIED;
@@ -112,6 +147,9 @@ export default class Throwable {
     }
 
 
+    /**
+     *
+     */
     throw() {
         let player = game.gameState.player;
         this.state = ThrowableStates.THROWN;
@@ -148,6 +186,9 @@ export default class Throwable {
     }
 
 
+    /**
+     *
+     */
     land() {
         this.state = ThrowableStates.IDLE;
         this.item.setStatePhysics();
@@ -160,6 +201,9 @@ export default class Throwable {
     }
 
 
+    /**
+     *
+     */
     reset() {
         game.gameState.activeThrowable = null;
         this.carryingPlayerId = null;
@@ -176,6 +220,9 @@ export default class Throwable {
     //
 
 
+    /**
+     *
+     */
     getFullSnapshot() {
         return {
             id: this.id,
@@ -196,6 +243,9 @@ export default class Throwable {
     }
 
 
+    /**
+     *
+     */
     getDeltaSnapshot() {
         let snapshot = this.getFullSnapshot();
         let delta = SnapshotHelper.getObjectDelta(snapshot, this.lastSnapshot, ['id']);
@@ -204,11 +254,17 @@ export default class Throwable {
     }
 
 
+    /**
+     *
+     */
     update(snapshot) {
         SnapshotHelper.patchObject(this, snapshot);
     }
 
 
+    /**
+     *
+     */
     updateInterpolated(previousSnapshot, targetSnapshot, lerpAmmount) {
 
         previousSnapshot = SnapshotHelper.patchObject(this.getFullSnapshot(), previousSnapshot);

@@ -9,6 +9,9 @@ import SnapshotHelper from 'shared/util/SnapshotHelper';
 export default class GameRoom {
 
 
+    /**
+     *
+     */
     constructor(io, roomKey, data) {
 
         this.io = io;
@@ -34,6 +37,9 @@ export default class GameRoom {
     }
 
 
+    /**
+     *
+     */
     initThrowables() {
 
         this.data.throwablesData.forEach((throwableData) => {
@@ -49,6 +55,9 @@ export default class GameRoom {
     // LOOPS
 
 
+    /**
+     *
+     */
     debugLoop() {
         console.log('----------');
         console.log('THROWABLES: ' + Object.keys(this.state.throwables).length);
@@ -59,6 +68,9 @@ export default class GameRoom {
     }
 
 
+    /**
+     *
+     */
     simulationLoop() {
 
         Object.values(this.state.throwables).forEach((throwable) => {
@@ -72,6 +84,9 @@ export default class GameRoom {
     }
 
 
+    /**
+     *
+     */
     updateLoop() {
         this.updateCounter++;
 
@@ -95,6 +110,9 @@ export default class GameRoom {
     // ---------------------------------------------------------------------------------------------------------
 
 
+    /**
+     *
+     */
     getWorldSnapshot() {
         return {
             players: JSON.parse(JSON.stringify(this.state.players)),
@@ -102,6 +120,10 @@ export default class GameRoom {
         };
     }
 
+
+    /**
+     *
+     */
     getWorldDelta() {
         let snapshot = this.getWorldSnapshot();
         let delta = SnapshotHelper.getObjectDelta(snapshot, this.lastWorldSnapshot, ['id']);
@@ -114,21 +136,33 @@ export default class GameRoom {
     }
 
 
+    /**
+     *
+     */
     getPlayer(id) {
         return this.state.players[id];
     }
 
 
+    /**
+     *
+     */
     getThrowable(id) {
         return this.state.throwables[id];
     }
 
 
+    /**
+     *
+     */
     getPlayersCount() {
         return Object.keys(this.state.players).length;
     }
 
 
+    /**
+     *
+     */
     joinRoom(socket, player) {
 
         this.state.players[player.id] = player;
@@ -146,12 +180,18 @@ export default class GameRoom {
     }
 
 
+    /**
+     *
+     */
     joinSpectator(socket) {
         const confirmData = { id: null, worldSnapshot: this.getWorldSnapshot() };
         socket.emit('confirm_join', confirmData);
     }
 
 
+    /**
+     *
+     */
     updateFromClient(socket, clientUpdates) {
 
         if(clientUpdates.player && this.getPlayer(clientUpdates.player.id)) {
@@ -165,12 +205,18 @@ export default class GameRoom {
     }
 
 
+    /**
+     *
+     */
     updatePlayer(updatedPlayer) {
         let player = this.getPlayer(updatedPlayer.id);
         player.update(updatedPlayer);
     }
 
 
+    /**
+     *
+     */
     hitPlayer(playerId) {
         let player = this.getPlayer(playerId);
 
@@ -190,12 +236,18 @@ export default class GameRoom {
     }
 
 
+    /**
+     *
+     */
     updateThrowable(updatedThrowable) {
         let throwable = this.getThrowable(updatedThrowable.id);
         throwable.update(updatedThrowable);
     }
 
 
+    /**
+     *
+     */
     resetThrowable(throwable) {
         throwable.state = ThrowableStates.IDLE;
         throwable.carryingPlayerId = null;
@@ -203,6 +255,9 @@ export default class GameRoom {
     }
 
 
+    /**
+     *
+     */
     resetAllThrowables() {
         this.initThrowables();
         this.forceFullWorldSnapshot = true;
@@ -210,6 +265,9 @@ export default class GameRoom {
     }
 
 
+    /**
+     *
+     */
     leavePlayer(socket, playerId) {
 
         Object.values(this.state.throwables).forEach((throwable) => {
@@ -224,6 +282,9 @@ export default class GameRoom {
     }
 
 
+    /**
+     *
+     */
     closeRoom() {
         this.io.to(this.roomKey).emit('disconnect');
         clearTimeout(this.debugLoopTimeout);

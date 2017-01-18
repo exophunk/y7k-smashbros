@@ -1,6 +1,10 @@
 
 export default class StateTutorial extends Phaser.State {
 
+
+    /**
+     *
+     */
 	create() {
 
         this.initBackground();
@@ -10,6 +14,9 @@ export default class StateTutorial extends Phaser.State {
 	}
 
 
+    /**
+     *
+     */
     initBackground() {
         this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
         this.background.anchor.setTo(0.5, 0.5);
@@ -25,6 +32,9 @@ export default class StateTutorial extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     initTutorialBoxes() {
 
         this.box1 = game.add.sprite(game.world.centerX - 50, game.world.centerY, 'tutorial-box');
@@ -46,6 +56,9 @@ export default class StateTutorial extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     update() {
         if (game.input.keyboard.isDown(Phaser.Keyboard.ENTER) || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             this.startPlaying();
@@ -53,6 +66,9 @@ export default class StateTutorial extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     startPlaying() {
         game.sounds.clickOk.play();
         game.state.start('StatePlaying');

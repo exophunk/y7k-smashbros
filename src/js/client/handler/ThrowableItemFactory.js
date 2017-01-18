@@ -4,6 +4,10 @@ let instance = null;
 
 export default class ThrowableItemFactory {
 
+
+    /**
+     *
+     */
     constructor() {
         if(!instance) {
             instance = this;
@@ -12,6 +16,10 @@ export default class ThrowableItemFactory {
     }
 
 
+
+    /**
+     *
+     */
     get(throwableKey) {
         return new ThrowableItem(throwableKey);
     }

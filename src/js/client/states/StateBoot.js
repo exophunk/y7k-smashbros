@@ -3,6 +3,10 @@ import ThrowableItemFactory from 'client/handler/ThrowableItemFactory';
 
 export default class StateBoot extends Phaser.State {
 
+
+    /**
+     *
+     */
 	create() {
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
@@ -60,6 +64,9 @@ export default class StateBoot extends Phaser.State {
 	}
 
 
+    /**
+     *
+     */
     preload() {
         game.load.json('throwables', '/build/assets/data/throwables.json');
         game.load.json('characters', '/build/assets/data/characters.json');

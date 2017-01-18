@@ -21,6 +21,9 @@ global.isServer = true;
 export default class Server {
 
 
+    /**
+     *
+     */
     constructor() {
 
         this.app = express();
@@ -46,11 +49,17 @@ export default class Server {
     }
 
 
+    /**
+     *
+     */
     onListen() {
         console.log('Listening on Port ' + this.port + '...');
     }
 
 
+    /**
+     *
+     */
     onConnection(socket) {
         socket.on('join', (data) => { this.joinPlayer(socket, data); });
         socket.on('join_spectator', (roomKey) => { this.joinSpectator(socket, roomKey); });
@@ -58,6 +67,9 @@ export default class Server {
     }
 
 
+    /**
+     *
+     */
     joinPlayer(socket, data) {
 
         let id = new Date().getTime().toString();
@@ -79,6 +91,9 @@ export default class Server {
     }
 
 
+    /**
+     *
+     */
     joinSpectator(socket, roomKey) {
         let gameRoom = this.getGameRoom(roomKey);
 
@@ -92,6 +107,9 @@ export default class Server {
     }
 
 
+    /**
+     *
+     */
     getNewGameRoom() {
         let room = null;
         for(let gameRoom of this.gameRooms) {
@@ -112,6 +130,9 @@ export default class Server {
     }
 
 
+    /**
+     *
+     */
     getGameRoom(roomKey) {
         for(let gameRoom of this.gameRooms) {
             if(gameRoom.roomKey == roomKey) {
@@ -121,6 +142,9 @@ export default class Server {
     }
 
 
+    /**
+     *
+     */
     closeEmptyRooms() {
         setTimeout(() => {
             for(let gameRoom of this.gameRooms) {

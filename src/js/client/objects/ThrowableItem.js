@@ -2,6 +2,10 @@ import {ThrowableConfig, ThrowableStates} from 'shared/objects/Throwable';
 
 export default class ThrowableItem extends Phaser.Sprite {
 
+
+    /**
+     *
+     */
     constructor(key) {
         let spriteKey = 'sprite-' + key;
         let overlayKey = 'overlay-' + key;
@@ -18,6 +22,9 @@ export default class ThrowableItem extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     setPhysics() {
         game.physics.p2.enable(this, game.isDebug);
         //this.body.setCircle(ThrowableConfig.BODY_SIZE);
@@ -39,6 +46,9 @@ export default class ThrowableItem extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     setStatePhysics() {
         switch(this.throwable.state) {
             case ThrowableStates.IDLE:
@@ -60,6 +70,9 @@ export default class ThrowableItem extends Phaser.Sprite {
     }
 
 
+    /**
+     *
+     */
     showObjectGlow() {
         if(this.throwable.isIdle()) {
             game.add.tween(this.overlay).to( { alpha: 0.6 }, ThrowableConfig.GLOW_ANIM_SPEED, Phaser.Easing.Linear.None, true, 0, 0, true);

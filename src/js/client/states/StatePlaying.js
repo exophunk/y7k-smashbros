@@ -7,9 +7,11 @@ import Throwable from 'shared/objects/Throwable';
 
 export default class StatePlaying extends Phaser.State {
 
+
+    /**
+     *
+     */
 	create() {
-
-
 
         game.stage.disableVisibilityChange = true;
 
@@ -41,10 +43,12 @@ export default class StatePlaying extends Phaser.State {
             game.networking.join();
         }
 
-
-
 	}
 
+
+    /**
+     *
+     */
     initMap() {
 
         game.stage.backgroundColor = '#000000';
@@ -63,6 +67,9 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     initHostPlayer() {
         let player = new Player(game.gameState.selectedCharKey, game.gameState.selectedName, true);
         player.char.setPhysics();
@@ -81,16 +88,25 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     initSpectator() {
         game.gameState.player = new Spectator();
     }
 
 
+    /**
+     *
+     */
     initCamera() {
         game.camera.follow(game.gameState.player.char, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
     }
 
 
+    /**
+     *
+     */
     initControls() {
         this.cursors = game.input.keyboard.createCursorKeys();
         this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -112,6 +128,9 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     initPhysics() {
         game.physics.startSystem(Phaser.Physics.P2JS);
         game.physics.p2.setImpactEvents(true);
@@ -165,6 +184,9 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     addCollisionShape(x, y, w, h) {
         let collisionShape = game.add.sprite(x + w/2, y + h/2, null);
         game.physics.p2.enable(collisionShape, game.isDebug);
@@ -177,16 +199,18 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     update() {
         this.handleInputControls();
         game.networking.interpolateEntities();
     }
 
 
-
-
-
-
+    /**
+     *
+     */
     handleInputControls() {
 
         if(game.gameState.freezeInput) return;

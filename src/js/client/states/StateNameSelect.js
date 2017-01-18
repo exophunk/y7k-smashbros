@@ -2,6 +2,10 @@ import Portrait from 'client/objects/Portrait';
 
 export default class StateNameSelect extends Phaser.State {
 
+
+    /**
+     *
+     */
 	create() {
         this.initBackground();
         this.initNameBox();
@@ -9,6 +13,9 @@ export default class StateNameSelect extends Phaser.State {
 	}
 
 
+    /**
+     *
+     */
     initBackground() {
         this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
         this.background.anchor.setTo(0.5, 0.5);
@@ -24,7 +31,9 @@ export default class StateNameSelect extends Phaser.State {
     }
 
 
-
+    /**
+     *
+     */
     initNameBox() {
 
         this.nameBox = game.add.sprite(game.world.centerX, game.world.centerY, 'name-box');
@@ -57,6 +66,9 @@ export default class StateNameSelect extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     initControls() {
 
         this.keyListenerFunc = this.checkKeydown.bind(this);
@@ -72,6 +84,9 @@ export default class StateNameSelect extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     checkKeydown(e) {
         if(e.keyCode == Phaser.Keyboard.ENTER || e.keyCode == Phaser.Keyboard.SPACEBAR) {
             this.nextStep();
@@ -79,6 +94,9 @@ export default class StateNameSelect extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     nextStep() {
         let name = this.nameField.value;
 

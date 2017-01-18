@@ -1,6 +1,10 @@
 
 export default class StatePrepareAssets extends Phaser.State {
 
+
+    /**
+     *
+     */
 	create() {
 
         let texts = game.cache.getJSON('texts');

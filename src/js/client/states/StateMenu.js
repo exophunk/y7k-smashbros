@@ -1,6 +1,10 @@
 
 export default class StateMenu extends Phaser.State {
 
+
+    /**
+     *
+     */
 	create() {
 
 
@@ -39,6 +43,9 @@ export default class StateMenu extends Phaser.State {
 	}
 
 
+    /**
+     *
+     */
     update() {
         if (game.input.keyboard.isDown(Phaser.Keyboard.ENTER) || game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             this.nextStep();
@@ -46,17 +53,27 @@ export default class StateMenu extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     nextStep() {
         game.sounds.clickOk.play();
         game.state.start('StatePlayerSelect');
     }
 
 
+    /**
+     *
+     */
     spectate() {
         game.isDebug = true;
         game.state.start('StatePlaying');
     }
 
+
+    /**
+     *
+     */
     testingShortcut() {
         let allChars = game.characterFactory.getAllCharacters();
         let char = allChars[Math.floor(Math.random() * allChars.length)];

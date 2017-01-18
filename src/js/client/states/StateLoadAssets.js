@@ -1,11 +1,18 @@
 
 export default class StateLoadAssets extends Phaser.State {
 
+
+    /**
+     *
+     */
 	create() {
         game.state.start('StatePrepareAssets');
 	}
 
 
+    /**
+     *
+     */
     preload() {
         this.loadMap();
         this.loadCharacters();
@@ -17,12 +24,18 @@ export default class StateLoadAssets extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     loadMap() {
         game.load.tilemap('tilemap_data', '/build/assets/tilemaps/tilemap-y7k.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('tilemap_tiles', '/build/assets/tilemaps/tilemap-y7k.png');
     }
 
 
+    /**
+     *
+     */
     loadCharacters() {
         let characters = game.cache.getJSON('characters');
 
@@ -33,12 +46,18 @@ export default class StateLoadAssets extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     loadThrowables() {
         game.load.pack('throwables', '/build/assets/data/throwable-assets.json');
         game.load.pack('throwable-overlays', '/build/assets/data/throwable-assets.json');
     }
 
 
+    /**
+     *
+     */
     loadData() {
         game.load.json('spawnpoints', '/build/assets/data/spawnpoints.json');
         game.load.json('collision-shapes', '/build/assets/data/collision-shapes.json');
@@ -52,6 +71,9 @@ export default class StateLoadAssets extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     loadImages() {
         game.load.image('screen-start', '/build/assets/images/screen-start.png');
         game.load.image('screen-background', '/build/assets/images/screen-background.png');
@@ -62,6 +84,9 @@ export default class StateLoadAssets extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     loadFonts() {
         game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
         game.load.bitmapFont('font-white', '/build/assets/fonts/font-white.png', '/build/assets/fonts/font-white.fnt');
@@ -70,6 +95,9 @@ export default class StateLoadAssets extends Phaser.State {
     }
 
 
+    /**
+     *
+     */
     loadAudio() {
         game.load.audio('click', '/build/assets/audio/click.mp3');
         game.load.audio('click-ok', '/build/assets/audio/click-ok.mp3');

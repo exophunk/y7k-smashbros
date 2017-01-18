@@ -13,13 +13,18 @@ export const NetworkConfig = {
 
 export default class Networking {
 
-
+    /**
+     *
+     */
     constructor() {
         this.server = SocketIO();
         this.netBuffer = [];
     }
 
 
+    /**
+     *
+     */
     join() {
         this.server.on('confirm_join', this.confirmJoin.bind(this));
         this.server.on('room_not_found', this.disconnected.bind(this));
@@ -32,6 +37,9 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     joinSpectator() {
         this.server.on('confirm_join', this.confirmJoin.bind(this));
         this.server.on('disconnect', this.disconnected.bind(this));
@@ -40,6 +48,9 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     disconnected() {
         console.log('DISCONNECT FROM SERVER');
         clearTimeout(this.inputLoopTimeout);
@@ -48,6 +59,9 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     confirmJoin(data) {
 
         game.gameState.player.id = data.id;
@@ -66,6 +80,9 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     inputSendLoop() {
 
         let updatesDelta = {
@@ -84,11 +101,17 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     sendUpdates(updatesDelta) {
         this.server.emit('update_from_client', updatesDelta);
     }
 
 
+    /**
+     *
+     */
     bufferServerUpdates(snapshot) {
         snapshot.clientTime = new Date().getTime();
         this.netBuffer.push(snapshot);
@@ -99,6 +122,9 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     interpolateEntities() {
         let renderTime = new Date().getTime() - NetworkConfig.NET_OFFSET;
 
@@ -142,12 +168,19 @@ export default class Networking {
 
     }
 
+
+    /**
+     *
+     */
     syncWorldSnapshot(snapshot) {
         this.syncPlayers(snapshot.players);
         this.syncThrowables(snapshot.throwables);
     }
 
 
+    /**
+     *
+     */
     syncPlayers(serverPlayers) {
         Object.values(serverPlayers).forEach((serverPlayer) => {
             if(game.gameState.player.id != serverPlayer.id) {
@@ -162,6 +195,9 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     syncThrowables(serverThrowables) {
         Object.values(serverThrowables).forEach((serverThrowable) => {
             if(!game.gameState.activeThrowable || game.gameState.activeThrowable.id != serverThrowable.id) {
@@ -176,6 +212,9 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     addEnemy(enemySnapshot) {
         let enemy = new Player(enemySnapshot.char.key, enemySnapshot.name, false);
         enemy.char.setPhysics();
@@ -186,6 +225,9 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     removeEnemy(enemyId) {
         if(game.gameState.enemies[enemyId]) {
             game.gameState.enemies[enemyId].char.destroy();
@@ -195,6 +237,9 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     addThrowable(throwableSnapshot) {
         let throwable = new Throwable(throwableSnapshot.id, throwableSnapshot.item.key);
         throwable.item.setPhysics();
@@ -204,11 +249,17 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     sendHitEnemy(enemyId) {
         this.server.emit('player_hit', enemyId);
     }
 
 
+    /**
+     *
+     */
     playerGotHit(playerData) {
         console.log('playa got hit', playerData.id);
         if(playerData.id == game.gameState.player.id) {
@@ -236,6 +287,9 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     hostGotHit() {
         game.camera.shake(0.01, 1000);
         game.gameState.player.char.showHitEffects();
@@ -251,22 +305,34 @@ export default class Networking {
     }
 
 
+    /**
+     *
+     */
     hostDied() {
         game.gameState.freezeInput = true;
         game.gameState.player.char.showDyingEffects();
     }
 
 
+    /**
+     *
+     */
     enemyGotHit(enemy) {
         enemy.char.showHitEffects();
     }
 
 
+    /**
+     *
+     */
     enemyDied(enemy) {
         enemy.char.showDyingEffects();
     }
 
 
+    /**
+     *
+     */
     resetThrowables() {
         for(let throwable of Object.values(game.gameState.throwables)) {
             throwable.reset();

@@ -44,6 +44,10 @@ export default class Game extends Phaser.Game {
 
     }
 
+
+    /**
+     *
+     */
     start() {
 		this.state.start('StateBoot');
     }

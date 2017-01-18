@@ -5,6 +5,9 @@ let instance = null;
 
 export default class CharacterFactory {
 
+    /**
+     *
+     */
     constructor() {
         if(!instance) {
             instance = this;
@@ -13,18 +16,27 @@ export default class CharacterFactory {
     }
 
 
+    /**
+     *
+     */
     getCharacter(key) {
         let characterData = game.cache.getJSON('characters');
         return new Character(key, characterData[key].name);
     }
 
 
+    /**
+     *
+     */
     getPortrait(key) {
         let characterData = game.cache.getJSON('characters');
         return new Portrait(key, characterData[key].name);
     }
 
 
+    /**
+     *
+     */
     getAllCharacters() {
         let characterData = game.cache.getJSON('characters');
         let characters = [];
@@ -35,6 +47,9 @@ export default class CharacterFactory {
     }
 
 
+    /**
+     *
+     */
     getAllPortraits() {
         let characterData = game.cache.getJSON('characters');
         let portraits = [];
