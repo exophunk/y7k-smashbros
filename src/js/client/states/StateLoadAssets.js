@@ -14,6 +14,28 @@ export default class StateLoadAssets extends Phaser.State {
      *
      */
     preload() {
+
+        this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
+        this.background.anchor.setTo(0.5, 0.5);
+        this.background.scale.set(game.scaleFactor, game.scaleFactor);
+
+        let progressBar = game.add.sprite(0, 0, 'progress-bar');
+        progressBar.position.setTo(game.world.centerX - progressBar.width / 2, game.world.centerY - progressBar.height / 2);
+
+        let progressBarInner = game.add.sprite(0, 0, 'progress-bar-inner');
+        progressBarInner.position.setTo(game.world.centerX - progressBarInner.width / 2, game.world.centerY - progressBarInner.height / 2);
+        this.load.setPreloadSprite(progressBarInner);
+
+        let textStyle = {
+            font: "16px Helvetica",
+            fill: "#fff",
+            //stroke: "#000",
+            //strokeThickness: 1
+        };
+        let textLoading = game.add.text(0, 0, 'Loading...', textStyle);
+        textLoading.anchor.setTo(0.5, 0.5);
+        textLoading.position.setTo(game.world.centerX, game.world.centerY);
+
         this.loadMap();
         this.loadCharacters();
         this.loadThrowables();
@@ -76,7 +98,6 @@ export default class StateLoadAssets extends Phaser.State {
      */
     loadImages() {
         game.load.image('screen-start', '/build/assets/images/screen-start.png');
-        game.load.image('screen-background', '/build/assets/images/screen-background.png');
         game.load.image('portrait-box', '/build/assets/images/portrait-box.png');
         game.load.image('name-box', '/build/assets/images/name-box.png');
         game.load.image('tutorial-box', '/build/assets/images/tutorial-box.png');

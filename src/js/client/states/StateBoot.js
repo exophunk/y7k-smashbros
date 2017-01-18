@@ -70,6 +70,9 @@ export default class StateBoot extends Phaser.State {
     preload() {
         game.load.json('throwables', '/build/assets/data/throwables.json');
         game.load.json('characters', '/build/assets/data/characters.json');
+        game.load.image('screen-background', '/build/assets/images/screen-background.png');
+        game.load.image('progress-bar', '/build/assets/images/progress-bar.png');
+        game.load.image('progress-bar-inner', '/build/assets/images/progress-bar-inner.png');
     }
 
 }
