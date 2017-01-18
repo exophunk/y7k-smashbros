@@ -37,7 +37,6 @@ export default class Game extends Phaser.Game {
         this.state.add('StateTutorial', StateTutorial, false);
         this.state.add('StatePlaying', StatePlaying, false);
 
-        this.server = null;
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
         this.mobile = mobile;
