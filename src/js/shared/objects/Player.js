@@ -138,10 +138,18 @@ export default class Player {
             game.gameState.activeThrowable.throw();
         } else {
             let throwablesArr = Object.values(game.gameState.throwables);
+            let foundAThrowable = false;
             for(let throwable of Object.values(game.gameState.throwables)) {
                 if(throwable.canBePickedUp()) {
                     throwable.pickup();
+                    foundAThrowable = true;
                     break;
+                }
+            }
+
+            if(!foundAThrowable) {
+                for(let throwable of Object.values(game.gameState.throwables)) {
+                    throwable.item.showObjectGlow();
                 }
             }
         }

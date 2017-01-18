@@ -18,7 +18,8 @@ export default class ThrowableItem extends Phaser.Sprite {
         this.overlay = game.add.sprite(0, 0, overlayKey, this.paintLayerThrowables);
         this.overlay.anchor.setTo(0.5,0.5);
         this.overlay.alpha = 0;
-        game.time.events.repeat(ThrowableConfig.GLOW_ANIM_FREQUENCY, Number.MAX_VALUE, this.showObjectGlow, this);
+        this.isGlowAnimRunning = false;
+        //game.time.events.repeat(ThrowableConfig.GLOW_ANIM_FREQUENCY, Number.MAX_VALUE, this.showObjectGlow, this);
     }
 
 
@@ -74,8 +75,14 @@ export default class ThrowableItem extends Phaser.Sprite {
      *
      */
     showObjectGlow() {
-        if(this.throwable.isIdle()) {
+        if(this.throwable.isIdle() && !this.isGlowAnimRunning) {
+            this.isGlowAnimRunning = true;
             game.add.tween(this.overlay).to( { alpha: 0.6 }, ThrowableConfig.GLOW_ANIM_SPEED, Phaser.Easing.Linear.None, true, 0, 0, true);
+
+            setTimeout(() => {
+                this.isGlowAnimRunning = false;
+                this.overlay.alpha = 0;
+            }, ThrowableConfig.GLOW_ANIM_SPEED * 2 + 1000);
         }
     }
 
