@@ -15,9 +15,9 @@ export default class StateLoadAssets extends Phaser.State {
      */
     preload() {
 
-        this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
-        this.background.anchor.setTo(0.5, 0.5);
-        this.background.scale.set(game.scaleFactor, game.scaleFactor);
+        let background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
+        background.anchor.setTo(0.5, 0.5);
+        background.scale.set(game.scaleFactor, game.scaleFactor);
 
         let progressBar = game.add.sprite(0, 0, 'progress-bar');
         progressBar.position.setTo(game.world.centerX - progressBar.width / 2, game.world.centerY - progressBar.height / 2);

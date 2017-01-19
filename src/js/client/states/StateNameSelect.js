@@ -17,9 +17,9 @@ export default class StateNameSelect extends Phaser.State {
      *
      */
     initBackground() {
-        this.background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
-        this.background.anchor.setTo(0.5, 0.5);
-        this.background.scale.set(game.scaleFactor, game.scaleFactor);
+        let background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
+        background.anchor.setTo(0.5, 0.5);
+        background.scale.set(game.scaleFactor, game.scaleFactor);
 
         let titleText = game.add.bitmapText(0, 0, 'font-color', game.texts.TITLE_SELECT_NAME, 38);
         titleText.anchor.setTo(0.5, 0);
