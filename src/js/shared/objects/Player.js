@@ -22,6 +22,7 @@ export const PlayerConfig = {
     HIT_FREEZE_TIME: 500,
     SPAWN_FREEZE_TIME: 1000,
     WALK_SPEED: 200
+    DEAD_TIME: 4000,
 }
 
 export default class Player {
@@ -79,9 +80,15 @@ export default class Player {
     /**
      *
      */
-    spawnAt(x, y) {
-        this.char.body.x = x;
-        this.char.body.y = y;
+    spawn() {
+        let randomSpawnPoint = game.spawnPoints[Math.floor(Math.random() * game.spawnPoints.length)]
+        this.char.body.x = randomSpawnPoint.x;
+        this.char.body.y = randomSpawnPoint.y;
+        this.char.blink(250, PlayerConfig.SPAWN_FREEZE_TIME);
+
+        setTimeout(() => {
+            this.state = PlayerStates.ALIVE;
+        }, PlayerConfig.SPAWN_FREEZE_TIME);
     }
 
 

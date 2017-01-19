@@ -266,6 +266,14 @@ export default class GameRoom {
 
             if(player.health < 0) {
                 player.state = PlayerStates.DEAD;
+
+                Object.values(this.state.throwables).forEach((throwable) => {
+                    if(throwable.carryingPlayerId == playerId) {
+                        console.log('Reset DEAD throwable ID: ' + throwable.id);
+                        this.resetThrowable(throwable);
+                    }
+                });
+
             } else {
                 player.state = PlayerStates.HIT;
             }

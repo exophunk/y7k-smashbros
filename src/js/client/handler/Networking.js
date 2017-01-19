@@ -19,6 +19,7 @@ export default class Networking {
     constructor() {
         this.server = SocketIO();
         this.netBuffer = [];
+        this.stateNetworking = null;
 
         this.server.on('confirm_join', (data) => {
             this.dispatchServerUpdate(this.confirmJoin, data, false);
@@ -299,82 +300,6 @@ export default class Networking {
     }
 
 
-
-
-
-    /**
-     *
-     */
-    playerGotHit(playerData) {
-        console.log('playa got hit', playerData.id);
-        if(playerData.id == game.gameState.player.id) {
-            let player = game.gameState.player;
-            player.health = playerData.health;
-            player.state = playerData.state;
-
-            if(player.state == PlayerStates.DEAD) {
-                this.hostDied();
-            } else {
-                this.hostGotHit();
-            }
-        } else {
-            let enemy = game.gameState.enemies[playerData.id];
-            if(enemy) {
-                enemy.update(playerData);
-                if(enemy.state == PlayerStates.DEAD) {
-                    this.enemyDied(enemy);
-                } else {
-                    this.enemyGotHit(enemy);
-                }
-            }
-        }
-
-    }
-
-
-    /**
-     *
-     */
-    hostGotHit() {
-        game.camera.shake(0.01, 1000);
-        game.gameState.player.char.showHitEffects();
-        game.gameState.freezeInput = true;
-
-        setTimeout(() => {
-            game.gameState.player.state = PlayerStates.ALIVE;
-        }, PlayerConfig.HIT_IMMUNE_TIME);
-
-        setTimeout(() => {
-            game.gameState.freezeInput = false;
-        }, PlayerConfig.HIT_FREEZE_TIME);
-    }
-
-
-    /**
-     *
-     */
-    hostDied() {
-        game.gameState.freezeInput = true;
-        game.gameState.player.char.showDyingEffects();
-    }
-
-
-    /**
-     *
-     */
-    enemyGotHit(enemy) {
-        enemy.char.showHitEffects();
-    }
-
-
-    /**
-     *
-     */
-    enemyDied(enemy) {
-        enemy.char.showDyingEffects();
-    }
-
-
     /**
      *
      */
@@ -384,5 +309,12 @@ export default class Networking {
         }
     }
 
+
+    /**
+     *
+     */
+    playerGotHit(playerData) {
+        this.statePlaying.playerGotHit(playerData);
+    }
 
 }

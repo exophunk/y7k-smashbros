@@ -2,6 +2,7 @@ import Player from 'shared/objects/Player';
 import Spectator from 'client/objects/Spectator';
 import {PlayerStates, PlayerConfig} from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
+import OverlayDead from 'client/ui/OverlayDead';
 
 export default class StatePlaying extends Phaser.State {
 
@@ -13,6 +14,7 @@ export default class StatePlaying extends Phaser.State {
 
         game.stage.disableVisibilityChange = true;
         game.paused = true;
+        game.networking.statePlaying = this;
 
         this.level = game.add.group();
         game.paintLayers.background = game.add.group(this.level);
@@ -36,6 +38,10 @@ export default class StatePlaying extends Phaser.State {
         this.initControls();
 	}
 
+
+    // --------------------------------------------------------------------------------------------
+    // GAME INIT
+    // --------------------------------------------------------------------------------------------
 
     /**
      *
@@ -64,17 +70,9 @@ export default class StatePlaying extends Phaser.State {
     initHostPlayer() {
         let player = new Player(game.gameState.selectedCharKey, game.gameState.selectedName, true);
         player.char.setPhysics();
-
-        let randomSpawnPoint = game.spawnPoints[Math.floor(Math.random() * game.spawnPoints.length)]
-        player.spawnAt(randomSpawnPoint.x,randomSpawnPoint.y);
-
-        player.char.blink(250, PlayerConfig.SPAWN_FREEZE_TIME);
         game.paintLayers.chars.add(player.char);
         game.gameState.player = player;
-
-        setTimeout(() => {
-            player.state = PlayerStates.ALIVE;
-        }, PlayerConfig.SPAWN_FREEZE_TIME);
+        player.spawn();
     }
 
 
@@ -189,6 +187,10 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
+    // --------------------------------------------------------------------------------------------
+    // GAME LOOP
+    // --------------------------------------------------------------------------------------------
+
     /**
      *
      */
@@ -200,12 +202,17 @@ export default class StatePlaying extends Phaser.State {
     }
 
 
+
+
     /**
      *
      */
     handleInputControls() {
 
-        if(game.gameState.freezeInput) return;
+        if(game.gameState.freezeInput) {
+            game.gameState.player.idle();
+            return;
+        }
 
         if (this.spaceKey.isDown && !this.spaceBarPressed) {
             this.spaceBarPressed = true;
@@ -226,5 +233,107 @@ export default class StatePlaying extends Phaser.State {
         }
     }
 
+
+    // --------------------------------------------------------------------------------------------
+    // GAME METHODS
+    // --------------------------------------------------------------------------------------------
+
+    /**
+     *
+     */
+    playerGotHit(playerData) {
+        if(playerData.id == game.gameState.player.id) {
+            let player = game.gameState.player;
+            player.health = playerData.health;
+            player.state = playerData.state;
+
+            if(player.state == PlayerStates.DEAD) {
+                this.hostDied();
+            } else {
+                this.hostGotHit();
+            }
+        } else {
+            let enemy = game.gameState.enemies[playerData.id];
+            if(enemy) {
+                enemy.update(playerData);
+                if(enemy.state == PlayerStates.DEAD) {
+                    this.enemyDied(enemy);
+                } else {
+                    this.enemyGotHit(enemy);
+                }
+            }
+        }
+    }
+
+
+    /**
+     *
+     */
+    hostGotHit() {
+        game.camera.shake(0.01, 1000);
+        game.gameState.player.char.showHitEffects();
+        game.gameState.freezeInput = true;
+
+        setTimeout(() => {
+            game.gameState.player.state = PlayerStates.ALIVE;
+        }, PlayerConfig.HIT_IMMUNE_TIME);
+
+        setTimeout(() => {
+            game.gameState.freezeInput = false;
+        }, PlayerConfig.HIT_FREEZE_TIME);
+    }
+
+
+    /**
+     *
+     */
+    hostDied() {
+        let player = game.gameState.player;
+        game.camera.shake(0.01, 2000);
+        game.gameState.freezeInput = true;
+        player.char.body.setCollisionGroup(game.physics.p2.createCollisionGroup());
+        player.char.showDyingEffects();
+        let overlayDead = new OverlayDead();
+
+        if(game.gameState.activeThrowable) {
+            game.gameState.activeThrowable.reset();
+        }
+
+        setTimeout(() => {
+            overlayDead.hide();
+            player.char.scale.setTo(1,1);
+            player.char.alpha = 1;
+            player.char.nameText.alpha = 1;
+            player.char.body.setCollisionGroup(game.physicsState.playerCollisionGroup);
+            player.health = PlayerConfig.HEALTH;
+            game.gameState.freezeInput = false;
+            player.spawn();
+        }, PlayerConfig.DEAD_TIME);
+
+    }
+
+
+    /**
+     *
+     */
+    enemyGotHit(enemy) {
+        enemy.char.showHitEffects();
+    }
+
+
+    /**
+     *
+     */
+    enemyDied(enemy) {
+        enemy.char.body.setCollisionGroup(game.physics.p2.createCollisionGroup());
+        enemy.char.showDyingEffects();
+
+        setTimeout(() => {
+            enemy.char.scale.setTo(1,1);
+            enemy.char.alpha = 1;
+            enemy.char.nameText.alpha = 1;
+            enemy.char.body.setCollisionGroup(game.physicsState.enemiesCollisionGroup);
+        }, PlayerConfig.DEAD_TIME);
+    }
 
 }

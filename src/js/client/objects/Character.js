@@ -172,6 +172,12 @@ export default class Character extends Phaser.Sprite {
      *
      */
     showDyingEffects() {
+        this.blink(100, 1300);
+        this.frame = 1;
+        game.add.tween(this.scale).to( { x: 1.5, y: 1.5 }, 500, Phaser.Easing.Quadratic.Out, true);
+        game.add.tween(this).to( { angle: 720 }, 1300, Phaser.Easing.Linear.None, true, 200);
+        this.nameText.alpha = 0;
+        game.add.tween(this.scale).to( { x: 0, y: 0 }, 1000, Phaser.Easing.Quadratic.In, true, 500);
 
     }
 
