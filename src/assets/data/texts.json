@@ -1,8 +1,10 @@
 {
-    "START_FOOTER_ROW_1" : "1 credit(s) left",
-    "START_FOOTER_ROW_2" : "(c) 2017 y7k bros inc.",
-    "TITLE_SELECT_PLAYER" : "choose your hero",
-    "TITLE_SELECT_NAME" : "choose a name",
-    "TITLE_TUTORIAL" : "how to play"
+    "START_FOOTER_ROW_1": "1 credit(s) left",
+    "START_FOOTER_ROW_2": "(c) 2017 y7k bros inc.",
+    "TITLE_SELECT_PLAYER": "choose your hero",
+    "TITLE_SELECT_NAME": "choose a name",
+    "TITLE_TUTORIAL": "how to play",
+    "ROUND_OVER": "Round is over!",
+    "DEAD": "wasted"
 
 }

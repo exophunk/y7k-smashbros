@@ -1,5 +1,5 @@
 {
-    "PRESS_TO_CONTINUE" : "press space to continue",
-    "TUTORIAL_MOVE" : "use arrow keys to move arround",
-    "TUTORIAL_PICK" : "use spacebar to throw objects"
+    "PRESS_TO_CONTINUE": "press space to continue",
+    "TUTORIAL_MOVE": "use arrow keys to move arround",
+    "TUTORIAL_PICK": "use spacebar to throw objects"
 }

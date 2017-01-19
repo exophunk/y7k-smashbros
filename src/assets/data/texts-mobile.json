@@ -1,5 +1,5 @@
 {
-    "PRESS_TO_CONTINUE" : "tap here to continue",
-    "TUTORIAL_MOVE" : "use joystick to move arround",
-    "TUTORIAL_PICK" : "use button to throw objects"
+    "PRESS_TO_CONTINUE": "tap here to continue",
+    "TUTORIAL_MOVE": "use joystick to move arround",
+    "TUTORIAL_PICK": "use button to throw objects"
 }
