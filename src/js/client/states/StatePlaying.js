@@ -74,9 +74,8 @@ export default class StatePlaying extends Phaser.State {
         let player = new Player(game.gameState.selectedCharKey, game.gameState.selectedName, true);
         player.char.setPhysics();
 
-        let spawnPoints = game.cache.getJSON('spawnpoints');
-        let randomSpawnPoint = spawnPoints[Math.floor(Math.random() * spawnPoints.length)]
-        player.setPos(randomSpawnPoint.x,randomSpawnPoint.y);
+        let randomSpawnPoint = game.spawnPoints[Math.floor(Math.random() * game.spawnPoints.length)]
+        player.spawnAt(randomSpawnPoint.x,randomSpawnPoint.y);
 
         player.char.blink(250, PlayerConfig.SPAWN_FREEZE_TIME);
         game.paintLayers.chars.add(player.char);

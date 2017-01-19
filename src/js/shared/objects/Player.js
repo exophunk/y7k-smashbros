@@ -79,7 +79,7 @@ export default class Player {
     /**
      *
      */
-    setPos(x, y) {
+    spawnAt(x, y) {
         this.char.body.x = x;
         this.char.body.y = y;
     }

@@ -11,6 +11,7 @@ export default class StatePrepareAssets extends Phaser.State {
         let textsDevice = game.cache.getJSON('texts-device');
         game.texts = Object.assign(game.texts, texts, textsDevice);
 
+        game.spawnPoints = game.cache.getJSON('spawnpoints');
         game.sounds.click = game.add.audio('click');
         game.sounds.clickOk = game.add.audio('click-ok');
 
