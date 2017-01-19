@@ -95,6 +95,9 @@ export default class AdminBoard {
     }
 
 
+    /**
+     *
+     */
     getRoom(roomKey) {
         for(let gameRoom of this.data.gameRooms) {
             if(gameRoom.roomKey == roomKey) {

@@ -17,11 +17,11 @@ export const PlayerStates = {
  *
  */
 export const PlayerConfig = {
-    HEALTH: 5,
+    HEALTH: 3,
     HIT_IMMUNE_TIME: 2000,
     HIT_FREEZE_TIME: 500,
     SPAWN_FREEZE_TIME: 1000,
-    WALK_SPEED: 200
+    WALK_SPEED: 200,
     DEAD_TIME: 4000,
 }
 

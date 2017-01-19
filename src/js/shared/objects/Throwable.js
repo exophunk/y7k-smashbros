@@ -215,7 +215,6 @@ export default class Throwable {
         this.item.overlay.anchor.setTo(0.5,0.5);
     }
 
-
     // --------------------------------------------------------------------------------------------------
     // NETWORKING METHODS
     //

@@ -25,11 +25,11 @@ export default class StateMenu extends Phaser.State {
 
         let textFooter2 = game.add.bitmapText(0, 0, 'font-white', game.texts.START_FOOTER_ROW_2, 16);
         textFooter2.anchor.setTo(1, 1);
-        textFooter2.position.setTo(game.world.width - 10, game.world.height - 10);
+        textFooter2.position.setTo(game.gameWidth - 10, game.gameHeight - 10);
 
         let textFooter1 = game.add.bitmapText(0, 0, 'font-white', game.texts.START_FOOTER_ROW_1, 16);
         textFooter1.anchor.setTo(1, 1);
-        textFooter1.position.setTo(game.world.width - 10, game.world.height - 10 - textFooter2.height - 3);
+        textFooter1.position.setTo(game.gameWidth - 10, game.gameHeight - 10 - textFooter2.height - 3);
 
         game.time.events.loop(700, () => {
             textFooter1.alpha = textFooter1.alpha ? 0 : 1;

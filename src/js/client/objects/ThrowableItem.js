@@ -28,7 +28,6 @@ export default class ThrowableItem extends Phaser.Sprite {
      */
     setPhysics() {
         game.physics.p2.enable(this, game.isDebug);
-        //this.body.setCircle(ThrowableConfig.BODY_SIZE);
         this.body.setRectangle(ThrowableConfig.BODY_SIZE, ThrowableConfig.BODY_SIZE);
         this.body.damping = ThrowableConfig.DAMPING;
         this.body.angularDamping = ThrowableConfig.ANGULAR_DAMPING;
