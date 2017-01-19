@@ -1,11 +1,12 @@
-    import StateMenu from 'client/states/StateMenu';
 import StateBoot from 'client/states/StateBoot';
 import StateLoadAssets from 'client/states/StateLoadAssets';
-import StatePrepareAssets from 'client/states/StatePrepareAssets';
-import StatePlayerSelect from 'client/states/StatePlayerSelect';
+import StateMenu from 'client/states/StateMenu';
 import StateNameSelect from 'client/states/StateNameSelect';
-import StateTutorial from 'client/states/StateTutorial';
+import StatePlayerSelect from 'client/states/StatePlayerSelect';
 import StatePlaying from 'client/states/StatePlaying';
+import StatePrepareAssets from 'client/states/StatePrepareAssets';
+import StateRoundOver from 'client/states/StateRoundOver';
+import StateTutorial from 'client/states/StateTutorial';
 
 export default class Game extends Phaser.Game {
 
@@ -28,14 +29,15 @@ export default class Game extends Phaser.Game {
 
 		super(gameWidth, gameHeight, Phaser.AUTO, 'app', null);
 
-		this.state.add('StateBoot', StateBoot, false);
+        this.state.add('StateBoot', StateBoot, false);
         this.state.add('StateLoadAssets', StateLoadAssets, false);
-        this.state.add('StatePrepareAssets', StatePrepareAssets, false);
         this.state.add('StateMenu', StateMenu, false);
-        this.state.add('StatePlayerSelect', StatePlayerSelect, false);
         this.state.add('StateNameSelect', StateNameSelect, false);
-        this.state.add('StateTutorial', StateTutorial, false);
+        this.state.add('StatePlayerSelect', StatePlayerSelect, false);
         this.state.add('StatePlaying', StatePlaying, false);
+        this.state.add('StatePrepareAssets', StatePrepareAssets, false);
+        this.state.add('StateRoundOver', StateRoundOver, false);
+        this.state.add('StateTutorial', StateTutorial, false);
 
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
