@@ -19,17 +19,51 @@ export default class Networking {
     constructor() {
         this.server = SocketIO();
         this.netBuffer = [];
+
+        this.server.on('confirm_join', (data) => {
+            this.dispatchServerUpdate(this.confirmJoin, data, false);
+        });
+
+        this.server.on('room_not_found', (data) => {
+            this.dispatchServerUpdate(this.disconnected, data, false);
+        });
+
+        this.server.on('disconnect', (data) => {
+            this.dispatchServerUpdate(this.disconnected, data, false);
+        });
+
+        this.server.on('update_world', (data) => {
+            this.dispatchServerUpdate(this.bufferServerUpdates, data, true);
+        });
+
+        this.server.on('player_got_hit', (data) => {
+            this.dispatchServerUpdate(this.playerGotHit, data, true);
+        });
+
+        this.server.on('enemy_joined', (data) => {
+            this.dispatchServerUpdate(this.addEnemy, data, true);
+        });
+
+        this.server.on('enemy_left', (data) => {
+            this.dispatchServerUpdate(this.removeEnemy, data, true);
+        });
+
+        this.server.on('reset_throwables', (data) => {
+            this.dispatchServerUpdate(this.resetThrowables, data, true);
+        });
+
     }
 
+
+
+    // --------------------------------------------------------------------------------------------
+    // SENDING TO SERVER
+    // --------------------------------------------------------------------------------------------
 
     /**
      *
      */
     join() {
-        this.server.on('confirm_join', this.confirmJoin.bind(this));
-        this.server.on('room_not_found', this.disconnected.bind(this));
-        this.server.on('disconnect', this.disconnected.bind(this));
-
         this.server.emit('join', {
             playerData: game.gameState.player.getFullSnapshot(),
             forcedRoom: game.gameState.forcedRoom
@@ -41,10 +75,76 @@ export default class Networking {
      *
      */
     joinSpectator() {
-        this.server.on('confirm_join', this.confirmJoin.bind(this));
-        this.server.on('disconnect', this.disconnected.bind(this));
-        this.server.on('room_not_found', this.disconnected.bind(this));
         this.server.emit('join_spectator', game.gameState.forcedRoom);
+    }
+
+
+    /**
+     *
+     */
+    sendUpdates(updatesDelta) {
+        this.server.emit('update_from_client', updatesDelta);
+    }
+
+
+    /**
+     *
+     */
+    inputSendLoop() {
+        if(game.gameState.isPlaying) {
+            let updatesDelta = {
+                player: game.gameState.player.getDeltaSnapshot()
+            };
+
+            if(game.gameState.activeThrowable) {
+                updatesDelta.throwable = game.gameState.activeThrowable.getDeltaSnapshot();
+            }
+
+            if(Object.keys(updatesDelta.player).length > 1 || (updatesDelta.throwable && Object.keys(updatesDelta.throwable).length > 1)) {
+                this.sendUpdates(updatesDelta);
+            }
+        }
+
+        this.inputLoopTimeout = setTimeout(this.inputSendLoop.bind(this), 1000 / NetworkConfig.INPUT_RATE);
+    }
+
+
+    /**
+     *
+     */
+    sendHitEnemy(enemyId) {
+        this.server.emit('player_hit', enemyId);
+    }
+
+
+
+    // --------------------------------------------------------------------------------------------
+    // RECEIVING FROM SERVER
+    // --------------------------------------------------------------------------------------------
+
+    /**
+     *
+     */
+    dispatchServerUpdate(func, data, needRunning) {
+        if(!needRunning || game.gameState.isPlaying) {
+            func.apply(this, [data]);
+        }
+    }
+
+
+    /**
+     *
+     */
+    confirmJoin(data) {
+        game.gameState.player.id = data.id;
+        this.syncWorldSnapshot(data.worldSnapshot);
+
+        if(!game.gameState.spectate) {
+            this.inputSendLoop();
+        }
+
+        game.gameState.isPlaying = true;
+        game.paused = false;
     }
 
 
@@ -56,56 +156,6 @@ export default class Networking {
         clearTimeout(this.inputLoopTimeout);
         //game.state.start('StateMenu', true);
         window.location = window.location.href.split("?")[0];
-    }
-
-
-    /**
-     *
-     */
-    confirmJoin(data) {
-
-        game.gameState.player.id = data.id;
-        this.syncWorldSnapshot(data.worldSnapshot);
-
-        this.server.on('update_world', this.bufferServerUpdates.bind(this));
-        this.server.on('player_got_hit', this.playerGotHit.bind(this));
-        this.server.on('enemy_joined', this.addEnemy.bind(this));
-        this.server.on('enemy_left', this.removeEnemy.bind(this));
-        this.server.on('reset_throwables', this.resetThrowables.bind(this));
-
-        if(!game.gameState.spectate) {
-            this.inputSendLoop();
-        }
-
-    }
-
-
-    /**
-     *
-     */
-    inputSendLoop() {
-
-        let updatesDelta = {
-            player: game.gameState.player.getDeltaSnapshot()
-        };
-
-        if(game.gameState.activeThrowable) {
-            updatesDelta.throwable = game.gameState.activeThrowable.getDeltaSnapshot();
-        }
-
-        if(Object.keys(updatesDelta.player).length > 1 || (updatesDelta.throwable && Object.keys(updatesDelta.throwable).length > 1)) {
-            this.sendUpdates(updatesDelta);
-        }
-
-        this.inputLoopTimeout = setTimeout(this.inputSendLoop.bind(this), 1000 / NetworkConfig.INPUT_RATE);
-    }
-
-
-    /**
-     *
-     */
-    sendUpdates(updatesDelta) {
-        this.server.emit('update_from_client', updatesDelta);
     }
 
 
@@ -249,12 +299,7 @@ export default class Networking {
     }
 
 
-    /**
-     *
-     */
-    sendHitEnemy(enemyId) {
-        this.server.emit('player_hit', enemyId);
-    }
+
 
 
     /**
