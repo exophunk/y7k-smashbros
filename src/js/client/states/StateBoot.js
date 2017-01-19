@@ -1,5 +1,6 @@
 import CharacterFactory from 'client/handler/CharacterFactory';
 import ThrowableItemFactory from 'client/handler/ThrowableItemFactory';
+import Networking from 'client/handler/Networking';
 
 export default class StateBoot extends Phaser.State {
 
@@ -14,6 +15,7 @@ export default class StateBoot extends Phaser.State {
 
         game.characterFactory = new CharacterFactory();
         game.throwableItemFactory = new ThrowableItemFactory();
+        game.networking = new Networking();
 
         game.gameState = {
             player: null,

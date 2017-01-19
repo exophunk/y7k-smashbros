@@ -1,5 +1,3 @@
-import Networking from 'client/handler/Networking';
-import {NetworkConfig} from 'client/handler/Networking';
 import Player from 'shared/objects/Player';
 import Spectator from 'client/objects/Spectator';
 import {PlayerStates, PlayerConfig} from 'shared/objects/Player';
@@ -14,8 +12,6 @@ export default class StatePlaying extends Phaser.State {
 	create() {
 
         game.stage.disableVisibilityChange = true;
-
-        game.networking = new Networking();
 
         this.level = game.add.group();
         game.paintLayers.background = game.add.group(this.level);
