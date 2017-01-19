@@ -12,6 +12,7 @@ export default class StatePlaying extends Phaser.State {
 	create() {
 
         game.stage.disableVisibilityChange = true;
+        game.paused = true;
 
         this.level = game.add.group();
         game.paintLayers.background = game.add.group(this.level);
@@ -25,20 +26,14 @@ export default class StatePlaying extends Phaser.State {
 
         if(game.gameState.spectate) {
             this.initSpectator();
+            game.networking.joinSpectator();
         } else {
             this.initHostPlayer();
+            game.networking.join();
         }
 
         this.initCamera();
         this.initControls();
-
-
-        if(game.gameState.spectate) {
-            game.networking.joinSpectator();
-        } else {
-            game.networking.join();
-        }
-
 	}
 
 
@@ -198,8 +193,10 @@ export default class StatePlaying extends Phaser.State {
      *
      */
     update() {
-        this.handleInputControls();
-        game.networking.interpolateEntities();
+        if(game.gameState.isPlaying) {
+            this.handleInputControls();
+            game.networking.interpolateEntities();
+        }
     }
 
 
