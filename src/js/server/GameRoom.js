@@ -37,6 +37,10 @@ export default class GameRoom {
     }
 
 
+    // --------------------------------------------------------------------------------------------
+    // INITIALIZATION
+    // --------------------------------------------------------------------------------------------
+
     /**
      *
      */
@@ -51,8 +55,9 @@ export default class GameRoom {
     }
 
 
-    // ---------------------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------
     // LOOPS
+    // --------------------------------------------------------------------------------------------
 
 
     /**
@@ -107,7 +112,10 @@ export default class GameRoom {
     }
 
 
-    // ---------------------------------------------------------------------------------------------------------
+
+    // --------------------------------------------------------------------------------------------
+    // LOCAL METHODS
+    // --------------------------------------------------------------------------------------------
 
 
     /**
@@ -163,76 +171,9 @@ export default class GameRoom {
     /**
      *
      */
-    joinRoom(socket, player) {
-
-        this.state.players[player.id] = player;
-
-        const confirmData = { id: player.id, worldSnapshot: this.getWorldSnapshot() };
-        socket.emit('confirm_join', confirmData);
-
-        socket.broadcast.to(this.roomKey).emit('enemy_joined', player.getFullSnapshot());
-
-        socket.on('update_from_client', (updates) => { this.updateFromClient(socket, updates); });
-        socket.on('player_hit', (hitPlayerId) => { this.hitPlayer(hitPlayerId); });
-        socket.on('disconnect', () => { this.leavePlayer(socket, player.id); });
-
-        console.log('Client (' + player.id + ') entered Room ' + this.roomKey);
-    }
-
-
-    /**
-     *
-     */
-    joinSpectator(socket) {
-        const confirmData = { id: null, worldSnapshot: this.getWorldSnapshot() };
-        socket.emit('confirm_join', confirmData);
-    }
-
-
-    /**
-     *
-     */
-    updateFromClient(socket, clientUpdates) {
-
-        if(clientUpdates.player && this.getPlayer(clientUpdates.player.id)) {
-            this.updatePlayer(clientUpdates.player);
-        }
-
-        if(clientUpdates.throwable && this.getThrowable(clientUpdates.throwable.id)) {
-            this.updateThrowable(clientUpdates.throwable);
-        }
-
-    }
-
-
-    /**
-     *
-     */
     updatePlayer(updatedPlayer) {
         let player = this.getPlayer(updatedPlayer.id);
         player.update(updatedPlayer);
-    }
-
-
-    /**
-     *
-     */
-    hitPlayer(playerId) {
-        let player = this.getPlayer(playerId);
-
-        if(player) {
-            player.health--;
-
-            if(player.health < 0) {
-                player.state = PlayerStates.DEAD;
-            } else {
-                player.state = PlayerStates.HIT;
-            }
-
-            this.io.to(this.roomKey).emit('player_got_hit', player.getFullSnapshot());
-
-        }
-
     }
 
 
@@ -262,6 +203,77 @@ export default class GameRoom {
         this.initThrowables();
         this.forceFullWorldSnapshot = true;
         this.io.to(this.roomKey).emit('reset_throwables');
+    }
+
+
+    // --------------------------------------------------------------------------------------------
+    // NETWORKING  METHODS
+    // --------------------------------------------------------------------------------------------
+
+    /**
+     *
+     */
+    joinRoom(socket, player) {
+
+        this.state.players[player.id] = player;
+
+        const confirmData = { id: player.id, worldSnapshot: this.getWorldSnapshot() };
+        socket.emit('confirm_join', confirmData);
+
+        socket.broadcast.to(this.roomKey).emit('enemy_joined', player.getFullSnapshot());
+
+        socket.on('update_from_client', (updates) => { this.updateFromClient(updates); });
+        socket.on('player_hit', (hitPlayerId) => { this.hitPlayer(hitPlayerId); });
+        socket.on('disconnect', () => { this.leavePlayer(socket, player.id); });
+
+        console.log('Client (' + player.id + ') entered Room ' + this.roomKey);
+    }
+
+
+    /**
+     *
+     */
+    joinSpectator(socket) {
+        const confirmData = { id: null, worldSnapshot: this.getWorldSnapshot() };
+        socket.emit('confirm_join', confirmData);
+    }
+
+
+    /**
+     *
+     */
+    updateFromClient(clientUpdates) {
+
+        if(clientUpdates.player && this.getPlayer(clientUpdates.player.id)) {
+            this.updatePlayer(clientUpdates.player);
+        }
+
+        if(clientUpdates.throwable && this.getThrowable(clientUpdates.throwable.id)) {
+            this.updateThrowable(clientUpdates.throwable);
+        }
+
+    }
+
+
+    /**
+     *
+     */
+    hitPlayer(playerId) {
+        let player = this.getPlayer(playerId);
+
+        if(player) {
+            player.health--;
+
+            if(player.health < 0) {
+                player.state = PlayerStates.DEAD;
+            } else {
+                player.state = PlayerStates.HIT;
+            }
+
+            this.io.to(this.roomKey).emit('player_got_hit', player.getFullSnapshot());
+
+        }
+
     }
 
 
