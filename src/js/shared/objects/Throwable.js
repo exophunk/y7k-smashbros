@@ -32,15 +32,16 @@ export default class Throwable {
     /**
      *
      */
-    constructor(id, spriteKey) {
+    constructor(id, key) {
         this.id = id;
+        this.key = key;
         this.state = ThrowableStates.IDLE;
         this.carryingPlayerId = null;
 
         if(isClient) {
-            this.initClient(spriteKey);
+            this.initClient(key);
         } else {
-            this.initServer(spriteKey);
+            this.initServer(key);
         }
 
         this.lastSnapshot = {};
@@ -50,8 +51,8 @@ export default class Throwable {
     /**
      *
      */
-    initClient(spriteKey) {
-        this.item = game.throwableItemFactory.get(spriteKey);
+    initClient(key) {
+        this.item = game.throwableItemFactory.get(key);
         this.item.throwable = this;
     }
 
@@ -59,9 +60,9 @@ export default class Throwable {
     /**
      *
      */
-    initServer(spriteKey) {
+    initServer(key) {
         this.item = {
-            key: spriteKey,
+            key: key,
             body: {
                 x: 0,
                 y: 0,
