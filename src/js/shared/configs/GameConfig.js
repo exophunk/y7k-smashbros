@@ -31,7 +31,7 @@ export const PlayerConfig = {
     HIT_IMMUNE_TIME: 2000,
     HIT_FREEZE_TIME: 500,
     SPAWN_FREEZE_TIME: 1000,
-    WALK_SPEED: 150,
+    WALK_SPEED: 180,
     DEAD_TIME: 4000,
 }
 
