@@ -214,6 +214,7 @@ export default class Networking {
                 game.gameState.roundTime = targetSnapshot.roundTime;
             }
 
+            game.gameState.ping = targetSnapshot.clientTime - targetSnapshot.serverTime;
         }
 
 
