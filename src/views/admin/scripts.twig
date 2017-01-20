@@ -1,6 +1,7 @@
 <script type="text/javascript">
 
     var resetThrowableButtons = document.querySelectorAll('#js-reset-throwables');
+    var resetRoundButtons = document.querySelectorAll('#js-reset-round');
     var closeRoomButtons = document.querySelectorAll('#js-close-room');
     var resetServerButton = document.querySelector('#js-reset-server');
 
@@ -11,6 +12,19 @@
             var request = new XMLHttpRequest();
 
             request.open('POST', '/admin/reset-throwables', true);
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            request.send(JSON.stringify({roomKey: roomKey}));
+        });
+    });
+
+
+    Array.prototype.forEach.call(resetRoundButtons, function(el, i) {
+        el.addEventListener('click', function(e) {
+            var btn = e.target;
+            var roomKey = btn.getAttribute('data-room-key');
+            var request = new XMLHttpRequest();
+
+            request.open('POST', '/admin/reset-round', true);
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
             request.send(JSON.stringify({roomKey: roomKey}));
         });

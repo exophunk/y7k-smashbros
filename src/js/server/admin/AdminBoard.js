@@ -3,7 +3,7 @@ import twig from 'twig';
 import basicAuth from 'basic-auth';
 import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
-import {ServerConfig} from 'shared/configs/GameConfig';
+import {ServerConfig, GameConfig, PlayerConfig} from 'shared/configs/GameConfig';
 
 export default class AdminBoard {
 
@@ -26,7 +26,7 @@ export default class AdminBoard {
 
         this.app.get('/admin', this.authMiddleware, this.getAdminBoard.bind(this));
         this.app.post('/admin/reset-throwables', this.authMiddleware, this.resetThrowables.bind(this));
-        this.app.post('/admin/reset-stats', this.authMiddleware, this.resetStats.bind(this));
+        this.app.post('/admin/reset-round', this.authMiddleware, this.resetRound.bind(this));
         this.app.post('/admin/close-room', this.authMiddleware, this.closeRoom.bind(this));
         this.app.post('/admin/reset-server', this.authMiddleware, this.resetServer.bind(this));
 
@@ -59,11 +59,11 @@ export default class AdminBoard {
     /**
      *
      */
-    resetStats(req, res) {
+    resetRound(req, res) {
         let gameRoom = this.getRoom(req.body.roomKey);
         if(gameRoom) {
-            gameRoom.resetAllThrowables();
-            console.log(gameRoom.roomKey + ': Admin reset throwables');
+            gameRoom.roundReset();
+            console.log(gameRoom.roomKey + ': Admin reset round');
             return res.sendStatus(200);
         }
 

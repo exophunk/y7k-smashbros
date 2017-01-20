@@ -1,4 +1,4 @@
-import {ServerConfig, GameConfig} from 'shared/configs/GameConfig';
+import {ServerConfig, GameConfig, PlayerConfig} from 'shared/configs/GameConfig';
 import {PlayerStates, ThrowableStates} from 'shared/configs/ObjectStates';
 import Player from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
@@ -21,6 +21,7 @@ export default class GameRoom {
         this.forceFullWorldSnapshot = false;
 
         this.state = {
+            roundIsRunning: true,
             roundTime: GameConfig.ROUND_TIME,
             players: {},
             throwables: {}
@@ -86,7 +87,7 @@ export default class GameRoom {
         let now = new Date().getTime();
         this.state.roundTime -= (now - this.lastSimLoopTime);
 
-        if(this.state.roundTime <= 0) {
+        if(this.state.roundTime <= 0 && this.state.roundIsRunning) {
             this.roundOver();
         }
 
@@ -312,8 +313,30 @@ export default class GameRoom {
      *
      */
     roundOver() {
-        console.log('round is over');
-        this.io.to(this.roomKey).emit('round_over');
+        this.state.roundIsRunning = false;
+        let roundData = {};
+        this.io.to(this.roomKey).emit('round_over', roundData);
+
+        setTimeout(() => {
+            this.roundReset();
+        }, GameConfig.ROUND_OVER_TIME);
+    }
+
+
+    /**
+     *
+     */
+    roundReset() {
+        this.resetAllThrowables();
+        this.state.roundTime = GameConfig.ROUND_TIME;
+        this.state.roundIsRunning = true;
+
+        for(let player of Object.values(this.state.players)) {
+            player.health = PlayerConfig.HEALTH;
+            player.score = 0;
+        }
+
+        this.io.to(this.roomKey).emit('round_reset', this.getWorldSnapshot());
     }
 
 

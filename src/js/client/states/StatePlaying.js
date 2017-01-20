@@ -4,6 +4,8 @@ import Player from 'shared/objects/Player';
 import Spectator from 'client/objects/Spectator';
 import Throwable from 'shared/objects/Throwable';
 import OverlayDead from 'client/ui/OverlayDead';
+import OverlayRoundOver from 'client/ui/OverlayRoundOver';
+
 
 export default class StatePlaying extends Phaser.State {
 
@@ -309,7 +311,7 @@ export default class StatePlaying extends Phaser.State {
             player.health = PlayerConfig.HEALTH;
             game.gameState.freezeInput = false;
             player.spawn();
-        }, PlayerConfig.DEAD_TIME);
+        }, PlayerConfig.PLAYER_DEAD_TIME);
 
     }
 
@@ -334,7 +336,26 @@ export default class StatePlaying extends Phaser.State {
             enemy.char.alpha = 1;
             enemy.char.nameText.alpha = 1;
             enemy.char.body.setCollisionGroup(game.physicsState.enemiesCollisionGroup);
-        }, PlayerConfig.DEAD_TIME);
+        }, PlayerConfig.PLAYER_DEAD_TIME);
+    }
+
+
+    /**
+     *
+     */
+    roundOver(roundData) {
+        game.gameState.freezeInput = true;
+        this.overlayRoundOver = new OverlayRoundOver();
+    }
+
+
+    /**
+     *
+     */
+    roundReset() {
+        game.gameState.freezeInput = false;
+        game.gameState.player.spawn();
+        this.overlayRoundOver.hide();
     }
 
 }

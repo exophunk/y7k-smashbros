@@ -47,6 +47,18 @@ export default class Networking {
             this.dispatchServerUpdate(this.resetThrowables, data, true);
         });
 
+        this.server.on('round_over', (data) => {
+            this.dispatchServerUpdate(this.roundOver, data, true);
+        });
+
+        this.server.on('round_reset', (data) => {
+            this.dispatchServerUpdate(this.roundReset, data, true);
+        });
+
+        this.server.on('round_start', (data) => {
+            this.dispatchServerUpdate(this.roundStart, data, true);
+        });
+
     }
 
 
@@ -149,7 +161,6 @@ export default class Networking {
     disconnected() {
         console.log('DISCONNECT FROM SERVER');
         clearTimeout(this.inputLoopTimeout);
-        //game.state.start('StateMenu', true);
         window.location = window.location.href.split("?")[0];
     }
 
@@ -316,6 +327,30 @@ export default class Networking {
      */
     playerGotHit(playerData) {
         this.statePlaying.playerGotHit(playerData);
+    }
+
+
+    /**
+     *
+     */
+    roundOver(roundData) {
+        this.statePlaying.roundOver(roundData);
+    }
+
+
+    /**
+     *
+     */
+    roundReset() {
+        this.statePlaying.roundReset();
+    }
+
+
+    /**
+     *
+     */
+    roundStart() {
+        this.statePlaying.roundStart();
     }
 
 }

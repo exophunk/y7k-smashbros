@@ -11,17 +11,15 @@ export default class OverlayRoundOver {
         this.parent.alpha = 0;
         this.parent.fixedToCamera = true;
 
-        this.graphics = game.add.graphics(0, 0);
-        this.graphics.beginFill(0x000000);
-        this.graphics.drawRect(-50, -50, game.gameWidth + 50, game.gameHeight + 50);
-        this.graphics.alpha = 0.7;
+        this.background = game.add.image(game.gameWidth / 2, game.gameHeight / 2, 'screen-background');
+        this.background.anchor.setTo(0.5, 0.5);
+        this.background.scale.set(game.scaleFactor, game.scaleFactor);
 
-        this.roundOverText = game.add.bitmapText(0, 0, 'font-color', game.texts.ROUND_OVER, 72);
-        this.roundOverText.anchor.setTo(0.5, 0.5);
-        this.roundOverText.position.setTo(game.gameWidth / 2, game.gameHeight / 2);
-        this.roundOverText.alpha = 0;
+        this.roundOverText = game.add.bitmapText(0, 0, 'font-color', game.texts.ROUND_OVER, 38);
+        this.roundOverText.anchor.setTo(0.5, 0);
+        this.roundOverText.position.setTo(game.world.centerX, 40);
 
-        this.parent.addChild(this.graphics);
+        this.parent.addChild(this.background);
         this.parent.addChild(this.roundOverText);
 
         game.add.tween(this.parent).to( { alpha: 1 }, 1000, Phaser.Easing.Quadratic.InOut, true);

@@ -4,7 +4,10 @@
  */
 export const GameConfig = {
     PLAYER_HEALTH: 3,
-    ROUND_TIME: 5 * 60 * 1000,
+    //ROUND_TIME: 5 * 60 * 1000,
+    ROUND_TIME: 5 * 1000,
+    ROUND_OVER_TIME: 10 * 1000,
+    PLAYER_DEAD_TIME: 4000,
 }
 
 
@@ -32,7 +35,6 @@ export const PlayerConfig = {
     HIT_FREEZE_TIME: 500,
     SPAWN_FREEZE_TIME: 1000,
     WALK_SPEED: 180,
-    DEAD_TIME: 4000,
 }
 
 
