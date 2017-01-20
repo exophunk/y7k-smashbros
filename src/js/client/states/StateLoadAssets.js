@@ -14,7 +14,21 @@ export default class StateLoadAssets extends Phaser.State {
      *
      */
     preload() {
+        this.showLoadingBar();
+        this.loadMap();
+        this.loadCharacters();
+        this.loadThrowables();
+        this.loadImages();
+        this.loadAudio();
+        this.loadData();
+        this.loadFonts();
+    }
 
+
+    /**
+     *
+     */
+    showLoadingBar() {
         let background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
         background.anchor.setTo(0.5, 0.5);
         background.scale.set(game.scaleFactor, game.scaleFactor);
@@ -35,14 +49,6 @@ export default class StateLoadAssets extends Phaser.State {
         let textLoading = game.add.text(0, 0, 'Loading...', textStyle);
         textLoading.anchor.setTo(0.5, 0.5);
         textLoading.position.setTo(game.world.centerX, game.world.centerY);
-
-        this.loadMap();
-        this.loadCharacters();
-        this.loadThrowables();
-        this.loadImages();
-        this.loadAudio();
-        this.loadData();
-        this.loadFonts();
     }
 
 

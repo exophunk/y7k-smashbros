@@ -64,11 +64,11 @@ export default class GameRoom {
      *
      */
     debugLoop() {
-        console.log('----------');
-        console.log('THROWABLES: ' + Object.keys(this.state.throwables).length);
-        Object.values(this.state.throwables).forEach((throwable) => {
-            console.log(throwable.item.body.x, throwable.item.body.y);
-        });
+        // console.log('----------');
+        // console.log('THROWABLES: ' + Object.keys(this.state.throwables).length);
+        // Object.values(this.state.throwables).forEach((throwable) => {
+        //     console.log(throwable.item.body.x, throwable.item.body.y);
+        // });
         this.debugLoopTimeout = setTimeout(this.debugLoop.bind(this), 1000);
     }
 
@@ -277,7 +277,6 @@ export default class GameRoom {
 
                 Object.values(this.state.throwables).forEach((throwable) => {
                     if(throwable.carryingPlayerId == playerId) {
-                        console.log('Reset DEAD throwable ID: ' + throwable.id);
                         this.resetThrowable(throwable);
                     }
                 });

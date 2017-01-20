@@ -170,8 +170,9 @@ export default class Networking {
     /**
      *
      */
-    interpolateEntities() {
-        let renderTime = new Date().getTime() - NetworkConfig.NET_OFFSET;
+    applyServerUpdates() {
+
+        let renderTime = new Date().getTime() - ServerConfig.CLIENT_NET_OFFSET;
 
         let previousSnapshot;
         let targetSnapshot;

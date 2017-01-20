@@ -9,10 +9,9 @@ export default class StateBoot extends Phaser.State {
      *
      */
 	create() {
+
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-
         game.add.plugin(Fabrique.Plugins.InputField);
-
         game.characterFactory = new CharacterFactory();
         game.throwableItemFactory = new ThrowableItemFactory();
         game.networking = new Networking();
@@ -25,6 +24,8 @@ export default class StateBoot extends Phaser.State {
             selectedName: null,
             freezeInput: false,
             isPlaying: false,
+            spectate: false,
+            forcedRoom: null,
             roundTime: 0
         };
 
@@ -33,6 +34,17 @@ export default class StateBoot extends Phaser.State {
         game.sounds = {};
         game.texts = {};
 
+        this.handleUrlParams();
+        this.loadWebFonts();
+
+        game.state.start('StateLoadAssets');
+	}
+
+
+    /**
+     *
+     */
+    loadWebFonts() {
         window.WebFontConfig = {
 
             //  'active' means all requested fonts have finished loading
@@ -48,7 +60,13 @@ export default class StateBoot extends Phaser.State {
             }
 
         };
+    }
 
+
+    /**
+     *
+     */
+    handleUrlParams() {
         let params = {};
 
         if (location.search) {
@@ -63,9 +81,7 @@ export default class StateBoot extends Phaser.State {
 
         game.gameState.spectate = params.spectate ? true : false;
         game.gameState.forcedRoom = params.room ? params.room : null;
-
-        game.state.start('StateLoadAssets');
-	}
+    }
 
 
     /**

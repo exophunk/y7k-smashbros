@@ -198,7 +198,7 @@ export default class StatePlaying extends Phaser.State {
     update() {
         if(game.gameState.isPlaying) {
             this.handleInputControls();
-            game.networking.interpolateEntities();
+            game.networking.applyServerUpdates();
         }
     }
 
