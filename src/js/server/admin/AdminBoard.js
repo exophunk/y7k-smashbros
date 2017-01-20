@@ -113,6 +113,8 @@ export default class AdminBoard {
     authMiddleware(req, res, next) {
 
         let middleWareRes = res;
+        let adminPwHash = process.env.ADMIN_PWHASH;
+        let adminUser = process.env.ADMIN_USER;
 
         function unauthorized(res) {
             res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
@@ -125,8 +127,8 @@ export default class AdminBoard {
             return unauthorized(res);
         };
 
-        bcrypt.compare(user.pass, ServerConfig.PWHASH, (err, res) => {
-            if (user.name === ServerConfig.USER && res == true) {
+        bcrypt.compare(user.pass, adminPwHash, (err, res) => {
+            if (user.name === adminUser && res == true) {
                 return next();
             } else {
                 return unauthorized(middleWareRes);
