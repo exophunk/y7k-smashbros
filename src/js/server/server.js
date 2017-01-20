@@ -7,8 +7,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 
+import {ServerConfig} from 'shared/configs/GameConfig';
+
 import AdminBoard from 'server/admin/AdminBoard';
-import ServerConfig from 'server/ServerConfig';
 import GameRoom from 'server/GameRoom';
 import Player from 'shared/objects/Player';
 

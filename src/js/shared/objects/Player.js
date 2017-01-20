@@ -1,29 +1,7 @@
 import SnapshotHelper from 'shared/util/SnapshotHelper';
 import MathHelper from 'shared/util/MathHelper';
-
-
-/**
- *
- */
-export const PlayerStates = {
-    ALIVE: 0,
-    HIT: 1,
-    DEAD: 3,
-    SPAWNED: 4
-}
-
-
-/**
- *
- */
-export const PlayerConfig = {
-    HEALTH: 3,
-    HIT_IMMUNE_TIME: 2000,
-    HIT_FREEZE_TIME: 500,
-    SPAWN_FREEZE_TIME: 1000,
-    WALK_SPEED: 200,
-    DEAD_TIME: 4000,
-}
+import {PlayerConfig} from 'shared/configs/GameConfig';
+import {PlayerStates} from 'shared/configs/ObjectStates';
 
 export default class Player {
 

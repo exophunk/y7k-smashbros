@@ -3,7 +3,7 @@ import twig from 'twig';
 import basicAuth from 'basic-auth';
 import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
-import ServerConfig from 'server/ServerConfig';
+import {ServerConfig} from 'shared/configs/GameConfig';
 
 export default class AdminBoard {
 

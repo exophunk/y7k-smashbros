@@ -2,14 +2,8 @@ import SocketIO from 'socket.io-client';
 import MathHelper from 'shared/util/MathHelper';
 import Player from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
-import {PlayerStates, PlayerConfig} from 'shared/objects/Player';
-
-
-export const NetworkConfig = {
-    INPUT_RATE: 30,
-    NET_OFFSET: 100,
-}
-
+import {ServerConfig, PlayerConfig} from 'shared/configs/GameConfig';
+import {PlayerStates} from 'shared/configs/ObjectStates';
 
 export default class Networking {
 
@@ -106,7 +100,7 @@ export default class Networking {
             }
         }
 
-        this.inputLoopTimeout = setTimeout(this.inputSendLoop.bind(this), 1000 / NetworkConfig.INPUT_RATE);
+        this.inputLoopTimeout = setTimeout(this.inputSendLoop.bind(this), 1000 / ServerConfig.CLIENT_INPUT_RATE);
     }
 
 
@@ -189,13 +183,13 @@ export default class Networking {
 
             if(next) {
                 if(renderTime >= prev.clientTime && renderTime <= next.clientTime ) {
+
                     previousSnapshot = prev;
                     targetSnapshot = next;
                     break;
                 }
             }
         }
-
 
         if(previousSnapshot && targetSnapshot) {
             let lerpAmmount = MathHelper.mapToNormal(renderTime, previousSnapshot.clientTime, targetSnapshot.clientTime);

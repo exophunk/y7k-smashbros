@@ -1,30 +1,7 @@
 import SnapshotHelper from 'shared/util/SnapshotHelper';
 import MathHelper from 'shared/util/MathHelper';
-
-
-/**
- *
- */
-export const ThrowableStates = {
-    IDLE: 0,
-    CARRIED: 1,
-    THROWN: 2
-}
-
-
-/**
- *
- */
-export const ThrowableConfig = {
-    THROW_DURATION: 500,
-    THROW_SPEED: 400,
-    THROW_ROTATION: 270,
-    DAMPING: 0.7,
-    BODY_SIZE: 20,
-    ANGULAR_DAMPING: 0.9,
-    GLOW_ANIM_SPEED: 400,
-    GLOW_ANIM_FREQUENCY: 7000,
-}
+import {ThrowableConfig} from 'shared/configs/GameConfig';
+import {ThrowableStates} from 'shared/configs/ObjectStates';
 
 export default class Throwable {
 

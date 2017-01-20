@@ -1,6 +1,7 @@
+import {PlayerConfig} from 'shared/configs/GameConfig';
+import {PlayerStates} from 'shared/configs/ObjectStates';
 import Player from 'shared/objects/Player';
 import Spectator from 'client/objects/Spectator';
-import {PlayerStates, PlayerConfig} from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
 import OverlayDead from 'client/ui/OverlayDead';
 

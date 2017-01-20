@@ -1,10 +1,9 @@
-import ServerConfig from 'server/ServerConfig';
 import Player from 'shared/objects/Player';
 import {PlayerStates} from 'shared/objects/Player';
 import Throwable from 'shared/objects/Throwable';
 import {ThrowableStates} from 'shared/objects/Throwable';
 import SnapshotHelper from 'shared/util/SnapshotHelper';
-
+import {ServerConfig, GameConfig} from 'shared/configs/GameConfig';
 
 export default class GameRoom {
 
@@ -85,7 +84,7 @@ export default class GameRoom {
             }
         });
 
-        this.simulationLoopTimeout = setTimeout(this.simulationLoop.bind(this), 1000 / ServerConfig.TICK_RATE);
+        this.simulationLoopTimeout = setTimeout(this.simulationLoop.bind(this), 1000 / ServerConfig.SERVER_SIM_TICK_RATE);
     }
 
 
@@ -96,7 +95,7 @@ export default class GameRoom {
         this.updateCounter++;
 
         let snapshot;
-        if(this.updateCounter%(ServerConfig.UPDATE_RATE * 3) == 0 || this.forceFullWorldSnapshot) {
+        if(this.updateCounter%(ServerConfig.SERVER_UPDATE_RATE * 3) == 0 || this.forceFullWorldSnapshot) {
             this.forceFullWorldSnapshot = false;
             snapshot = this.getWorldSnapshot();
         } else {
@@ -108,7 +107,7 @@ export default class GameRoom {
             this.io.to(this.roomKey).emit('update_world', snapshot);
         }
 
-        this.updateLoopTimeout = setTimeout(this.updateLoop.bind(this), 1000 / ServerConfig.UPDATE_RATE);
+        this.updateLoopTimeout = setTimeout(this.updateLoop.bind(this), 1000 / ServerConfig.SERVER_UPDATE_RATE);
     }
 
 

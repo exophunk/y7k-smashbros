@@ -1,4 +1,4 @@
-import {PlayerConfig} from 'shared/objects/Player';
+import {PlayerConfig} from 'shared/configs/GameConfig';
 
 export default class Spectator {
 
