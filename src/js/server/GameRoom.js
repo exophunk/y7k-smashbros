@@ -1,9 +1,8 @@
-import Player from 'shared/objects/Player';
-import {PlayerStates} from 'shared/objects/Player';
-import Throwable from 'shared/objects/Throwable';
-import {ThrowableStates} from 'shared/objects/Throwable';
-import SnapshotHelper from 'shared/util/SnapshotHelper';
 import {ServerConfig, GameConfig} from 'shared/configs/GameConfig';
+import {PlayerStates, ThrowableStates} from 'shared/configs/ObjectStates';
+import Player from 'shared/objects/Player';
+import Throwable from 'shared/objects/Throwable';
+import SnapshotHelper from 'shared/util/SnapshotHelper';
 
 export default class GameRoom {
 
