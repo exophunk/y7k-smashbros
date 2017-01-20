@@ -25,6 +25,7 @@ export default class StateBoot extends Phaser.State {
             selectedName: null,
             freezeInput: false,
             isPlaying: false,
+            roundTime: 0
         };
 
         game.paintLayers = {};

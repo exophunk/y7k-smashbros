@@ -16,12 +16,13 @@ export default class GameRoom {
         this.io = io;
         this.roomKey = roomKey;
         this.data = data;
-        this.playTime = 0;
+        this.lastSimLoopTime = new Date().getTime();
         this.updateCounter = 0;
         this.openedOn = new Date();
         this.forceFullWorldSnapshot = false;
 
         this.state = {
+            roundTime: GameConfig.ROUND_TIME,
             players: {},
             throwables: {}
         };
@@ -79,11 +80,18 @@ export default class GameRoom {
 
         Object.values(this.state.throwables).forEach((throwable) => {
             if(throwable.carryingPlayerId && !this.state.players[throwable.carryingPlayerId]) {
-                console.log('Reset stuck throwable ID: ' + throwable.id);
                 this.resetThrowable(throwable);
             }
         });
 
+        let now = new Date().getTime();
+        this.state.roundTime -= (now - this.lastSimLoopTime);
+
+        if(this.state.roundTime <= 0) {
+            this.roundOver();
+        }
+
+        this.lastSimLoopTime = now;
         this.simulationLoopTimeout = setTimeout(this.simulationLoop.bind(this), 1000 / ServerConfig.SERVER_SIM_TICK_RATE);
     }
 
@@ -122,6 +130,7 @@ export default class GameRoom {
      */
     getWorldSnapshot() {
         return {
+            roundTime: this.state.roundTime,
             players: JSON.parse(JSON.stringify(this.state.players)),
             throwables: JSON.parse(JSON.stringify(this.state.throwables)),
         };
@@ -298,6 +307,15 @@ export default class GameRoom {
         delete this.state.players[playerId];
         socket.broadcast.to(this.roomKey).emit('enemy_left', playerId);
         console.log('Player left');
+    }
+
+
+    /**
+     *
+     */
+    roundOver() {
+        console.log('round is over');
+        this.io.to(this.roomKey).emit('round_over');
     }
 
 

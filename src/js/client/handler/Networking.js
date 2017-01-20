@@ -208,6 +208,11 @@ export default class Networking {
                     game.gameState.throwables[id].updateInterpolated(previousSnapshot.throwables[id], targetSnapshot.throwables[id], lerpAmmount);
                 }
             });
+
+            if(targetSnapshot.roundTime) {
+                game.gameState.roundTime = targetSnapshot.roundTime;
+            }
+
         }
 
 
