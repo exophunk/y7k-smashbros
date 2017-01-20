@@ -17,7 +17,7 @@ export default class OverlayRoundOver {
 
         this.roundOverText = game.add.bitmapText(0, 0, 'font-color', game.texts.ROUND_OVER, 38);
         this.roundOverText.anchor.setTo(0.5, 0);
-        this.roundOverText.position.setTo(game.world.centerX, 40);
+        this.roundOverText.position.setTo(game.centerX, 40);
 
         this.parent.addChild(this.background);
         this.parent.addChild(this.roundOverText);

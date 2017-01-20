@@ -17,17 +17,17 @@ export default class StateNameSelect extends Phaser.State {
      *
      */
     initBackground() {
-        let background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
+        let background = game.add.image(game.centerX, game.centerY, 'screen-background');
         background.anchor.setTo(0.5, 0.5);
         background.scale.set(game.scaleFactor, game.scaleFactor);
 
         let titleText = game.add.bitmapText(0, 0, 'font-color', game.texts.TITLE_SELECT_NAME, 38);
         titleText.anchor.setTo(0.5, 0);
-        titleText.position.setTo(game.world.centerX, 40);
+        titleText.position.setTo(game.centerX, 40);
 
         this.textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
         this.textContinue.anchor.setTo(0.5, 1);
-        this.textContinue.position.setTo(game.world.centerX, game.world.height - 40);
+        this.textContinue.position.setTo(game.centerX, game.world.height - 40);
     }
 
 
@@ -36,14 +36,14 @@ export default class StateNameSelect extends Phaser.State {
      */
     initNameBox() {
 
-        this.nameBox = game.add.sprite(game.world.centerX, game.world.centerY, 'name-box');
+        this.nameBox = game.add.sprite(game.centerX, game.centerY, 'name-box');
         this.nameBox.anchor.setTo(0.5,0.5);
 
         let fontSize = 25;
         let nameFieldWidth = 400;
         let nameFieldHeight = fontSize;
-        let nameFieldX = game.world.centerX - nameFieldWidth / 2;
-        let nameFieldY = game.world.centerY - nameFieldHeight / 2;
+        let nameFieldX = game.centerX - nameFieldWidth / 2;
+        let nameFieldY = game.centerY - nameFieldHeight / 2;
 
         this.nameField = game.add.inputField(nameFieldX, nameFieldY, {
             width: nameFieldWidth,

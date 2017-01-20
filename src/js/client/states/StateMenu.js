@@ -15,13 +15,13 @@ export default class StateMenu extends Phaser.State {
         this.testingShortcut();
 
         game.world.setBounds(0, 0, game.gameWidth, game.gameHeight);
-        let background = game.add.image(game.world.centerX, game.world.centerY, 'screen-start');
+        let background = game.add.image(game.centerX, game.centerY, 'screen-start');
         background.anchor.setTo(0.5, 0.5);
         background.scale.set(game.scaleFactor, game.scaleFactor);
 
         let textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
         textContinue.anchor.setTo(0.5, 0);
-        textContinue.position.setTo(game.world.centerX, game.world.centerY + (game.scaleFactor * 105));
+        textContinue.position.setTo(game.centerX, game.centerY + (game.scaleFactor * 105));
 
         let textFooter2 = game.add.bitmapText(0, 0, 'font-white', game.texts.START_FOOTER_ROW_2, 16);
         textFooter2.anchor.setTo(1, 1);

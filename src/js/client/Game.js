@@ -39,6 +39,8 @@ export default class Game extends Phaser.Game {
 
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
+        this.centerX = this.gameWidth / 2;
+        this.centerY = this.gameHeight / 2;
         this.mobile = mobile;
         this.scaleFactor = this.gameHeight / 480;
 

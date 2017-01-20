@@ -24,17 +24,17 @@ export default class StatePlayerSelect extends Phaser.State {
      */
     initBackground() {
 
-        let background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
+        let background = game.add.image(game.centerX, game.centerY, 'screen-background');
         background.anchor.setTo(0.5, 0.5);
         background.scale.set(game.scaleFactor, game.scaleFactor);
 
         let titleText = game.add.bitmapText(0, 0, 'font-color', game.texts.TITLE_SELECT_PLAYER, 38);
         titleText.anchor.setTo(0.5, 0);
-        titleText.position.setTo(game.world.centerX, 40);
+        titleText.position.setTo(game.centerX, 40);
 
         this.textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
         this.textContinue.anchor.setTo(0.5, 1);
-        this.textContinue.position.setTo(game.world.centerX, game.world.height - 40);
+        this.textContinue.position.setTo(game.centerX, game.world.height - 40);
     }
 
 
@@ -65,8 +65,8 @@ export default class StatePlayerSelect extends Phaser.State {
         let gridWidth = this.portraitBoxes.getAt(0).width + paddingX;
         let gridHeight = this.portraitBoxes.getAt(0).height + paddingY;
         this.portraitBoxes.align(4, -1, gridWidth, gridHeight);
-        this.portraitBoxes.x = game.world.centerX - ((4 * gridWidth) / 2) + (paddingX / 2);
-        this.portraitBoxes.y = game.world.centerY - ((2 * gridHeight) / 2) + (paddingY / 2);
+        this.portraitBoxes.x = game.centerX - ((4 * gridWidth) / 2) + (paddingX / 2);
+        this.portraitBoxes.y = game.centerY - ((2 * gridHeight) / 2) + (paddingY / 2);
 
     }
 

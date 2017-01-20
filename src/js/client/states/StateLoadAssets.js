@@ -29,15 +29,15 @@ export default class StateLoadAssets extends Phaser.State {
      *
      */
     showLoadingBar() {
-        let background = game.add.image(game.world.centerX, game.world.centerY, 'screen-background');
+        let background = game.add.image(game.centerX, game.centerY, 'screen-background');
         background.anchor.setTo(0.5, 0.5);
         background.scale.set(game.scaleFactor, game.scaleFactor);
 
         let progressBar = game.add.sprite(0, 0, 'progress-bar');
-        progressBar.position.setTo(game.world.centerX - progressBar.width / 2, game.world.centerY - progressBar.height / 2);
+        progressBar.position.setTo(game.centerX - progressBar.width / 2, game.centerY - progressBar.height / 2);
 
         let progressBarInner = game.add.sprite(0, 0, 'progress-bar-inner');
-        progressBarInner.position.setTo(game.world.centerX - progressBarInner.width / 2, game.world.centerY - progressBarInner.height / 2);
+        progressBarInner.position.setTo(game.centerX - progressBarInner.width / 2, game.centerY - progressBarInner.height / 2);
         this.load.setPreloadSprite(progressBarInner);
 
         let textStyle = {
@@ -48,7 +48,7 @@ export default class StateLoadAssets extends Phaser.State {
         };
         let textLoading = game.add.text(0, 0, 'Loading...', textStyle);
         textLoading.anchor.setTo(0.5, 0.5);
-        textLoading.position.setTo(game.world.centerX, game.world.centerY);
+        textLoading.position.setTo(game.centerX, game.centerY);
     }
 
 
