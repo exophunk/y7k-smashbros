@@ -5,7 +5,6 @@ import StateNameSelect from 'client/states/StateNameSelect';
 import StatePlayerSelect from 'client/states/StatePlayerSelect';
 import StatePlaying from 'client/states/StatePlaying';
 import StatePrepareAssets from 'client/states/StatePrepareAssets';
-import StateRoundOver from 'client/states/StateRoundOver';
 import StateTutorial from 'client/states/StateTutorial';
 
 export default class Game extends Phaser.Game {
@@ -36,7 +35,6 @@ export default class Game extends Phaser.Game {
         this.state.add('StatePlayerSelect', StatePlayerSelect, false);
         this.state.add('StatePlaying', StatePlaying, false);
         this.state.add('StatePrepareAssets', StatePrepareAssets, false);
-        this.state.add('StateRoundOver', StateRoundOver, false);
         this.state.add('StateTutorial', StateTutorial, false);
 
         this.gameHeight = gameHeight;
