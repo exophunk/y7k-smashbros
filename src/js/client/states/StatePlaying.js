@@ -289,6 +289,7 @@ export default class StatePlaying extends Phaser.State {
     hostGotHit() {
         game.camera.shake(0.01, 1000);
         game.gameState.player.char.showHitEffects();
+        game.gameState.player.char.updateHealthBar();
         game.gameState.freezeInput = true;
 
         setTimeout(() => {
@@ -320,12 +321,11 @@ export default class StatePlaying extends Phaser.State {
             overlayDead.hide();
             player.char.scale.setTo(1,1);
             player.char.alpha = 1;
-            player.char.nameText.alpha = 1;
             player.char.body.setCollisionGroup(game.physicsState.playerCollisionGroup);
             player.health = GameConfig.PLAYER_HEALTH;
             game.gameState.freezeInput = false;
             player.spawn();
-        }, PlayerConfig.PLAYER_DEAD_TIME);
+        }, GameConfig.PLAYER_DEAD_TIME);
 
     }
 
@@ -335,6 +335,7 @@ export default class StatePlaying extends Phaser.State {
      */
     enemyGotHit(enemy) {
         enemy.char.showHitEffects();
+        enemy.char.updateHealthBar();
     }
 
 
@@ -349,8 +350,11 @@ export default class StatePlaying extends Phaser.State {
             enemy.char.scale.setTo(1,1);
             enemy.char.alpha = 1;
             enemy.char.nameText.alpha = 1;
+            enemy.char.healthBar.alpha = 1;
             enemy.char.body.setCollisionGroup(game.physicsState.enemiesCollisionGroup);
-        }, PlayerConfig.PLAYER_DEAD_TIME);
+            enemy.char.updateHealthBar(true);
+
+        }, GameConfig.PLAYER_DEAD_TIME);
     }
 
 

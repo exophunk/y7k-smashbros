@@ -1,4 +1,4 @@
-import {PlayerConfig} from 'shared/configs/GameConfig';
+import {PlayerConfig, GameConfig} from 'shared/configs/GameConfig';
 
 export default class Character extends Phaser.Sprite {
 
@@ -17,6 +17,7 @@ export default class Character extends Phaser.Sprite {
         this.facing = 'idle';
         this.isMoving = false;
         this.anchor.setTo(0.5,0.5);
+        this.healthBarWidth = 25;
 
         this.addAnimations();
     }
@@ -39,12 +40,41 @@ export default class Character extends Phaser.Sprite {
      */
     addNameText(name) {
         let style = {
-            font: "12px VT323",
+            font: "14px VT323",
             fill: "#fff",
         };
         this.nameText = game.add.text(0, 0, name.toLowerCase(), style);
         this.nameText.anchor.setTo(0.5, 1);
         this.nameText.position.setTo(0, - this.height / 2 - 5);
+    }
+
+
+    /**
+     *
+     */
+    addHealthBar() {
+        this.healthBar = game.add.graphics(0, 0);
+        this.healthBar.beginFill(0x555555);
+        this.healthBar.drawRect(0, 0, this.healthBarWidth, 3);
+        this.healthBar.position.setTo(- this.healthBarWidth / 2, - this.height / 2 - 8);
+
+        this.healthBarInner = game.add.graphics(0, 0);
+        this.healthBarInner.beginFill(0XFB9838);
+        this.healthBarInner.drawRect(0, 0, this.healthBarWidth, 3);
+        this.healthBarInner.position.setTo(0, 0);
+        this.healthBar.addChild(this.healthBarInner);
+        this.updateHealthBar();
+
+    }
+
+
+    /**
+     *
+     */
+    updateHealthBar(setToFull) {
+        if(this.healthBarInner) {
+            this.healthBarInner.width = setToFull ? this.healthBarWidth : this.healthBarWidth / GameConfig.PLAYER_HEALTH * this.player.health;
+        }
     }
 
 
@@ -68,7 +98,16 @@ export default class Character extends Phaser.Sprite {
             this.body.collides(game.physicsState.throwablesActiveCollisionGroup, this.player.hitAsEnemy, this.player);
         }
 
-        this.addChild(this.nameText);
+        this.addChildren();
+    }
+
+
+    /**
+     *
+     */
+    addChildren() {
+        if(this.nameText) this.addChild(this.nameText);
+        if(this.healthBar) this.addChild(this.healthBar);
     }
 
 
@@ -171,7 +210,8 @@ export default class Character extends Phaser.Sprite {
         this.frame = 1;
         game.add.tween(this.scale).to( { x: 1.5, y: 1.5 }, 500, Phaser.Easing.Quadratic.Out, true);
         game.add.tween(this).to( { angle: 720 }, 1300, Phaser.Easing.Linear.None, true, 200);
-        this.nameText.alpha = 0;
+        if(this.nameText) this.nameText.alpha = 0;
+        if(this.healthBar) this.healthBar.alpha = 0;
         game.add.tween(this.scale).to( { x: 0, y: 0 }, 1000, Phaser.Easing.Quadratic.In, true, 500);
 
     }

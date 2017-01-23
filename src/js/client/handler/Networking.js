@@ -282,6 +282,7 @@ export default class Networking {
         let enemy = new Player(enemySnapshot.char.key, enemySnapshot.name, false);
         enemy.char.setPhysics();
         enemy.update(enemySnapshot);
+        enemy.char.updateHealthBar();
         game.gameState.enemies[enemy.id] = enemy;
         game.paintLayers.chars.add(enemy.char);
         console.log('Enemy joined');

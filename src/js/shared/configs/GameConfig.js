@@ -3,7 +3,7 @@
  *
  */
 export const GameConfig = {
-    PLAYER_HEALTH: 1,
+    PLAYER_HEALTH: 3,
     ROUND_TIME: 5 * 60 * 1000,
     //ROUND_TIME: 5 * 1000,
     ROUND_OVER_TIME: 10 * 1000,

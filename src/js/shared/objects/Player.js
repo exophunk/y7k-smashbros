@@ -35,7 +35,12 @@ export default class Player {
         this.char = game.characterFactory.getCharacter(charKey);
         this.char.isHost = this.isHost;
         this.char.player = this;
-        this.char.addNameText(this.name);
+
+        if(!this.isHost) {
+            this.char.addNameText(this.name);
+            this.char.addHealthBar();
+        }
+
     }
 
 
