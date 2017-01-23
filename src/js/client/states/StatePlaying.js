@@ -1,4 +1,4 @@
-import {PlayerConfig} from 'shared/configs/GameConfig';
+import {PlayerConfig, GameConfig} from 'shared/configs/GameConfig';
 import {PlayerStates} from 'shared/configs/ObjectStates';
 import Player from 'shared/objects/Player';
 import Spectator from 'client/objects/Spectator';
@@ -308,7 +308,7 @@ export default class StatePlaying extends Phaser.State {
             player.char.alpha = 1;
             player.char.nameText.alpha = 1;
             player.char.body.setCollisionGroup(game.physicsState.playerCollisionGroup);
-            player.health = PlayerConfig.HEALTH;
+            player.health = GameConfig.PLAYER_HEALTH;
             game.gameState.freezeInput = false;
             player.spawn();
         }, PlayerConfig.PLAYER_DEAD_TIME);

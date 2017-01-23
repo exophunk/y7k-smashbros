@@ -334,7 +334,7 @@ export default class GameRoom {
         this.state.roundIsRunning = true;
 
         for(let player of Object.values(this.state.players)) {
-            player.health = PlayerConfig.HEALTH;
+            player.health = GameConfig.PLAYER_HEALTH;
             player.score = 0;
         }
 

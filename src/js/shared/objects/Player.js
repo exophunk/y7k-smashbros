@@ -1,6 +1,6 @@
 import SnapshotHelper from 'shared/util/SnapshotHelper';
 import MathHelper from 'shared/util/MathHelper';
-import {PlayerConfig} from 'shared/configs/GameConfig';
+import {PlayerConfig, GameConfig} from 'shared/configs/GameConfig';
 import {PlayerStates} from 'shared/configs/ObjectStates';
 
 export default class Player {
@@ -13,7 +13,7 @@ export default class Player {
 
         this.id = null;
         this.isHost = isHost;
-        this.health = PlayerConfig.HEALTH;
+        this.health = GameConfig.PLAYER_HEALTH;
         this.state = PlayerStates.SPAWNED;
         this.score = 0;
         this.name = name ? name : 'Unknown';

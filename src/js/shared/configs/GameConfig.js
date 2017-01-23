@@ -3,9 +3,9 @@
  *
  */
 export const GameConfig = {
-    PLAYER_HEALTH: 3,
-    //ROUND_TIME: 5 * 60 * 1000,
-    ROUND_TIME: 5 * 1000,
+    PLAYER_HEALTH: 1,
+    ROUND_TIME: 5 * 60 * 1000,
+    //ROUND_TIME: 5 * 1000,
     ROUND_OVER_TIME: 10 * 1000,
     PLAYER_DEAD_TIME: 4000,
 }
@@ -30,7 +30,6 @@ export const ThrowableConfig = {
  *
  */
 export const PlayerConfig = {
-    HEALTH: 3,
     HIT_IMMUNE_TIME: 2000,
     HIT_FREEZE_TIME: 500,
     SPAWN_FREEZE_TIME: 1000,
