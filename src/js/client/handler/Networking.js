@@ -222,7 +222,7 @@ export default class Networking {
             });
 
             if(targetSnapshot.roundTime) {
-                game.gameState.roundTime = targetSnapshot.roundTime;
+                game.gameState.roundTime = targetSnapshot.roundTime < 0 ? 0 : targetSnapshot.roundTime;
             }
 
             game.gameState.ping = targetSnapshot.clientTime - targetSnapshot.serverTime;

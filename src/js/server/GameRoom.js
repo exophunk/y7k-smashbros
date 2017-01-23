@@ -85,9 +85,11 @@ export default class GameRoom {
         });
 
         let now = new Date().getTime();
-        this.state.roundTime -= (now - this.lastSimLoopTime);
 
-        if(this.state.roundTime <= 0 && this.state.roundIsRunning) {
+        if(this.state.roundTime > 0) {
+            this.state.roundTime -= (now - this.lastSimLoopTime);
+        } else if(this.state.roundIsRunning) {
+            this.state.roundTime = 0;
             this.roundOver();
         }
 
