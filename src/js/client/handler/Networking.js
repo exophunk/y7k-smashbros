@@ -36,27 +36,27 @@ export default class Networking {
         });
 
         this.server.on('enemy_joined', (data) => {
-            this.dispatchServerUpdate(this.addEnemy, data, true);
+            this.dispatchServerUpdate(this.addEnemy, data, false);
         });
 
         this.server.on('enemy_left', (data) => {
-            this.dispatchServerUpdate(this.removeEnemy, data, true);
+            this.dispatchServerUpdate(this.removeEnemy, data, false);
         });
 
         this.server.on('reset_throwables', (data) => {
-            this.dispatchServerUpdate(this.resetThrowables, data, true);
+            this.dispatchServerUpdate(this.resetThrowables, data, false);
         });
 
         this.server.on('round_over', (data) => {
-            this.dispatchServerUpdate(this.roundOver, data, true);
+            this.dispatchServerUpdate(this.roundOver, data, false);
         });
 
         this.server.on('round_reset', (data) => {
-            this.dispatchServerUpdate(this.roundReset, data, true);
+            this.dispatchServerUpdate(this.roundReset, data, false);
         });
 
         this.server.on('round_start', (data) => {
-            this.dispatchServerUpdate(this.roundStart, data, true);
+            this.dispatchServerUpdate(this.roundStart, data, false);
         });
 
     }
