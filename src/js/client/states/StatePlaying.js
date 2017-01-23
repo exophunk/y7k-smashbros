@@ -5,6 +5,7 @@ import Spectator from 'client/objects/Spectator';
 import Throwable from 'shared/objects/Throwable';
 import OverlayDead from 'client/ui/OverlayDead';
 import OverlayRoundOver from 'client/ui/OverlayRoundOver';
+import HeadUpDisplay from 'client/ui/HeadUpDisplay';
 
 
 export default class StatePlaying extends Phaser.State {
@@ -37,6 +38,7 @@ export default class StatePlaying extends Phaser.State {
             game.networking.join();
         }
 
+        this.initHUD();
         this.initCamera();
         this.initControls();
 	}
@@ -178,6 +180,15 @@ export default class StatePlaying extends Phaser.State {
     /**
      *
      */
+    initHUD() {
+        this.HUD = new HeadUpDisplay();
+        this.HUD.update();
+    }
+
+
+    /**
+     *
+     */
     addCollisionShape(x, y, w, h) {
         let collisionShape = game.add.sprite(x + w/2, y + h/2, null);
         game.physics.p2.enable(collisionShape, game.isDebug);
@@ -201,6 +212,9 @@ export default class StatePlaying extends Phaser.State {
         if(game.gameState.isPlaying) {
             this.handleInputControls();
             game.networking.applyServerUpdates();
+            this.HUD.update();
+        } else {
+            game.gameState.player.idle();
         }
     }
 
@@ -344,6 +358,7 @@ export default class StatePlaying extends Phaser.State {
      *
      */
     roundOver(roundData) {
+        game.gameState.isPlaying = false;
         game.gameState.freezeInput = true;
         this.overlayRoundOver = new OverlayRoundOver();
     }
@@ -353,9 +368,13 @@ export default class StatePlaying extends Phaser.State {
      *
      */
     roundReset() {
+        game.gameState.isPlaying = true;
         game.gameState.freezeInput = false;
         game.gameState.player.spawn();
-        this.overlayRoundOver.hide();
+
+        if(this.overlayRoundOver) {
+            this.overlayRoundOver.hide();
+        }
     }
 
 }
