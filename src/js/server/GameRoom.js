@@ -347,7 +347,11 @@ export default class GameRoom {
      */
     roundOver() {
         this.state.isRoundRunning = false;
-        this.io.to(this.roomKey).emit('round_over');
+
+        let roundData = {
+            players: this.getWorldSnapshot().players,
+        };
+        this.io.to(this.roomKey).emit('round_over', roundData);
 
         setTimeout(() => {
             this.roundReset();
