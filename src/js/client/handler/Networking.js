@@ -132,8 +132,8 @@ export default class Networking {
     /**
      *
      */
-    dispatchServerUpdate(func, data, needRunning) {
-        if(!needRunning || game.gameState.isPlaying) {
+    dispatchServerUpdate(func, data, needPlaying) {
+        if(!needPlaying || game.gameState.isPlaying) {
             func.apply(this, [data]);
         }
     }
@@ -151,7 +151,9 @@ export default class Networking {
         }
 
         game.gameState.isPlaying = true;
+        game.gameState.isRoundRunning = data.isRoundRunning;
         game.paused = false;
+
     }
 
 

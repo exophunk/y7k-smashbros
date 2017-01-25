@@ -21,7 +21,8 @@ export default class GameRoom {
         this.forceFullWorldSnapshot = false;
 
         this.state = {
-            roundIsRunning: true,
+            isRoundRunning: false,
+            isWaitingForPlayers: true,
             roundTime: GameConfig.ROUND_TIME,
             players: {},
             throwables: {}
@@ -86,11 +87,14 @@ export default class GameRoom {
 
         let now = new Date().getTime();
 
-        if(this.state.roundTime > 0) {
-            this.state.roundTime -= (now - this.lastSimLoopTime);
-        } else if(this.state.roundIsRunning) {
-            this.state.roundTime = 0;
-            this.roundOver();
+        if(this.state.isRoundRunning) {
+            if(this.state.roundTime > 0) {
+                this.state.roundTime -= (now - this.lastSimLoopTime);
+            } else {
+                this.state.roundTime = 0;
+                this.roundOver();
+            }
+
         }
 
         this.lastSimLoopTime = now;
@@ -227,14 +231,23 @@ export default class GameRoom {
 
         this.state.players[player.id] = player;
 
-        const confirmData = { id: player.id, worldSnapshot: this.getWorldSnapshot() };
-        socket.emit('confirm_join', confirmData);
-
-        socket.broadcast.to(this.roomKey).emit('enemy_joined', player.getFullSnapshot());
-
         socket.on('update_from_client', (updates) => { this.updateFromClient(updates); });
         socket.on('player_hit', (hitPlayerId) => { this.hitPlayer(hitPlayerId); });
         socket.on('disconnect', () => { this.leavePlayer(socket, player.id); });
+
+        socket.broadcast.to(this.roomKey).emit('enemy_joined', player.getFullSnapshot());
+
+        if(this.state.isWaitingForPlayers && Object.values(this.state.players).length > 1) {
+            this.startRound();
+        }
+
+        const confirmData = {
+            id: player.id,
+            worldSnapshot: this.getWorldSnapshot(),
+            isRoundRunning: this.state.isRoundRunning
+        };
+
+        socket.emit('confirm_join', confirmData);
 
         console.log('Client (' + player.id + ') entered Room ' + this.roomKey);
     }
@@ -274,7 +287,7 @@ export default class GameRoom {
         if(player) {
             player.health--;
 
-            if(player.health < 0) {
+            if(player.health <= 0) {
                 player.state = PlayerStates.DEAD;
 
                 Object.values(this.state.throwables).forEach((throwable) => {
@@ -314,10 +327,20 @@ export default class GameRoom {
     /**
      *
      */
+    startRound() {
+        this.state.isRoundRunning = true;
+        this.state.isWaitingForPlayers = false;
+        this.io.to(this.roomKey).emit('round_start');
+    }
+
+
+
+    /**
+     *
+     */
     roundOver() {
-        this.state.roundIsRunning = false;
-        let roundData = {};
-        this.io.to(this.roomKey).emit('round_over', roundData);
+        this.state.isRoundRunning = false;
+        this.io.to(this.roomKey).emit('round_over');
 
         setTimeout(() => {
             this.roundReset();
@@ -331,7 +354,7 @@ export default class GameRoom {
     roundReset() {
         this.resetAllThrowables();
         this.state.roundTime = GameConfig.ROUND_TIME;
-        this.state.roundIsRunning = true;
+        this.state.isRoundRunning = true;
 
         for(let player of Object.values(this.state.players)) {
             player.health = GameConfig.PLAYER_HEALTH;

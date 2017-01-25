@@ -1,6 +1,7 @@
 import CharacterFactory from 'client/handler/CharacterFactory';
 import ThrowableItemFactory from 'client/handler/ThrowableItemFactory';
 import Networking from 'client/handler/Networking';
+import {GameConfig} from 'shared/configs/GameConfig';
 
 export default class StateBoot extends Phaser.State {
 
@@ -23,10 +24,11 @@ export default class StateBoot extends Phaser.State {
             selectedCharKey: null,
             selectedName: null,
             freezeInput: false,
+            isRoundRunning: false,
             isPlaying: false,
             spectate: false,
             forcedRoom: null,
-            roundTime: 0
+            roundTime: GameConfig.ROUND_TIME
         };
 
         game.paintLayers = {};

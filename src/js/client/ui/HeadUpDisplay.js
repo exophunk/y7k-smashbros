@@ -8,6 +8,11 @@ export default class HeadUpDisplay {
      */
     constructor() {
 
+        this.playerHealth = null;
+        this.playerScore = null;
+        this.roundTime = null;
+        this.isRoundRunning = null;
+
         this.parent = game.add.sprite(0, 0, null);
         this.parent.fixedToCamera = true;
 
@@ -33,11 +38,17 @@ export default class HeadUpDisplay {
             this.healthHearts.add(game.add.sprite(x, y, 'hearth'));
         }
 
+        this.waitForPlayerText = game.add.bitmapText(0, 0, 'font-white-big', game.texts.WAIT_FOR_PLAYERS, 28);
+        this.waitForPlayerText.anchor.setTo(0.5, 0.5);
+        this.waitForPlayerText.position.setTo(game.centerX, game.centerY - 100);
+
+
         this.parent.addChild(this.roundTimer);
         this.parent.addChild(this.score);
         this.parent.addChild(this.healthHeartsGray);
         this.parent.addChild(this.healthHearts);
         this.parent.addChild(this.playerName);
+        this.parent.addChild(this.waitForPlayerText);
 
 
     }
@@ -47,7 +58,6 @@ export default class HeadUpDisplay {
      *
      */
     update() {
-
         if(game.gameState.roundTime != this.roundTime) {
             this.roundTimer.text = this.formatTime(game.gameState.roundTime);
         }
@@ -62,20 +72,20 @@ export default class HeadUpDisplay {
                     this.healthHearts.children[i].alpha = 1;
                 }
             }
-            console.log('playahealth is', game.gameState.player.health);
         }
 
         if(game.gameState.player.score != this.playerScore) {
             this.score.text = 'score: ' + game.gameState.player.score;
         }
 
-
-
-
+        if(game.gameState.isRoundRunning != this.isRoundRunning) {
+            this.waitForPlayerText.alpha = game.gameState.isRoundRunning ? 0 : 1;
+        }
 
         this.playerHealth = game.gameState.player.health;
         this.playerScore = game.gameState.player.score;
         this.roundTime = game.gameState.roundTime;
+        this.isRoundRunning = game.gameState.isRoundRunning;
     }
 
 

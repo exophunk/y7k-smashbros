@@ -363,7 +363,16 @@ export default class StatePlaying extends Phaser.State {
     /**
      *
      */
-    roundOver(roundData) {
+    roundStart() {
+        game.gameState.isRoundRunning = true;
+    }
+
+
+    /**
+     *
+     */
+    roundOver() {
+        game.gameState.isRoundRunning = false;
         game.gameState.isPlaying = false;
         game.gameState.freezeInput = true;
         this.overlayRoundOver = new OverlayRoundOver();
@@ -374,6 +383,7 @@ export default class StatePlaying extends Phaser.State {
      *
      */
     roundReset() {
+        game.gameState.isRoundRunning = true;
         game.gameState.isPlaying = true;
         game.gameState.freezeInput = false;
         game.gameState.player.spawn();

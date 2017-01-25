@@ -5,6 +5,8 @@
     "TITLE_SELECT_NAME": "choose a name",
     "TITLE_TUTORIAL": "how to play",
     "ROUND_OVER": "round is over!",
-    "DEAD": "wasted"
+    "DEAD": "wasted",
+    "WAIT_FOR_PLAYERS": "wait for other players..."
+
 
 }
