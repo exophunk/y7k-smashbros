@@ -1,4 +1,5 @@
 import {GameConfig} from 'shared/configs/GameConfig';
+import FormatHelper from 'shared/util/FormatHelper';
 
 export default class HeadUpDisplay {
 
@@ -16,18 +17,41 @@ export default class HeadUpDisplay {
         this.parent = game.add.sprite(0, 0, null);
         this.parent.fixedToCamera = true;
 
+        this.createRoundTimer();
+        this.createScore();
+        this.createHealthHearts();
+        this.createPlayerName();
+        this.createWaitForPlayerText();
+
+    }
+
+
+    /**
+     *
+     */
+    createRoundTimer() {
         this.roundTimer = game.add.bitmapText(0, 0, 'font-white-big', '', 28);
         this.roundTimer.anchor.setTo(0.5, 0);
         this.roundTimer.position.setTo(game.centerX, 2);
+        this.parent.addChild(this.roundTimer);
+    }
 
-        this.playerName = game.add.bitmapText(0, 0, 'font-white', game.gameState.player.name.toLowerCase(), 16);
-        this.playerName.anchor.setTo(0, 0);
-        this.playerName.position.setTo(8, 35);
 
+    /**
+     *
+     */
+    createScore() {
         this.score = game.add.bitmapText(0, 0, 'font-white', '', 16);
         this.score.anchor.setTo(1, 0);
         this.score.position.setTo(game.gameWidth - 10, 10);
+        this.parent.addChild(this.score);
+    }
 
+
+    /**
+     *
+     */
+    createHealthHearts() {
         this.healthHeartsGray = game.add.group();
         this.healthHearts = game.add.group();
 
@@ -38,19 +62,30 @@ export default class HeadUpDisplay {
             this.healthHearts.add(game.add.sprite(x, y, 'hearth'));
         }
 
+        this.parent.addChild(this.healthHeartsGray);
+        this.parent.addChild(this.healthHearts);
+    }
+
+
+    /**
+     *
+     */
+    createPlayerName() {
+        this.playerName = game.add.bitmapText(0, 0, 'font-white', game.gameState.player.name.toLowerCase(), 16);
+        this.playerName.anchor.setTo(0, 0);
+        this.playerName.position.setTo(8, 35);
+        this.parent.addChild(this.playerName);
+    }
+
+
+    /**
+     *
+     */
+    createWaitForPlayerText() {
         this.waitForPlayerText = game.add.bitmapText(0, 0, 'font-white-big', game.texts.WAIT_FOR_PLAYERS, 28);
         this.waitForPlayerText.anchor.setTo(0.5, 0.5);
         this.waitForPlayerText.position.setTo(game.centerX, game.centerY - 100);
-
-
-        this.parent.addChild(this.roundTimer);
-        this.parent.addChild(this.score);
-        this.parent.addChild(this.healthHeartsGray);
-        this.parent.addChild(this.healthHearts);
-        this.parent.addChild(this.playerName);
         this.parent.addChild(this.waitForPlayerText);
-
-
     }
 
 
@@ -59,7 +94,7 @@ export default class HeadUpDisplay {
      */
     update() {
         if(game.gameState.roundTime != this.roundTime) {
-            this.roundTimer.text = this.formatTime(game.gameState.roundTime);
+            this.roundTimer.text = FormatHelper.formatTime(game.gameState.roundTime);
         }
 
         if(game.gameState.player.health != this.playerHealth) {
@@ -88,13 +123,5 @@ export default class HeadUpDisplay {
         this.isRoundRunning = game.gameState.isRoundRunning;
     }
 
-
-    /**
-     *
-     */
-    formatTime(time) {
-        let date = new Date(time);
-        return date.getMinutes() + ':' + (date.getSeconds()<10?'0':'') + date.getSeconds();
-    }
 
 }

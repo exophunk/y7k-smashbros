@@ -38,7 +38,6 @@ export default class StateMenu extends Phaser.State {
         //game.sounds.music.play();
 
         game.input.onTap.add((pointer, doubleTap) => {
-            console.log(pointer.x, pointer.y);
             this.nextStep();
         }, this);
 	}

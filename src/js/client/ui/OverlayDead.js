@@ -6,7 +6,7 @@ export default class OverlayDead {
      *
      */
     constructor() {
-        console.log('WTFFFFFFf');
+
         this.parent = game.add.sprite(0, 0, null);
         this.parent.alpha = 0;
         this.parent.fixedToCamera = true;
