@@ -152,9 +152,11 @@ export default class Player {
      *
      */
     hitAsEnemy(playerBody, throwableBody) {
+
         let throwable = throwableBody.sprite.throwable;
         let player = playerBody.sprite.player;
-        if(throwable.isThrown() && player.state == PlayerStates.ALIVE) {
+        if(throwable.isThrown() && throwable.isDangerous && player.state == PlayerStates.ALIVE) {
+            throwable.isDangerous = false;
             let enemy = playerBody.sprite.player;
             game.networking.sendHitEnemy(enemy.id);
         }

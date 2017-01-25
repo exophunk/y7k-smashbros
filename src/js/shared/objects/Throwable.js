@@ -14,6 +14,7 @@ export default class Throwable {
         this.key = key;
         this.state = ThrowableStates.IDLE;
         this.carryingPlayerId = null;
+        this.isDangerous = false;
 
         if(isClient) {
             this.initClient(key);
@@ -133,6 +134,7 @@ export default class Throwable {
         let player = game.gameState.player;
         this.state = ThrowableStates.THROWN;
         this.item.setStatePhysics();
+        this.isDangerous = true;
 
         game.physics.p2.removeConstraint(this.pickupConstraint);
         this.item.body.setCollisionGroup(game.physicsState.throwablesActiveCollisionGroup);
@@ -172,6 +174,7 @@ export default class Throwable {
         this.state = ThrowableStates.IDLE;
         this.item.setStatePhysics();
         this.item.forceDisablePickup = true;
+        this.isDangerous = false;
 
         setTimeout(() => {
             game.gameState.activeThrowable = null;
