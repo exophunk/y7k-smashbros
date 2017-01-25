@@ -289,6 +289,7 @@ export default class GameRoom {
 
             if(victim.health <= 0) {
                 victim.state = PlayerStates.DEAD;
+                victim.increaseDeaths();
 
                 Object.values(this.state.throwables).forEach((throwable) => {
                     if(throwable.carryingPlayerId == victim.id) {
@@ -365,6 +366,7 @@ export default class GameRoom {
         for(let player of Object.values(this.state.players)) {
             player.health = GameConfig.PLAYER_HEALTH;
             player.score = 0;
+            player.deaths = 0;
         }
 
         this.io.to(this.roomKey).emit('round_reset', this.getWorldSnapshot());

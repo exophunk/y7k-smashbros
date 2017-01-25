@@ -386,6 +386,7 @@ export default class StatePlaying extends Phaser.State {
         game.gameState.isRoundRunning = true;
         game.gameState.isPlaying = true;
         game.gameState.freezeInput = false;
+        game.gameState.player.deaths = 0;
         game.gameState.player.spawn();
 
         if(this.overlayRoundOver) {

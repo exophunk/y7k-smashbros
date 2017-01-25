@@ -16,6 +16,7 @@ export default class Player {
         this.health = GameConfig.PLAYER_HEALTH;
         this.state = PlayerStates.SPAWNED;
         this.score = 0;
+        this.deaths = 0;
         this.name = name ? name : 'Unknown';
 
         if(isClient) {
@@ -196,6 +197,15 @@ export default class Player {
     }
 
 
+    /**
+     *
+     */
+    increaseDeaths() {
+        this.deaths++;
+    }
+
+
+
     // --------------------------------------------------------------------------------------------------
     // NETWORKING METHODS
     //
@@ -210,6 +220,7 @@ export default class Player {
             health: this.health,
             name: this.name,
             score: this.score,
+            deaths: this.deaths,
             state: this.state,
             char: {
                 key: this.char.key,
