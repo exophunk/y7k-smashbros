@@ -20,6 +20,7 @@ export default class ThrowableItem extends Phaser.Sprite {
         this.overlay.anchor.setTo(0.5,0.5);
         this.overlay.alpha = 0;
         this.isGlowAnimRunning = false;
+        this.forceDisablePickup = false;
         //game.time.events.repeat(ThrowableConfig.GLOW_ANIM_FREQUENCY, Number.MAX_VALUE, this.showObjectGlow, this);
     }
 

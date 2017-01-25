@@ -62,7 +62,7 @@ export default class Throwable {
      *
      */
     canBePickedUp() {
-        if(!this.isIdle()) {
+        if(!this.isIdle() || this.item.forceDisablePickup) {
             return false;
         }
 
@@ -116,6 +116,7 @@ export default class Throwable {
         let player = game.gameState.player;
         this.state = ThrowableStates.CARRIED;
         this.item.setStatePhysics();
+
         this.pickupConstraint = game.physics.p2.createLockConstraint(player.char.body, this.item.body, [0, 0], 0);
 
         this.carryingPlayerId = player.id;
@@ -170,10 +171,12 @@ export default class Throwable {
     land() {
         this.state = ThrowableStates.IDLE;
         this.item.setStatePhysics();
+        this.item.forceDisablePickup = true;
 
         setTimeout(() => {
             game.gameState.activeThrowable = null;
             this.carryingPlayerId = null;
+            this.item.forceDisablePickup = false;
         }, 200);
 
     }
@@ -188,6 +191,7 @@ export default class Throwable {
         this.state = ThrowableStates.IDLE;
         this.item.setStatePhysics();
         game.physics.p2.removeConstraint(this.pickupConstraint);
+        this.item.forceDisablePickup = false;
         this.item.anchor.setTo(0.5,0.5);
         this.item.overlay.anchor.setTo(0.5,0.5);
     }

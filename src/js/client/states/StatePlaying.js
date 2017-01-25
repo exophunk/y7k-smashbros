@@ -105,6 +105,7 @@ export default class StatePlaying extends Phaser.State {
         this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
         this.spaceBarPressed = false;
+        this.lastSpacePressed = 0;
 
         window.onblur = () => {
             this.cursors.left.isDown = false;
@@ -231,9 +232,10 @@ export default class StatePlaying extends Phaser.State {
             return;
         }
 
-        if (this.spaceKey.isDown && !this.spaceBarPressed) {
+        if (this.spaceKey.isDown && !this.spaceBarPressed && new Date().getTime() - GameConfig.ACTION_INPUT_THROTTLE > this.lastSpacePressed) {
             this.spaceBarPressed = true;
             game.gameState.player.doAction();
+            this.lastSpacePressed = new Date().getTime();
         }
         if (this.spaceKey.isUp) { this.spaceBarPressed = false; }
 
