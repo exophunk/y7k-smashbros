@@ -232,7 +232,7 @@ export default class GameRoom {
         this.state.players[player.id] = player;
 
         socket.on('update_from_client', (updates) => { this.updateFromClient(updates); });
-        socket.on('player_hit', (hitPlayerId) => { this.hitPlayer(hitPlayerId); });
+        socket.on('player_hit', (hitData) => { this.hitPlayer(socket, hitData); });
         socket.on('disconnect', () => { this.leavePlayer(socket, player.id); });
 
         socket.broadcast.to(this.roomKey).emit('enemy_joined', player.getFullSnapshot());
@@ -281,26 +281,32 @@ export default class GameRoom {
     /**
      *
      */
-    hitPlayer(playerId) {
-        let player = this.getPlayer(playerId);
+    hitPlayer(socket, hitData) {
+        let victim = this.getPlayer(hitData.victimId);
 
-        if(player) {
-            player.health--;
+        if(victim) {
+            victim.health--;
 
-            if(player.health <= 0) {
-                player.state = PlayerStates.DEAD;
+            if(victim.health <= 0) {
+                victim.state = PlayerStates.DEAD;
 
                 Object.values(this.state.throwables).forEach((throwable) => {
-                    if(throwable.carryingPlayerId == playerId) {
+                    if(throwable.carryingPlayerId == victim.id) {
                         this.resetThrowable(throwable);
                     }
                 });
 
+                let attacker = this.getPlayer(hitData.attackerId);
+                if(attacker) {
+                    attacker.increaseScore();
+                    socket.emit('player_scores');
+                }
+
             } else {
-                player.state = PlayerStates.HIT;
+                victim.state = PlayerStates.HIT;
             }
 
-            this.io.to(this.roomKey).emit('player_got_hit', player.getFullSnapshot());
+            this.io.to(this.roomKey).emit('player_got_hit', victim.getFullSnapshot());
 
         }
 

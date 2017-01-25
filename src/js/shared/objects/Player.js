@@ -188,6 +188,13 @@ export default class Player {
     }
 
 
+    /**
+     *
+     */
+    increaseScore() {
+        this.score++;
+    }
+
 
     // --------------------------------------------------------------------------------------------------
     // NETWORKING METHODS

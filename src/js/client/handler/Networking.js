@@ -35,6 +35,10 @@ export default class Networking {
             this.dispatchServerUpdate(this.playerGotHit, data, true);
         });
 
+        this.server.on('player_scores', (data) => {
+            this.dispatchServerUpdate(this.playerScores, data, true);
+        });
+
         this.server.on('enemy_joined', (data) => {
             this.dispatchServerUpdate(this.addEnemy, data, false);
         });
@@ -120,7 +124,11 @@ export default class Networking {
      *
      */
     sendHitEnemy(enemyId) {
-        this.server.emit('player_hit', enemyId);
+        let hitData = {
+            attackerId: game.gameState.player.id,
+            victimId: enemyId
+        };
+        this.server.emit('player_hit', hitData);
     }
 
 
@@ -330,6 +338,14 @@ export default class Networking {
      */
     playerGotHit(playerData) {
         this.statePlaying.playerGotHit(playerData);
+    }
+
+
+    /**
+     *
+     */
+    playerScores() {
+        game.gameState.player.increaseScore();
     }
 
 
