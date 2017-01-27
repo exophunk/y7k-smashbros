@@ -1,5 +1,6 @@
 {
   "name": "phsrtest",
+  "version": "0.9.0",
   "private": true,
   "description": "Phasertest",
   "author": {
@@ -9,9 +10,14 @@
   "license": "UNLICENSED",
   "main": "server/server.js",
   "scripts": {
-    "dev": "webpack --config webpack.client.config.js",
-    "deploy": "webpack --config webpack.client.production.config.js",
-    "test": "standard"
+    "build-dev": "gulp build-dev",
+    "build-prod": "gulp build-prod",
+    "start": "node server/server.js",
+    "test": "standard",
+    "postinstall": "gulp build-prod"
+  },
+  "engines": {
+    "node": "6.3.1"
   },
   "dependencies": {
     "assign-deep": "^0.4.5",
