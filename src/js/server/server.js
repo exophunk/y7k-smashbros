@@ -2,8 +2,6 @@ import "babel-polyfill";
 import express from 'express';
 import http from 'http';
 import SocketIO from 'socket.io';
-import dotenv from 'dotenv';
-//import UUID from 'uuid/v1';
 import path from 'path';
 import fs from 'fs';
 
@@ -13,11 +11,10 @@ import AdminBoard from 'server/admin/AdminBoard';
 import GameRoom from 'server/GameRoom';
 import Player from 'shared/objects/Player';
 
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 global.isClient = false;
 global.isServer = true;
-
 
 export default class Server {
 
