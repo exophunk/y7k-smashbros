@@ -26,7 +26,7 @@ export default class Server {
 
         this.app = express();
         this.server = http.Server(this.app);
-        this.port = process.env.WEBSOCKET_PORT || 3000;
+        this.port = process.env.PORT || 3000;
         this.app.use(express.static(path.resolve('public')))
         this.server.listen(this.port, () => { this.onListen() });
 
