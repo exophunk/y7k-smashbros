@@ -18,10 +18,13 @@ export default class HeadUpDisplay {
         this.parent.fixedToCamera = true;
 
         this.createRoundTimer();
-        this.createScore();
-        this.createHealthHearts();
-        this.createPlayerName();
-        this.createWaitForPlayerText();
+
+        if(!game.gameState.spectate) {
+            this.createScore();
+            this.createHealthHearts();
+            this.createPlayerName();
+            this.createWaitForPlayerText();
+        }
 
     }
 
@@ -93,34 +96,38 @@ export default class HeadUpDisplay {
      *
      */
     update() {
+
         if(game.gameState.roundTime != this.roundTime) {
             this.roundTimer.text = FormatHelper.formatTime(game.gameState.roundTime);
         }
+        this.roundTime = game.gameState.roundTime;
 
-        if(game.gameState.player.health != this.playerHealth) {
-            for(let healthHeart of this.healthHearts.children) {
-                healthHeart.alpha = 0;
-            }
+        if(!game.gameState.spectate) {
+            if(game.gameState.player.health != this.playerHealth) {
+                for(let healthHeart of this.healthHearts.children) {
+                    healthHeart.alpha = 0;
+                }
 
-            for(let i = 0; i < game.gameState.player.health; i++) {
-                if(this.healthHearts.children[i]) {
-                    this.healthHearts.children[i].alpha = 1;
+                for(let i = 0; i < game.gameState.player.health; i++) {
+                    if(this.healthHearts.children[i]) {
+                        this.healthHearts.children[i].alpha = 1;
+                    }
                 }
             }
-        }
 
-        if(game.gameState.player.score != this.playerScore) {
-            this.score.text = 'score: ' + game.gameState.player.score;
-        }
+            if(game.gameState.player.score != this.playerScore) {
+                this.score.text = 'score: ' + game.gameState.player.score;
+            }
 
-        if(game.gameState.isRoundRunning != this.isRoundRunning) {
-            this.waitForPlayerText.alpha = game.gameState.isRoundRunning ? 0 : 1;
-        }
+            if(game.gameState.isRoundRunning != this.isRoundRunning) {
+                this.waitForPlayerText.alpha = game.gameState.isRoundRunning ? 0 : 1;
+            }
 
-        this.playerHealth = game.gameState.player.health;
-        this.playerScore = game.gameState.player.score;
-        this.roundTime = game.gameState.roundTime;
-        this.isRoundRunning = game.gameState.isRoundRunning;
+            this.playerHealth = game.gameState.player.health;
+            this.playerScore = game.gameState.player.score;
+            this.isRoundRunning = game.gameState.isRoundRunning;
+
+        }
     }
 
 
