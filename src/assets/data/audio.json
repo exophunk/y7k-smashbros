@@ -1,0 +1,32 @@
+
+{
+    "music": [
+        {
+            "type": "audio",
+            "key": "music",
+            "urls": ["build/assets/audio/music-wham.mp3"],
+            "autoDecode": true
+        }
+    ],
+
+    "effects": [
+
+    ],
+
+    "ui": [
+        {
+            "type": "audio",
+            "key": "click",
+            "urls": ["build/assets/audio/click.mp3"],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "click-ok",
+            "urls": ["build/assets/audio/click-ok.mp3"],
+            "autoDecode": true
+        }
+    ],
+
+    "meta": {}
+}

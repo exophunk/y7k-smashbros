@@ -74,6 +74,7 @@ export default class StateLoadAssets extends Phaser.State {
      *
      */
     loadThrowables() {
+        // TODO create atlas maybe?
         game.load.pack('throwables', '/build/assets/data/throwable-assets.json');
         game.load.pack('throwable-overlays', '/build/assets/data/throwable-assets.json');
     }
@@ -99,6 +100,7 @@ export default class StateLoadAssets extends Phaser.State {
      *
      */
     loadImages() {
+        // TODO add pack/atlas
         game.load.image('screen-start', '/build/assets/images/screen-start.png');
         game.load.image('portrait-box', '/build/assets/images/portrait-box.png');
         game.load.image('name-box', '/build/assets/images/name-box.png');
@@ -124,9 +126,9 @@ export default class StateLoadAssets extends Phaser.State {
      *
      */
     loadAudio() {
-        game.load.audio('click', '/build/assets/audio/click.mp3');
-        game.load.audio('click-ok', '/build/assets/audio/click-ok.mp3');
-        game.load.audio('music', '/build/assets/audio/music-wham.mp3');
+        game.load.pack('music', '/build/assets/data/audio.json');
+        game.load.pack('effects', '/build/assets/data/audio.json');
+        game.load.pack('ui', '/build/assets/data/audio.json');
     }
 
 }
