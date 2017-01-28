@@ -2,8 +2,43 @@
     "throwables": [
         {
             "type": "image",
-            "key": "sprite-chair-right",
-            "url": "build/assets/sprites/throwables/obj-chair-right.png"
+            "key": "sprite-bin-1",
+            "url": "build/assets/sprites/throwables/obj-bin-1.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-bin-2",
+            "url": "build/assets/sprites/throwables/obj-bin-2.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-chair-black-left",
+            "url": "build/assets/sprites/throwables/obj-chair-black-left.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-chair-black-right",
+            "url": "build/assets/sprites/throwables/obj-chair-black-right.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-chair-red-front",
+            "url": "build/assets/sprites/throwables/obj-chair-red-front.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-chair-red-left",
+            "url": "build/assets/sprites/throwables/obj-chair-red-left.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-chair-white-back",
+            "url": "build/assets/sprites/throwables/obj-chair-white-back.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-chair-white-front",
+            "url": "build/assets/sprites/throwables/obj-chair-white-front.png"
         },
         {
             "type": "image",
@@ -14,14 +49,74 @@
             "type": "image",
             "key": "sprite-plant-2",
             "url": "build/assets/sprites/throwables/obj-plant-2.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-plant-3",
+            "url": "build/assets/sprites/throwables/obj-plant-3.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-pot-1",
+            "url": "build/assets/sprites/throwables/obj-pot-1.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-pot-2",
+            "url": "build/assets/sprites/throwables/obj-pot-2.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-white-box",
+            "url": "build/assets/sprites/throwables/obj-white-box.png"
+        },
+        {
+            "type": "image",
+            "key": "sprite-drawer",
+            "url": "build/assets/sprites/throwables/obj-drawer.png"
         }
     ],
 
     "throwable-overlays": [
         {
             "type": "image",
-            "key": "overlay-chair-right",
-            "url": "build/assets/sprites/throwables/overlay-chair-right.png"
+            "key": "overlay-bin-1",
+            "url": "build/assets/sprites/throwables/overlay-bin-1.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-bin-2",
+            "url": "build/assets/sprites/throwables/overlay-bin-2.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-chair-black-left",
+            "url": "build/assets/sprites/throwables/overlay-chair-black-left.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-chair-black-right",
+            "url": "build/assets/sprites/throwables/overlay-chair-black-right.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-chair-red-front",
+            "url": "build/assets/sprites/throwables/overlay-chair-red-front.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-chair-red-left",
+            "url": "build/assets/sprites/throwables/overlay-chair-red-left.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-chair-white-back",
+            "url": "build/assets/sprites/throwables/overlay-chair-white-back.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-chair-white-front",
+            "url": "build/assets/sprites/throwables/overlay-chair-white-front.png"
         },
         {
             "type": "image",
@@ -32,6 +127,31 @@
             "type": "image",
             "key": "overlay-plant-2",
             "url": "build/assets/sprites/throwables/overlay-plant-2.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-plant-3",
+            "url": "build/assets/sprites/throwables/overlay-plant-3.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-pot-1",
+            "url": "build/assets/sprites/throwables/overlay-pot-1.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-pot-2",
+            "url": "build/assets/sprites/throwables/overlay-pot-2.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-white-box",
+            "url": "build/assets/sprites/throwables/overlay-white-box.png"
+        },
+        {
+            "type": "image",
+            "key": "overlay-drawer",
+            "url": "build/assets/sprites/throwables/overlay-drawer.png"
         }
     ]
 }
