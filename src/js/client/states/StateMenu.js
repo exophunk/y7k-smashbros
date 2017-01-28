@@ -12,7 +12,7 @@ export default class StateMenu extends Phaser.State {
             this.spectate();
         }
 
-        this.testingShortcut();
+        //this.testingShortcut();
 
         game.world.setBounds(0, 0, game.gameWidth, game.gameHeight);
         let background = game.add.image(game.centerX, game.centerY, 'screen-start');
