@@ -41,6 +41,10 @@ export default class StatePlaying extends Phaser.State {
         this.initHUD();
         this.initCamera();
         this.initControls();
+
+        if(game.isDebug) {
+            this.initDebugInfos();
+        }
 	}
 
 
@@ -184,6 +188,21 @@ export default class StatePlaying extends Phaser.State {
     initHUD() {
         this.HUD = new HeadUpDisplay();
         this.HUD.update();
+    }
+
+
+    /**
+     *
+     */
+    initDebugInfos() {
+
+        for(let spawnPoint of game.spawnPoints) {
+            let spawnPointMark = game.add.graphics(0, 0);
+            spawnPointMark.lineStyle(3, 0xFF0000, 1);
+            spawnPointMark.drawCircle(spawnPoint.x, spawnPoint.y, 10);
+            spawnPointMark.alpha = 0.4;
+        }
+
     }
 
 
