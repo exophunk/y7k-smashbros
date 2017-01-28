@@ -65,12 +65,8 @@ export default class StateLoadAssets extends Phaser.State {
      *
      */
     loadCharacters() {
-        let characters = game.cache.getJSON('characters');
-
-        Object.keys(characters).forEach((key) => {
-            game.load.pack(key, '/build/assets/data/character-assets.json');
-        });
-
+        game.load.json('characters', '/build/assets/data/characters.json');
+        game.load.pack('characters', '/build/assets/data/character-assets.json');
     }
 
 

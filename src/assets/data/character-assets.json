@@ -1,6 +1,6 @@
 
 {
-    "gabriella": [
+    "characters": [
         {
             "key": "sprite-gabriella",
             "type": "spritesheet",
@@ -12,15 +12,6 @@
             "spacing": 0
         },
         {
-            "key": "portrait-gabriella",
-            "type": "image",
-            "url": "build/assets/images/portraits/char-portrait-gabriella.png",
-            "overwrite": false
-        }
-    ],
-
-    "joris": [
-        {
             "key": "sprite-joris",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-joris.png",
@@ -30,15 +21,6 @@
             "margin": 0,
             "spacing": 0
         },
-        {
-            "key": "portrait-joris",
-            "type": "image",
-            "url": "build/assets/images/portraits/char-portrait-joris.png",
-            "overwrite": false
-        }
-    ],
-
-    "julie": [
         {
             "key": "sprite-julie",
             "type": "spritesheet",
@@ -50,15 +32,6 @@
             "spacing": 0
         },
         {
-            "key": "portrait-julie",
-            "type": "image",
-            "url": "build/assets/images/portraits/char-portrait-julie.png",
-            "overwrite": false
-        }
-    ],
-
-    "robert": [
-        {
             "key": "sprite-robert",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-robert.png",
@@ -68,15 +41,6 @@
             "margin": 0,
             "spacing": 0
         },
-        {
-            "key": "portrait-robert",
-            "type": "image",
-            "url": "build/assets/images/portraits/char-portrait-robert.png",
-            "overwrite": false
-        }
-    ],
-
-    "ruben": [
         {
             "key": "sprite-ruben",
             "type": "spritesheet",
@@ -88,15 +52,6 @@
             "spacing": 0
         },
         {
-            "key": "portrait-ruben",
-            "type": "image",
-            "url": "build/assets/images/portraits/char-portrait-ruben.png",
-            "overwrite": false
-        }
-    ],
-
-    "tore": [
-        {
             "key": "sprite-tore",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-tore.png",
@@ -106,15 +61,6 @@
             "margin": 0,
             "spacing": 0
         },
-        {
-            "key": "portrait-tore",
-            "type": "image",
-            "url": "build/assets/images/portraits/char-portrait-tore.png",
-            "overwrite": false
-        }
-    ],
-
-    "yassine": [
         {
             "key": "sprite-yassine",
             "type": "spritesheet",
@@ -126,15 +72,6 @@
             "spacing": 0
         },
         {
-            "key": "portrait-yassine",
-            "type": "image",
-            "url": "build/assets/images/portraits/char-portrait-yassine.png",
-            "overwrite": false
-        }
-    ],
-
-    "yves": [
-        {
             "key": "sprite-yves",
             "type": "spritesheet",
             "url": "build/assets/sprites/chars/char-yves.png",
@@ -143,12 +80,6 @@
             "frameMax": 12,
             "margin": 0,
             "spacing": 0
-        },
-        {
-            "key": "portrait-yves",
-            "type": "image",
-            "url": "build/assets/images/portraits/char-portrait-yves.png",
-            "overwrite": false
         }
     ],
 
