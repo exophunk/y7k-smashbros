@@ -28,7 +28,8 @@ export default class StateBoot extends Phaser.State {
             isPlaying: false,
             spectate: false,
             forcedRoom: null,
-            roundTime: GameConfig.ROUND_TIME
+            roundTime: GameConfig.ROUND_TIME,
+            deltaMultiplier: 1,
             ping: 0,
         };
 

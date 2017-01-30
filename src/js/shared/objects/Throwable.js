@@ -143,19 +143,19 @@ export default class Throwable {
 
         switch(player.char.facing) {
             case 'left':
-                this.item.body.velocity.x = ThrowableConfig.THROW_SPEED * -1;
+                this.item.body.velocity.x = ThrowableConfig.THROW_SPEED * -1 * game.gameState.deltaMultiplier;
                 this.item.body.rotateLeft(ThrowableConfig.THROW_ROTATION);
                 break;
             case 'right':
-                this.item.body.velocity.x = ThrowableConfig.THROW_SPEED;
+                this.item.body.velocity.x = ThrowableConfig.THROW_SPEED * game.gameState.deltaMultiplier;
                 this.item.body.rotateRight(ThrowableConfig.THROW_ROTATION);
                 break;
             case 'up':
-                this.item.body.velocity.y = ThrowableConfig.THROW_SPEED * -1;
+                this.item.body.velocity.y = ThrowableConfig.THROW_SPEED * -1 * game.gameState.deltaMultiplier;
                 this.item.body.rotateLeft(ThrowableConfig.THROW_ROTATION);
                 break;
             case 'down':
-                this.item.body.velocity.y = ThrowableConfig.THROW_SPEED;
+                this.item.body.velocity.y = ThrowableConfig.THROW_SPEED * game.gameState.deltaMultiplier;
                 this.item.body.rotateRight(ThrowableConfig.THROW_ROTATION);
                 break;
         }

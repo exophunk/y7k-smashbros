@@ -18,6 +18,7 @@ export default class StatePlaying extends Phaser.State {
 	create() {
 
         game.stage.disableVisibilityChange = true;
+        game.time.advancedTiming = true;
         game.paused = true;
         game.networking.statePlaying = this;
 
@@ -234,15 +235,27 @@ export default class StatePlaying extends Phaser.State {
     update() {
 
         if(game.gameState.isPlaying) {
+            this.calculateDeltaMultiplier();
             this.handleInputControls();
             game.networking.applyServerUpdates();
             this.HUD.update();
         } else {
             game.gameState.player.idle();
         }
+
     }
 
 
+    /**
+     *
+     */
+    calculateDeltaMultiplier() {
+        let multiplier = 1 / game.time.fps * game.time.desiredFps;
+        multiplier = multiplier.toFixed(2)
+        if(multiplier > 2) multiplier = 2;
+        if(multiplier < 1) multiplier = 1;
+        game.gameState.deltaMultiplier = multiplier;
+    }
 
 
     /**

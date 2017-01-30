@@ -116,7 +116,7 @@ export default class Character extends Phaser.Sprite {
      */
     moveLeft() {
         this.body.setZeroVelocity();
-        this.body.moveLeft(PlayerConfig.WALK_SPEED);
+        this.body.moveLeft(PlayerConfig.WALK_SPEED * game.gameState.deltaMultiplier);
         this.updateAnimation(this.facing, this.isMoving, 'left', true);
     }
 
@@ -126,7 +126,7 @@ export default class Character extends Phaser.Sprite {
      */
     moveRight() {
         this.body.setZeroVelocity();
-        this.body.moveRight(PlayerConfig.WALK_SPEED);
+        this.body.moveRight(PlayerConfig.WALK_SPEED * game.gameState.deltaMultiplier);
         this.updateAnimation(this.facing, this.isMoving, 'right', true);
     }
 
@@ -136,7 +136,7 @@ export default class Character extends Phaser.Sprite {
      */
     moveUp() {
         this.body.setZeroVelocity();
-        this.body.moveUp(PlayerConfig.WALK_SPEED);
+        this.body.moveUp(PlayerConfig.WALK_SPEED * game.gameState.deltaMultiplier);
         this.updateAnimation(this.facing, this.isMoving, 'up', true);
     }
 
@@ -146,7 +146,7 @@ export default class Character extends Phaser.Sprite {
      */
     moveDown() {
         this.body.setZeroVelocity();
-        this.body.moveDown(PlayerConfig.WALK_SPEED);
+        this.body.moveDown(PlayerConfig.WALK_SPEED * game.gameState.deltaMultiplier);
         this.updateAnimation(this.facing, this.isMoving, 'down', true);
     }
 
