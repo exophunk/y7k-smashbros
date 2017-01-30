@@ -6,6 +6,7 @@ import Throwable from 'shared/objects/Throwable';
 import OverlayDead from 'client/ui/OverlayDead';
 import OverlayRoundOver from 'client/ui/OverlayRoundOver';
 import HeadUpDisplay from 'client/ui/HeadUpDisplay';
+import DebugDisplay from 'client/ui/DebugDisplay';
 
 
 export default class StatePlaying extends Phaser.State {
@@ -196,6 +197,8 @@ export default class StatePlaying extends Phaser.State {
      */
     initDebugInfos() {
 
+        this.debugDisplay = new DebugDisplay();
+
         for(let spawnPoint of game.spawnPoints) {
             let spawnPointMark = game.add.graphics(0, 0);
             spawnPointMark.lineStyle(3, 0xFF0000, 1);
@@ -229,6 +232,7 @@ export default class StatePlaying extends Phaser.State {
      *
      */
     update() {
+
         if(game.gameState.isPlaying) {
             this.handleInputControls();
             game.networking.applyServerUpdates();
@@ -268,6 +272,16 @@ export default class StatePlaying extends Phaser.State {
             game.gameState.player.moveDown();
         } else {
             game.gameState.player.idle();
+        }
+    }
+
+
+    /**
+     *
+     */
+    render() {
+        if(game.isDebug) {
+            this.debugDisplay.render();
         }
     }
 

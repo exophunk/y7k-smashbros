@@ -29,6 +29,7 @@ export default class StateBoot extends Phaser.State {
             spectate: false,
             forcedRoom: null,
             roundTime: GameConfig.ROUND_TIME
+            ping: 0,
         };
 
         game.paintLayers = {};
