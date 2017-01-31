@@ -50,6 +50,7 @@ export default class GameRoom {
         this.data.throwablesData.forEach((throwableData) => {
             let throwable = new Throwable(throwableData.id, throwableData.key);
             throwable.setPos(throwableData.x, throwableData.y);
+            throwable.item.particleEmitterType = throwableData.particleEmitterType ? throwableData.particleEmitterType : null;
             this.state.throwables[throwable.id] = throwable;
         })
 

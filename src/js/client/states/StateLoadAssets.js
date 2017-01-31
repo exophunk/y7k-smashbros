@@ -108,6 +108,8 @@ export default class StateLoadAssets extends Phaser.State {
         game.load.image('select-cursor', '/build/assets/images/select-cursor.png');
         game.load.image('hearth-gray', '/build/assets/images/hearth-gray.png');
         game.load.image('hearth', '/build/assets/images/hearth.png');
+        game.load.image('leave-1', '/build/assets/sprites/particles/leave-1.png');
+        game.load.image('leave-2', '/build/assets/sprites/particles/leave-2.png');
     }
 
 

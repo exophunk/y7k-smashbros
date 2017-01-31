@@ -1,4 +1,4 @@
-import {ThrowableConfig} from 'shared/configs/GameConfig';
+import {ThrowableConfig, ParticlesConfig} from 'shared/configs/GameConfig';
 import {ThrowableStates} from 'shared/configs/ObjectStates';
 
 export default class ThrowableItem extends Phaser.Sprite {
@@ -12,7 +12,6 @@ export default class ThrowableItem extends Phaser.Sprite {
         let overlayKey = 'overlay-' + key;
         super(game, 0, 0, spriteKey);
 
-
         this.throwable = null;
         this.anchor.setTo(0.5,0.5);
 
@@ -21,7 +20,7 @@ export default class ThrowableItem extends Phaser.Sprite {
         this.overlay.alpha = 0;
         this.isGlowAnimRunning = false;
         this.forceDisablePickup = false;
-        //game.time.events.repeat(ThrowableConfig.GLOW_ANIM_FREQUENCY, Number.MAX_VALUE, this.showObjectGlow, this);
+        this.particleEmitterType = null;
     }
 
 
@@ -68,6 +67,41 @@ export default class ThrowableItem extends Phaser.Sprite {
             case ThrowableStates.THROWN:
                 this.body.fixedRotation = false;
                 break;
+        }
+    }
+
+
+    /**
+     *
+     */
+    initEmitter() {
+        this.particlesEmitter = game.add.emitter(this.x, this.y, 10);
+        this.particlesEmitter.enableBody = true;
+        this.particlesEmitter.physicsBodyType = Phaser.Physics.P2JS;
+        this.particlesEmitter.minParticleSpeed.setTo(-50, -20);
+        this.particlesEmitter.maxParticleSpeed.setTo(50, 30);
+        this.particlesEmitter.minParticleScale = 0.8;
+        this.particlesEmitter.maxParticleScale = 1.3;
+        this.particlesEmitter.gravity.setTo(0, 60);
+
+        if(this.particleEmitterType == ParticlesConfig.TYPE_PLANT) {
+            this.particlesEmitter.makeParticles(ParticlesConfig.PARTICLES_PLANT);
+        }
+
+    }
+
+
+    /**
+     *
+     */
+    runEmitter() {
+        if(this.particleEmitterType) {
+            if(!this.particlesEmitter) {
+                this.initEmitter();
+            }
+            this.particlesEmitter.x = this.x;
+            this.particlesEmitter.y = this.y - 20;
+            this.particlesEmitter.start(true, 800, null, Math.floor(Math.random() * 5));
         }
     }
 

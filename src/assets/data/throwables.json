@@ -51,37 +51,43 @@
         "id": 10,
         "x" : 638,
         "y": 694,
-        "key": "plant-1"
+        "key": "plant-1",
+        "particleEmitterType": "plant"
     },
     {
         "id": 11,
         "x" : 656,
         "y": 415,
-        "key": "plant-2"
+        "key": "plant-2",
+        "particleEmitterType": "plant"
     },
     {
         "id": 12,
         "x" : 495,
         "y": 149,
-        "key": "plant-2"
+        "key": "plant-2",
+        "particleEmitterType": "plant"
     },
     {
         "id": 13,
         "x" : 636,
         "y": 598,
-        "key": "plant-3"
+        "key": "plant-3",
+        "particleEmitterType": "plant"
     },
     {
         "id": 14,
         "x" : 658,
         "y": 211,
-        "key": "plant-3"
+        "key": "plant-3",
+        "particleEmitterType": "plant"
     },
     {
         "id": 15,
         "x" : 73,
         "y": 703,
-        "key": "plant-3"
+        "key": "plant-3",
+        "particleEmitterType": "plant"
     },
     {
         "id": 17,

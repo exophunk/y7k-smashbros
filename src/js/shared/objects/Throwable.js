@@ -41,6 +41,7 @@ export default class Throwable {
     initServer(key) {
         this.item = {
             key: key,
+            particleEmitterType: null,
             body: {
                 x: 0,
                 y: 0,
@@ -124,6 +125,7 @@ export default class Throwable {
         game.gameState.activeThrowable = this;
 
         player.setCarryAnchor();
+        this.item.runEmitter();
     }
 
 
@@ -175,6 +177,7 @@ export default class Throwable {
         this.item.setStatePhysics();
         this.item.forceDisablePickup = true;
         this.isDangerous = false;
+        this.item.runEmitter();
 
         setTimeout(() => {
             game.gameState.activeThrowable = null;
@@ -213,6 +216,7 @@ export default class Throwable {
             state: this.state,
             carryingPlayerId: this.carryingPlayerId,
             item: {
+                particleEmitterType: this.item.particleEmitterType,
                 body: {
                     x: this.item.body.x,
                     y: this.item.body.y,
@@ -250,7 +254,6 @@ export default class Throwable {
      *
      */
     updateInterpolated(previousSnapshot, targetSnapshot, lerpAmmount) {
-
         previousSnapshot = SnapshotHelper.patchObject(this.getFullSnapshot(), previousSnapshot);
         let interpolatedSnapshot = SnapshotHelper.patchObject(this.getFullSnapshot(), targetSnapshot);
 

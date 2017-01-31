@@ -50,3 +50,13 @@ export const ServerConfig = {
     MAX_ROOM_PLAYERS: 8,
     THROWABLES_DATA_PATH: 'public/build/assets/data/throwables.json',
 }
+
+
+/**
+ *
+ */
+export const ParticlesConfig = {
+    TYPE_PLANT: 'plant',
+    PARTICLES_PLANT: ['leave-1', 'leave-2'],
+}
+
