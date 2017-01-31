@@ -127,7 +127,7 @@ export default class Player {
 
         if(game.gameState.activeThrowable && game.gameState.activeThrowable.isCarried()) {
             game.gameState.activeThrowable.throw();
-        } else {
+        } else if(!game.gameState.activeThrowable) {
             let throwablesArr = Object.values(game.gameState.throwables);
             let foundAThrowable = false;
             for(let throwable of Object.values(game.gameState.throwables)) {
