@@ -250,11 +250,15 @@ export default class StatePlaying extends Phaser.State {
      *
      */
     calculateDeltaMultiplier() {
-        let multiplier = 1 / game.time.fps * game.time.desiredFps;
-        multiplier = multiplier.toFixed(2)
-        if(multiplier > 2) multiplier = 2;
-        if(multiplier < 1) multiplier = 1;
-        game.gameState.deltaMultiplier = multiplier;
+        if(game.time.totalElapsedSeconds() < 5) {
+            game.gameState.deltaMultiplier = 1;
+        } else {
+            let multiplier = 1 / game.time.fps * game.time.desiredFps;
+            multiplier = multiplier.toFixed(2)
+            if(multiplier > 2) multiplier = 2;
+            if(multiplier < 1) multiplier = 1;
+            game.gameState.deltaMultiplier = multiplier;
+        }
     }
 
 
