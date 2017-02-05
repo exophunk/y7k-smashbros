@@ -1,32 +1,329 @@
-
 {
     "music": [
         {
             "type": "audio",
             "key": "music",
-            "urls": ["build/assets/audio/music-wham.mp3"],
+            "urls": [
+                "build/assets/audio/music-wham.mp3"
+            ],
             "autoDecode": true
         }
     ],
-
     "effects": [
-
-    ],
-
-    "ui": [
         {
             "type": "audio",
-            "key": "click",
-            "urls": ["build/assets/audio/click.mp3"],
+            "key": "man1-hit-long-1",
+            "urls": [
+                "build/assets/audio/man1-hit-long-1.mp3"
+            ],
             "autoDecode": true
         },
         {
             "type": "audio",
-            "key": "click-ok",
-            "urls": ["build/assets/audio/click-ok.mp3"],
+            "key": "man1-hit-short-1",
+            "urls": [
+                "build/assets/audio/man1-hit-short-1.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man1-hit-short-2",
+            "urls": [
+                "build/assets/audio/man1-hit-short-2.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man1-hit-short-3",
+            "urls": [
+                "build/assets/audio/man1-hit-short-3.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man2-hit-long-1",
+            "urls": [
+                "build/assets/audio/man2-hit-long-1.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man2-hit-long-2",
+            "urls": [
+                "build/assets/audio/man2-hit-long-2.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man2-hit-short-1",
+            "urls": [
+                "build/assets/audio/man2-hit-short-1.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man2-hit-short-2",
+            "urls": [
+                "build/assets/audio/man2-hit-short-2.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man2-hit-short-3",
+            "urls": [
+                "build/assets/audio/man2-hit-short-3.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man3-hit-long-1",
+            "urls": [
+                "build/assets/audio/man3-hit-long-1.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man3-hit-short-1",
+            "urls": [
+                "build/assets/audio/man3-hit-short-1.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man3-hit-short-2",
+            "urls": [
+                "build/assets/audio/man3-hit-short-2.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "man3-hit-short-3",
+            "urls": [
+                "build/assets/audio/man3-hit-short-3.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "obj-land-3",
+            "urls": [
+                "build/assets/audio/obj-land-3.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "obj-land-4",
+            "urls": [
+                "build/assets/audio/obj-land-4.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "obj-land-5",
+            "urls": [
+                "build/assets/audio/obj-land-5.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "obj-pick-1",
+            "urls": [
+                "build/assets/audio/obj-pick-1.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "obj-pick-2",
+            "urls": [
+                "build/assets/audio/obj-pick-2.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "obj-pick-3",
+            "urls": [
+                "build/assets/audio/obj-pick-3.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "obj-pick-4",
+            "urls": [
+                "build/assets/audio/obj-pick-4.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "obj-throw-1",
+            "urls": [
+                "build/assets/audio/obj-throw-1.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "obj-throw-2",
+            "urls": [
+                "build/assets/audio/obj-throw-2.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "obj-throw-3",
+            "urls": [
+                "build/assets/audio/obj-throw-3.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "woman1-hit-long-1",
+            "urls": [
+                "build/assets/audio/woman1-hit-long-1.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "woman1-hit-short-1",
+            "urls": [
+                "build/assets/audio/woman1-hit-short-1.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "woman1-hit-short-2",
+            "urls": [
+                "build/assets/audio/woman1-hit-short-2.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "woman1-hit-short-3",
+            "urls": [
+                "build/assets/audio/woman1-hit-short-3.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "woman1-take-that",
+            "urls": [
+                "build/assets/audio/woman1-take-that.mp3"
+            ],
             "autoDecode": true
         }
     ],
-
+    "ui": [
+        {
+            "type": "audio",
+            "key": "ui-click-1",
+            "urls": [
+                "build/assets/audio/ui-click-1.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "ui-click-2",
+            "urls": [
+                "build/assets/audio/ui-click-2.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "ui-swish",
+            "urls": [
+                "build/assets/audio/ui-swish.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "announcer-gabriella",
+            "urls": [
+                "build/assets/audio/announcer-gabriella.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "announcer-joris",
+            "urls": [
+                "build/assets/audio/announcer-joris.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "announcer-julie",
+            "urls": [
+                "build/assets/audio/announcer-julie.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "announcer-robert",
+            "urls": [
+                "build/assets/audio/announcer-robert.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "announcer-ruben",
+            "urls": [
+                "build/assets/audio/announcer-ruben.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "announcer-tore",
+            "urls": [
+                "build/assets/audio/announcer-tore.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "announcer-yassin",
+            "urls": [
+                "build/assets/audio/announcer-yassin.mp3"
+            ],
+            "autoDecode": true
+        },
+        {
+            "type": "audio",
+            "key": "announcer-yves",
+            "urls": [
+                "build/assets/audio/announcer-yves.mp3"
+            ],
+            "autoDecode": true
+        }
+    ],
     "meta": {}
 }
