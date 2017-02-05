@@ -85,6 +85,7 @@ export default class StateLoadAssets extends Phaser.State {
      */
     loadData() {
         game.load.json('spawnpoints', '/build/assets/data/spawnpoints.json');
+        game.load.json('audio', '/build/assets/data/audio.json');
         game.load.json('collision-shapes', '/build/assets/data/collision-shapes.json');
         game.load.json('texts', '/build/assets/data/texts.json');
 

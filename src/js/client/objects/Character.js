@@ -1,4 +1,4 @@
-import {PlayerConfig, GameConfig} from 'shared/configs/GameConfig';
+import {PlayerConfig, GameConfig, SoundTypes} from 'shared/configs/GameConfig';
 
 export default class Character extends Phaser.Sprite {
 
@@ -6,14 +6,15 @@ export default class Character extends Phaser.Sprite {
     /**
      *
      */
-    constructor(key, name) {
+    constructor(key, charData) {
 
         let spriteKey = 'sprite-' + key;
         super(game, 0, 0, spriteKey, 1);
         this.key = key;
         this.player = null;
         this.isHost = false;
-        this.name = name;
+        this.name = charData.name;
+        this.sounds = charData.audio;
         this.facing = 'idle';
         this.isMoving = false;
         this.anchor.setTo(0.5,0.5);
@@ -229,5 +230,33 @@ export default class Character extends Phaser.Sprite {
         }, duration);
     }
 
+
+    /**
+     *
+     */
+    playHitSound() {
+        this.playSound(SoundTypes.HIT);
+    }
+
+
+    /**
+     *
+     */
+    playDieSound() {
+        this.playSound(SoundTypes.DIE);
+    }
+
+
+    /**
+     *
+     */
+    playSound(type) {
+        if(this.sounds[type]) {
+            let randomSoundKey = this.sounds[type][Math.floor(Math.random() * this.sounds[type].length)];
+            if(game.sounds.effects[randomSoundKey]) {
+                game.sounds.effects[randomSoundKey].play();
+            }
+        }
+    }
 
 }

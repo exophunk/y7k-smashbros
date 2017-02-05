@@ -1,34 +1,134 @@
 {
     "gabriella": {
-        "name": "Gabriella"
+        "name": "Gabriella",
+        "audio": {
+            "hit": [
+                "woman1-hit-short-1",
+                "woman1-hit-short-2",
+                "woman1-hit-short-3"
+            ],
+            "die": [
+                "woman1-hit-long-1"
+            ],
+            "throw": [],
+            "taunt": [
+                "woman1-take-that"
+            ]
+        }
     },
-
     "joris": {
-        "name": "Joris"
+        "name": "Joris",
+        "audio": {
+            "hit": [
+                "man3-hit-short-1",
+                "man3-hit-short-2",
+                "man3-hit-short-3"
+            ],
+            "die": [
+                "man3-hit-long-1"
+            ],
+            "throw": [],
+            "taunt": []
+        }
     },
-
     "julie": {
-        "name": "Julie"
-    },
+        "name": "Julie",
+        "audio": {
+            "hit": [
+                "woman1-hit-short-1",
+                "woman1-hit-short-2",
+                "woman1-hit-short-3"
+            ],
+            "die": [
+                "woman1-hit-long-1"
+            ],
+            "throw": [],
+            "taunt": [
+                "woman1-take-that"
+            ]
+        }
 
+    },
     "robert": {
-        "name": "Robert"
-    },
+        "name": "Robert",
+        "audio": {
+            "hit": [
+                "man2-hit-short-1",
+                "man2-hit-short-2",
+                "man2-hit-short-3"
+            ],
+            "die": [
+                "man2-hit-long-1",
+                "man2-hit-long-2"
+            ],
+            "throw": [],
+            "taunt": []
+        }
 
+    },
     "ruben": {
-        "name": "Ruben"
-    },
+        "name": "Ruben",
+        "audio": {
+            "hit": [
+                "man2-hit-short-1",
+                "man2-hit-short-2",
+                "man2-hit-short-3"
+            ],
+            "die": [
+                "man2-hit-long-1",
+                "man2-hit-long-2"
+            ],
+            "throw": [],
+            "taunt": []
+        }
 
+    },
     "tore": {
-        "name": "Tore"
-    },
+        "name": "Tore",
+        "audio": {
+            "hit": [
+                "man1-hit-short-1",
+                "man1-hit-short-2",
+                "man1-hit-short-3"
+            ],
+            "die": [
+                "man1-hit-long-1"
+            ],
+            "throw": [],
+            "taunt": []
+        }
 
+    },
     "yassine": {
-        "name": "Yassine"
+        "name": "Yassine",
+        "audio": {
+            "hit": [
+                "man3-hit-short-1",
+                "man3-hit-short-2",
+                "man3-hit-short-3"
+            ],
+            "die": [
+                "man3-hit-long-1"
+            ],
+            "throw": [],
+            "taunt": []
+        }
+
     },
-
     "yves": {
-        "name": "Yves"
-    }
+        "name": "Yves",
+        "audio": {
+            "hit": [
+                "man1-hit-short-1",
+                "man1-hit-short-2",
+                "man1-hit-short-3"
+            ],
+            "die": [
+                "man1-hit-long-1"
+            ],
+            "throw": [],
+            "taunt": []
+        }
 
+    }
 }

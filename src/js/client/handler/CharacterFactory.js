@@ -21,7 +21,7 @@ export default class CharacterFactory {
      */
     getCharacter(key) {
         let characterData = game.cache.getJSON('characters');
-        return new Character(key, characterData[key].name);
+        return new Character(key, characterData[key]);
     }
 
 
@@ -30,7 +30,7 @@ export default class CharacterFactory {
      */
     getPortrait(key) {
         let characterData = game.cache.getJSON('characters');
-        return new Portrait(key, characterData[key].name);
+        return new Portrait(key, characterData[key]);
     }
 
 
