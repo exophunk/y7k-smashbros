@@ -76,7 +76,6 @@
             "url": "build/assets/sprites/throwables/obj-drawer.png"
         }
     ],
-
     "throwable-overlays": [
         {
             "type": "image",

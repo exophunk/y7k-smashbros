@@ -1,111 +1,127 @@
 [
     {
         "id": 1,
-        "x" : 304,
+        "x": 304,
         "y": 557,
-        "key": "bin-1"
+        "key": "bin-1",
+        "soundGroup": "objSmall",
     },
     {
         "id": 2,
-        "x" : 494,
+        "x": 494,
         "y": 256,
-        "key": "bin-2"
+        "key": "bin-2",
+        "soundGroup": "objSmall",
     },
     {
         "id": 3,
-        "x" : 487,
+        "x": 487,
         "y": 519,
-        "key": "bin-2"
+        "key": "bin-2",
+        "soundGroup": "objSmall",
     },
     {
         "id": 4,
-        "x" : 662,
+        "x": 662,
         "y": 153,
-        "key": "chair-black-left"
+        "key": "chair-black-left",
+        "soundGroup": "objDefault",
     },
     {
         "id": 5,
-        "x" : 743,
+        "x": 743,
         "y": 138,
-        "key": "chair-black-right"
+        "key": "chair-black-right",
+        "soundGroup": "objDefault",
     },
     {
         "id": 6,
-        "x" : 558,
+        "x": 558,
         "y": 613,
-        "key": "chair-black-left"
+        "key": "chair-black-left",
+        "soundGroup": "objDefault",
     },
     {
         "id": 8,
-        "x" : 266,
+        "x": 266,
         "y": 637,
-        "key": "chair-red-left"
+        "key": "chair-red-left",
+        "soundGroup": "objDefault",
     },
     {
         "id": 9,
-        "x" : 132,
+        "x": 132,
         "y": 590,
-        "key": "chair-white-front"
+        "key": "chair-white-front",
+        "soundGroup": "objDefault",
     },
     {
         "id": 10,
-        "x" : 638,
+        "x": 638,
         "y": 694,
         "key": "plant-1",
-        "particleEmitterType": "plant"
+        "particleEmitterType": "plant",
+        "soundGroup": "objPlant"
     },
     {
         "id": 11,
-        "x" : 656,
+        "x": 656,
         "y": 415,
         "key": "plant-2",
-        "particleEmitterType": "plant"
+        "particleEmitterType": "plant",
+        "soundGroup": "objPlant"
     },
     {
         "id": 12,
-        "x" : 495,
+        "x": 495,
         "y": 149,
         "key": "plant-2",
-        "particleEmitterType": "plant"
+        "particleEmitterType": "plant",
+        "soundGroup": "objPlant"
     },
     {
         "id": 13,
-        "x" : 636,
+        "x": 636,
         "y": 598,
         "key": "plant-3",
-        "particleEmitterType": "plant"
+        "particleEmitterType": "plant",
+        "soundGroup": "objPlant"
     },
     {
         "id": 14,
-        "x" : 658,
+        "x": 658,
         "y": 211,
         "key": "plant-3",
-        "particleEmitterType": "plant"
+        "particleEmitterType": "plant",
+        "soundGroup": "objPlant"
     },
     {
         "id": 15,
-        "x" : 73,
+        "x": 73,
         "y": 703,
         "key": "plant-3",
-        "particleEmitterType": "plant"
+        "particleEmitterType": "plant",
+        "soundGroup": "objPlant"
     },
     {
         "id": 17,
-        "x" : 612,
+        "x": 612,
         "y": 725,
-        "key": "pot-2"
+        "key": "pot-2",
+        "soundGroup": "objSmall",
     },
     {
         "id": 18,
-        "x" : 490,
+        "x": 490,
         "y": 289,
-        "key": "white-box"
+        "key": "white-box",
+        "soundGroup": "objDefault",
     },
     {
         "id": 19,
-        "x" : 918,
+        "x": 918,
         "y": 622,
-        "key": "drawer"
+        "key": "drawer",
+        "soundGroup": "objDefault",
     }
 ]
-
