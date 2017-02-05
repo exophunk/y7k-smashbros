@@ -123,10 +123,11 @@ export default class Networking {
     /**
      *
      */
-    sendHitEnemy(enemyId) {
+    sendHitEnemy(enemyId, throwableId) {
         let hitData = {
             attackerId: game.gameState.player.id,
-            victimId: enemyId
+            victimId: enemyId,
+            throwableId: throwableId
         };
         this.server.emit('player_hit', hitData);
     }
@@ -336,8 +337,8 @@ export default class Networking {
     /**
      *
      */
-    playerGotHit(playerData) {
-        this.statePlaying.playerGotHit(playerData);
+    playerGotHit(hitData) {
+        this.statePlaying.playerGotHit(hitData);
     }
 
 

@@ -1,4 +1,4 @@
-import {ThrowableConfig, ParticlesConfig} from 'shared/configs/GameConfig';
+import {ThrowableConfig, ParticlesConfig, SoundTypes, ThrowableSoundGroups} from 'shared/configs/GameConfig';
 import {ThrowableStates} from 'shared/configs/ObjectStates';
 
 export default class ThrowableItem extends Phaser.Sprite {
@@ -21,6 +21,7 @@ export default class ThrowableItem extends Phaser.Sprite {
         this.isGlowAnimRunning = false;
         this.forceDisablePickup = false;
         this.particleEmitterType = null;
+        this.soundGroup = null;
     }
 
 
@@ -118,6 +119,44 @@ export default class ThrowableItem extends Phaser.Sprite {
                 this.isGlowAnimRunning = false;
                 this.overlay.alpha = 0;
             }, ThrowableConfig.GLOW_ANIM_SPEED * 2 + 1000);
+        }
+    }
+
+
+    /**
+     *
+     */
+    playHitSound() {
+        this.playSound(SoundTypes.HIT);
+    }
+
+
+    /**
+     *
+     */
+    playPickupSound() {
+        this.playSound(SoundTypes.PICK);
+    }
+
+
+    /**
+     *
+     */
+    playThrowSound() {
+        this.playSound(SoundTypes.THROW);
+    }
+
+
+    /**
+     *
+     */
+    playSound(type) {
+        let soundTypeGroup = ThrowableSoundGroups[this.soundGroup][type];
+        if(soundTypeGroup) {
+            let randomSoundKey = soundTypeGroup[Math.floor(Math.random() * soundTypeGroup.length)];
+            if(game.sounds.effects[randomSoundKey]) {
+                game.sounds.effects[randomSoundKey].play();
+            }
         }
     }
 

@@ -60,3 +60,40 @@ export const ParticlesConfig = {
     PARTICLES_PLANT: ['leave-1', 'leave-2'],
 }
 
+
+/**
+ *
+ */
+export const SoundTypes = {
+    HIT: 'hit',
+    DIE: 'die',
+    THROW: 'throw',
+    TAUNT: 'taunt',
+    PICK: 'pick',
+    THROW: 'throw',
+    LAND: 'land',
+}
+
+
+/**
+ *
+ */
+export const ThrowableSoundGroups = {
+    objSmall: {
+        pick: ['obj-pick-2', 'obj-pick-3'],
+        throw: ['obj-throw-1', 'obj-throw-2', 'obj-throw-3'],
+        hit: ['obj-land-4'],
+    },
+    objDefault: {
+        pick: ['obj-pick-1'],
+        throw: ['obj-throw-1', 'obj-throw-2', 'obj-throw-3'],
+        hit: ['obj-land-3'],
+    },
+    objPlant: {
+        pick: ['obj-pick-4'],
+        throw: ['obj-throw-1', 'obj-throw-2', 'obj-throw-3'],
+        hit: ['obj-land-5'],
+    },
+}
+
+

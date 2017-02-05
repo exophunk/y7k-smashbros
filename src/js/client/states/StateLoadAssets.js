@@ -20,6 +20,7 @@ export default class StateLoadAssets extends Phaser.State {
         this.loadThrowables();
         this.loadImages();
         this.loadAudio();
+        this.loadVideo();
         this.loadData();
         this.loadFonts();
     }

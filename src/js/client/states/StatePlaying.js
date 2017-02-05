@@ -310,16 +310,18 @@ export default class StatePlaying extends Phaser.State {
     /**
      *
      */
-    playerGotHit(playerData) {
+    playerGotHit(hitData) {
+        let playerData = hitData.victim;
+        let throwable = game.gameState.throwables[hitData.throwableId];
         if(playerData.id == game.gameState.player.id) {
             let player = game.gameState.player;
             player.health = playerData.health;
             player.state = playerData.state;
 
             if(player.state == PlayerStates.DEAD) {
-                this.hostDied();
+                this.hostDied(throwable);
             } else {
-                this.hostGotHit();
+                this.hostGotHit(throwable);
             }
         } else {
             let enemy = game.gameState.enemies[playerData.id];
@@ -338,7 +340,7 @@ export default class StatePlaying extends Phaser.State {
     /**
      *
      */
-    hostGotHit() {
+    hostGotHit(throwable) {
         game.camera.shake(0.01, 1000);
         game.gameState.player.char.showHitEffects();
         game.gameState.player.char.updateHealthBar();
@@ -357,7 +359,7 @@ export default class StatePlaying extends Phaser.State {
     /**
      *
      */
-    hostDied() {
+    hostDied(throwable) {
         let player = game.gameState.player;
         game.camera.shake(0.01, 2000);
         game.gameState.freezeInput = true;

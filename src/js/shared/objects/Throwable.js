@@ -42,6 +42,7 @@ export default class Throwable {
         this.item = {
             key: key,
             particleEmitterType: null,
+            soundGroup: null,
             body: {
                 x: 0,
                 y: 0,
@@ -126,6 +127,7 @@ export default class Throwable {
 
         player.setCarryAnchor();
         this.item.runEmitter();
+        this.item.playPickupSound();
     }
 
 
@@ -142,6 +144,7 @@ export default class Throwable {
         this.item.body.setCollisionGroup(game.physicsState.throwablesActiveCollisionGroup);
         this.item.anchor.setTo(0.5,0.5);
         this.item.overlay.anchor.setTo(0.5,0.5);
+        this.item.playThrowSound();
 
         switch(player.char.facing) {
             case 'left':
@@ -217,6 +220,7 @@ export default class Throwable {
             carryingPlayerId: this.carryingPlayerId,
             item: {
                 particleEmitterType: this.item.particleEmitterType,
+                soundGroup: this.item.soundGroup,
                 body: {
                     x: this.item.body.x,
                     y: this.item.body.y,

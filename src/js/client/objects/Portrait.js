@@ -6,10 +6,10 @@ export default class Portrait {
     /**
      *
      */
-    constructor(key, name) {
+    constructor(key, charData) {
 
         this.key = key;
-        this.name = name;
+        this.name = charData.name;
         this.selected = false;
 
         this.portraitBox = game.add.sprite(0, 0, 'portrait-box');

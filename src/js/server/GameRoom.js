@@ -51,6 +51,7 @@ export default class GameRoom {
             let throwable = new Throwable(throwableData.id, throwableData.key);
             throwable.setPos(throwableData.x, throwableData.y);
             throwable.item.particleEmitterType = throwableData.particleEmitterType ? throwableData.particleEmitterType : null;
+            throwable.item.soundGroup = throwableData.soundGroup ? throwableData.soundGroup : null;
             this.state.throwables[throwable.id] = throwable;
         })
 
@@ -308,7 +309,11 @@ export default class GameRoom {
                 victim.state = PlayerStates.HIT;
             }
 
-            this.io.to(this.roomKey).emit('player_got_hit', victim.getFullSnapshot());
+            let hitReturnData = {
+                victim: victim.getFullSnapshot(),
+                throwableId: hitData.throwableId
+            }
+            this.io.to(this.roomKey).emit('player_got_hit', hitReturnData);
 
         }
 

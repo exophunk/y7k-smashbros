@@ -4,56 +4,56 @@
         "x": 304,
         "y": 557,
         "key": "bin-1",
-        "soundGroup": "objSmall",
+        "soundGroup": "objSmall"
     },
     {
         "id": 2,
         "x": 494,
         "y": 256,
         "key": "bin-2",
-        "soundGroup": "objSmall",
+        "soundGroup": "objSmall"
     },
     {
         "id": 3,
         "x": 487,
         "y": 519,
         "key": "bin-2",
-        "soundGroup": "objSmall",
+        "soundGroup": "objSmall"
     },
     {
         "id": 4,
         "x": 662,
         "y": 153,
         "key": "chair-black-left",
-        "soundGroup": "objDefault",
+        "soundGroup": "objDefault"
     },
     {
         "id": 5,
         "x": 743,
         "y": 138,
         "key": "chair-black-right",
-        "soundGroup": "objDefault",
+        "soundGroup": "objDefault"
     },
     {
         "id": 6,
         "x": 558,
         "y": 613,
         "key": "chair-black-left",
-        "soundGroup": "objDefault",
+        "soundGroup": "objDefault"
     },
     {
         "id": 8,
         "x": 266,
         "y": 637,
         "key": "chair-red-left",
-        "soundGroup": "objDefault",
+        "soundGroup": "objDefault"
     },
     {
         "id": 9,
         "x": 132,
         "y": 590,
         "key": "chair-white-front",
-        "soundGroup": "objDefault",
+        "soundGroup": "objDefault"
     },
     {
         "id": 10,
@@ -108,20 +108,20 @@
         "x": 612,
         "y": 725,
         "key": "pot-2",
-        "soundGroup": "objSmall",
+        "soundGroup": "objSmall"
     },
     {
         "id": 18,
         "x": 490,
         "y": 289,
         "key": "white-box",
-        "soundGroup": "objDefault",
+        "soundGroup": "objDefault"
     },
     {
         "id": 19,
         "x": 918,
         "y": 622,
         "key": "drawer",
-        "soundGroup": "objDefault",
+        "soundGroup": "objDefault"
     }
 ]
