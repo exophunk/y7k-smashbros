@@ -21,6 +21,7 @@ export default class StatePlaying extends Phaser.State {
         game.time.advancedTiming = true;
         game.paused = true;
         game.networking.statePlaying = this;
+        this.startTime = new Date().getTime();
 
         this.level = game.add.group();
         game.paintLayers.background = game.add.group(this.level);
@@ -250,7 +251,7 @@ export default class StatePlaying extends Phaser.State {
      *
      */
     calculateDeltaMultiplier() {
-        if(game.time.totalElapsedSeconds() < 5) {
+        if(new Date().getTime() - this.startTime < 5000) {
             game.gameState.deltaMultiplier = 1;
         } else {
             let multiplier = 1 / game.time.fps * game.time.desiredFps;
