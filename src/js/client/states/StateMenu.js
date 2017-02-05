@@ -81,6 +81,7 @@ export default class StateMenu extends Phaser.State {
         game.gameState.selectedName = 'Peter';
         game.isDebug = false;
         game.state.start('StatePlaying');
+        //game.state.start('StateTutorial');
     }
 
 }
