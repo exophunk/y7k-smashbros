@@ -16,7 +16,8 @@
             "urls": [
                 "build/assets/audio/man1-hit-long-1.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -24,7 +25,8 @@
             "urls": [
                 "build/assets/audio/man1-hit-short-1.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -32,7 +34,8 @@
             "urls": [
                 "build/assets/audio/man1-hit-short-2.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -40,7 +43,8 @@
             "urls": [
                 "build/assets/audio/man1-hit-short-3.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -48,7 +52,8 @@
             "urls": [
                 "build/assets/audio/man2-hit-long-1.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -56,7 +61,8 @@
             "urls": [
                 "build/assets/audio/man2-hit-long-2.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -64,7 +70,8 @@
             "urls": [
                 "build/assets/audio/man2-hit-short-1.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -72,7 +79,8 @@
             "urls": [
                 "build/assets/audio/man2-hit-short-2.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -80,7 +88,8 @@
             "urls": [
                 "build/assets/audio/man2-hit-short-3.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -88,7 +97,8 @@
             "urls": [
                 "build/assets/audio/man3-hit-long-1.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -96,7 +106,8 @@
             "urls": [
                 "build/assets/audio/man3-hit-short-1.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -104,7 +115,8 @@
             "urls": [
                 "build/assets/audio/man3-hit-short-2.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -112,7 +124,8 @@
             "urls": [
                 "build/assets/audio/man3-hit-short-3.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -120,7 +133,8 @@
             "urls": [
                 "build/assets/audio/obj-land-3.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -128,7 +142,8 @@
             "urls": [
                 "build/assets/audio/obj-land-4.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -136,7 +151,8 @@
             "urls": [
                 "build/assets/audio/obj-land-5.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -144,7 +160,8 @@
             "urls": [
                 "build/assets/audio/obj-pick-1.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.6
         },
         {
             "type": "audio",
@@ -152,7 +169,8 @@
             "urls": [
                 "build/assets/audio/obj-pick-2.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -160,7 +178,8 @@
             "urls": [
                 "build/assets/audio/obj-pick-3.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -168,7 +187,8 @@
             "urls": [
                 "build/assets/audio/obj-pick-4.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.6
         },
         {
             "type": "audio",
@@ -176,7 +196,8 @@
             "urls": [
                 "build/assets/audio/obj-throw-1.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -184,7 +205,8 @@
             "urls": [
                 "build/assets/audio/obj-throw-2.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -192,7 +214,8 @@
             "urls": [
                 "build/assets/audio/obj-throw-3.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -200,7 +223,8 @@
             "urls": [
                 "build/assets/audio/woman1-hit-long-1.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -208,7 +232,8 @@
             "urls": [
                 "build/assets/audio/woman1-hit-short-1.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -216,7 +241,8 @@
             "urls": [
                 "build/assets/audio/woman1-hit-short-2.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -224,7 +250,8 @@
             "urls": [
                 "build/assets/audio/woman1-hit-short-3.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.4
         },
         {
             "type": "audio",
@@ -232,7 +259,8 @@
             "urls": [
                 "build/assets/audio/woman1-take-that.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         }
     ],
     "ui": [
@@ -259,14 +287,17 @@
                 "build/assets/audio/ui-swish.mp3"
             ],
             "autoDecode": true
-        },
+        }
+    ],
+    "announcer": [
         {
             "type": "audio",
             "key": "announcer-gabriella",
             "urls": [
                 "build/assets/audio/announcer-gabriella.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -274,7 +305,8 @@
             "urls": [
                 "build/assets/audio/announcer-joris.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -282,7 +314,8 @@
             "urls": [
                 "build/assets/audio/announcer-julie.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -290,7 +323,8 @@
             "urls": [
                 "build/assets/audio/announcer-robert.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -298,7 +332,8 @@
             "urls": [
                 "build/assets/audio/announcer-ruben.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -306,15 +341,17 @@
             "urls": [
                 "build/assets/audio/announcer-tore.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
-            "key": "announcer-yassin",
+            "key": "announcer-yassine",
             "urls": [
-                "build/assets/audio/announcer-yassin.mp3"
+                "build/assets/audio/announcer-yassine.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         },
         {
             "type": "audio",
@@ -322,7 +359,8 @@
             "urls": [
                 "build/assets/audio/announcer-yves.mp3"
             ],
-            "autoDecode": true
+            "autoDecode": true,
+            "volume": 0.7
         }
     ],
     "meta": {}
