@@ -70,7 +70,7 @@ export default class StateTutorial extends Phaser.State {
      *
      */
     startPlaying() {
-        game.sounds.clickOk.play();
+        game.sounds.ui.clickOk.play();
         game.state.start('StatePlaying');
     }
 

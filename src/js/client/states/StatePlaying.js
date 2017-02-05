@@ -344,7 +344,9 @@ export default class StatePlaying extends Phaser.State {
         game.camera.shake(0.01, 1000);
         game.gameState.player.char.showHitEffects();
         game.gameState.player.char.updateHealthBar();
+        game.gameState.player.char.playHitSound();
         game.gameState.freezeInput = true;
+        throwable.item.playHitSound();
 
         setTimeout(() => {
             game.gameState.player.state = PlayerStates.ALIVE;
@@ -365,6 +367,8 @@ export default class StatePlaying extends Phaser.State {
         game.gameState.freezeInput = true;
         player.char.body.setCollisionGroup(game.physics.p2.createCollisionGroup());
         player.char.showDyingEffects();
+        player.char.playDieSound();
+        throwable.item.playHitSound();
         let overlayDead = new OverlayDead();
 
         if(game.gameState.activeThrowable) {

@@ -107,7 +107,7 @@ export default class StateNameSelect extends Phaser.State {
             game.gameState.selectedName = name;
             this.nameField.endFocus();
             document.removeEventListener('keydown', this.keyListenerFunc);
-            game.sounds.clickOk.play();
+            game.sounds.ui.clickOk.play();
             game.state.start('StateTutorial');
         }
 

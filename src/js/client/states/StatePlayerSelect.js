@@ -105,8 +105,16 @@ export default class StatePlayerSelect extends Phaser.State {
         let chosenCharacterKey = this.portraits[this.selectIndex].key;
         game.gameState.selectedCharKey = chosenCharacterKey;
 
-        game.sounds.clickOk.play();
-        game.state.start('StateNameSelect');
+        let announcerVoice = game.sounds.announcer['announcer-' + chosenCharacterKey];
+        announcerVoice.play();
+
+        game.add.tween(this.selectCursor).to( { alpha: 0 }, 150, Phaser.Easing.Quadratic.InOut, true, 0, 7, true);
+
+        game.time.events.add(7 * 2 * 150, function() {
+            game.sounds.ui.clickOk.play();
+            game.state.start('StateNameSelect');
+        }, this);
+
     }
 
 
@@ -161,7 +169,7 @@ export default class StatePlayerSelect extends Phaser.State {
         let newCursorY = this.portraitBoxes.y + this.portraits[this.selectIndex].portraitBox.y;
 
         if(animate) {
-            game.sounds.click.play();
+            game.sounds.ui.click.play();
             game.add.tween(this.selectCursor).to( { x: newCursorX, y: newCursorY }, 100, Phaser.Easing.Linear.None, true);
         } else {
             this.selectCursor.position.setTo(newCursorX, newCursorY);

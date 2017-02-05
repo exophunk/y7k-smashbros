@@ -158,6 +158,8 @@ export default class Player {
             throwable.isDangerous = false;
             let enemy = playerBody.sprite.player;
             game.networking.sendHitEnemy(enemy.id, throwable.id);
+            throwable.item.playHitSound();
+            enemy.char.playHitSound();
         }
     }
 

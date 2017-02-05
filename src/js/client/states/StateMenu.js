@@ -35,7 +35,7 @@ export default class StateMenu extends Phaser.State {
             textFooter1.alpha = textFooter1.alpha ? 0 : 1;
         }, this);
 
-        //game.sounds.music.play();
+        game.sounds.music.play();
 
         game.input.onTap.add((pointer, doubleTap) => {
             this.nextStep();
@@ -57,7 +57,7 @@ export default class StateMenu extends Phaser.State {
      *
      */
     nextStep() {
-        game.sounds.clickOk.play();
+        game.sounds.ui.clickOk.play();
         game.state.start('StatePlayerSelect');
     }
 
