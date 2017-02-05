@@ -133,6 +133,16 @@ export default class StateLoadAssets extends Phaser.State {
         game.load.pack('music', '/build/assets/data/audio.json');
         game.load.pack('effects', '/build/assets/data/audio.json');
         game.load.pack('ui', '/build/assets/data/audio.json');
+        game.load.pack('announcer', '/build/assets/data/audio.json');
+    }
+
+
+    /**
+     *
+     */
+    loadVideo() {
+        game.load.video('tutorial-video-1', '/build/assets/video/tutorial-video-1.mp4');
+        game.load.video('tutorial-video-2', '/build/assets/video/tutorial-video-2.mp4');
     }
 
 }

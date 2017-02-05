@@ -37,11 +37,22 @@ export default class StateTutorial extends Phaser.State {
      */
     initTutorialBoxes() {
 
+        this.video1 = game.add.video('tutorial-video-1');
+        this.video2 = game.add.video('tutorial-video-2');
+        this.video1.play(true);
+        this.video2.play(true);
+
         this.box1 = game.add.sprite(game.centerX - 50, game.centerY, 'tutorial-box');
         this.box1.anchor.setTo(1, 0.5);
 
+        this.video1Pane = game.add.sprite(game.centerX - 54, game.centerY, this.video1);
+        this.video1Pane.anchor.setTo(1, 0.5);
+
         this.box2 = game.add.sprite(game.centerX + 50, game.centerY, 'tutorial-box');
         this.box2.anchor.setTo(0, 0.5);
+
+        this.video2Pane = game.add.sprite(game.centerX + 53, game.centerY, this.video2);
+        this.video2Pane.anchor.setTo(0, 0.5);
 
         let textMove = game.add.bitmapText(-this.box1.width, this.box1.height / 2 + 5, 'font-white', game.texts.TUTORIAL_MOVE, 16);
         textMove.maxWidth = this.box1.width + 20;
@@ -53,6 +64,12 @@ export default class StateTutorial extends Phaser.State {
 
         this.box1.scale.setTo(game.scaleFactor, game.scaleFactor);
         this.box2.scale.setTo(game.scaleFactor, game.scaleFactor);
+
+        this.video1Pane.scale.setTo(game.scaleFactor, game.scaleFactor);
+        this.video2Pane.scale.setTo(game.scaleFactor, game.scaleFactor);
+
+
+
     }
 
 
