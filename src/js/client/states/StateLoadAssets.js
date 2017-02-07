@@ -44,8 +44,6 @@ export default class StateLoadAssets extends Phaser.State {
         let textStyle = {
             font: "16px Helvetica",
             fill: "#fff",
-            //stroke: "#000",
-            //strokeThickness: 1
         };
         let textLoading = game.add.text(0, 0, 'Loading...', textStyle);
         textLoading.anchor.setTo(0.5, 0.5);
@@ -112,6 +110,7 @@ export default class StateLoadAssets extends Phaser.State {
         game.load.image('hearth', '/build/assets/images/hearth.png');
         game.load.image('leave-1', '/build/assets/sprites/particles/leave-1.png');
         game.load.image('leave-2', '/build/assets/sprites/particles/leave-2.png');
+        game.load.atlas('dpad', '/build/assets/tilemaps/dpad.png', '/build/assets/tilemaps/dpad.json');
     }
 
 

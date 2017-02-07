@@ -7,6 +7,7 @@ import OverlayDead from 'client/ui/OverlayDead';
 import OverlayRoundOver from 'client/ui/OverlayRoundOver';
 import HeadUpDisplay from 'client/ui/HeadUpDisplay';
 import DebugDisplay from 'client/ui/DebugDisplay';
+import InputController from 'client/handler/InputController';
 
 
 export default class StatePlaying extends Phaser.State {
@@ -108,24 +109,7 @@ export default class StatePlaying extends Phaser.State {
      *
      */
     initControls() {
-        this.cursors = game.input.keyboard.createCursorKeys();
-        this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
-        this.spaceBarPressed = false;
-        this.lastSpacePressed = 0;
-
-        window.onblur = () => {
-            this.cursors.left.isDown = false;
-            this.cursors.right.isDown = false;
-            this.cursors.up.isDown = false;
-            this.cursors.down.isDown = false;
-            game.gameState.player.char.body.setZeroVelocity();
-            game.input.enabled = false;
-        };
-
-        window.onfocus = () => {
-            game.input.enabled = true;
-        };
+        this.inputController = new InputController();
     }
 
 
@@ -237,7 +221,7 @@ export default class StatePlaying extends Phaser.State {
 
         if(game.gameState.isPlaying) {
             this.calculateDeltaMultiplier();
-            this.handleInputControls();
+            this.inputController.handleInputControls();
             game.networking.applyServerUpdates();
             this.HUD.update();
         } else {
@@ -259,37 +243,6 @@ export default class StatePlaying extends Phaser.State {
             if(multiplier > 2) multiplier = 2;
             if(multiplier < 1) multiplier = 1;
             game.gameState.deltaMultiplier = multiplier;
-        }
-    }
-
-
-    /**
-     *
-     */
-    handleInputControls() {
-
-        if(game.gameState.freezeInput) {
-            game.gameState.player.idle();
-            return;
-        }
-
-        if (this.spaceKey.isDown && !this.spaceBarPressed && new Date().getTime() - GameConfig.ACTION_INPUT_THROTTLE > this.lastSpacePressed) {
-            this.spaceBarPressed = true;
-            game.gameState.player.doAction();
-            this.lastSpacePressed = new Date().getTime();
-        }
-        if (this.spaceKey.isUp) { this.spaceBarPressed = false; }
-
-        if (this.cursors.left.isDown) {
-            game.gameState.player.moveLeft();
-        } else if (this.cursors.right.isDown) {
-            game.gameState.player.moveRight();
-        } else if (this.cursors.up.isDown) {
-            game.gameState.player.moveUp();
-        } else if (this.cursors.down.isDown) {
-            game.gameState.player.moveDown();
-        } else {
-            game.gameState.player.idle();
         }
     }
 
