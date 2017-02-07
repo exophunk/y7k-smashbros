@@ -118,7 +118,7 @@ export default class GameRoom {
         //     snapshot = this.getWorldDelta();
         // }
 
-        snapshot = this.getWorldSnapshot();
+        let snapshot = this.getWorldSnapshot();
 
         if(snapshot) {
             snapshot.serverTime = new Date().getTime();
