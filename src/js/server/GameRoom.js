@@ -108,16 +108,17 @@ export default class GameRoom {
      *
      */
     updateLoop() {
-        this.updateCounter++;
+        // this.updateCounter++;
 
-        let snapshot;
-        if(this.updateCounter%(ServerConfig.SERVER_UPDATE_RATE * 3) == 0 || this.forceFullWorldSnapshot) {
-            this.forceFullWorldSnapshot = false;
-            snapshot = this.getWorldSnapshot();
-        } else {
-            //snapshot = this.getWorldDelta();
-            snapshot = this.getWorldSnapshot();
-        }
+        // let snapshot;
+        // if(this.updateCounter%(ServerConfig.SERVER_UPDATE_RATE * 3) == 0 || this.forceFullWorldSnapshot) {
+        //     this.forceFullWorldSnapshot = false;
+        //     snapshot = this.getWorldSnapshot();
+        // } else {
+        //     snapshot = this.getWorldDelta();
+        // }
+
+        snapshot = this.getWorldSnapshot();
 
         if(snapshot) {
             snapshot.serverTime = new Date().getTime();

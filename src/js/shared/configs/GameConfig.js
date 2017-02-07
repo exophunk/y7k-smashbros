@@ -43,7 +43,7 @@ export const PlayerConfig = {
  */
 export const ServerConfig = {
     CLIENT_INPUT_RATE: 30,
-    CLIENT_NET_OFFSET: 100,
+    CLIENT_NET_OFFSET: 80,
     SERVER_SIM_TICK_RATE: 5,
     SERVER_UPDATE_RATE: 22,
     MAX_ROOMS: 10,
