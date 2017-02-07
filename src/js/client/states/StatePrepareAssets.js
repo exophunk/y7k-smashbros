@@ -38,6 +38,7 @@ export default class StatePrepareAssets extends Phaser.State {
 
         game.sounds.music = game.add.audio('music');
         game.sounds.music.volume = 0.2;
+        game.sounds.music.loop = true;
 
         game.state.start('StateMenu');
 	}
