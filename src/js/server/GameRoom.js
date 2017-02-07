@@ -115,7 +115,8 @@ export default class GameRoom {
             this.forceFullWorldSnapshot = false;
             snapshot = this.getWorldSnapshot();
         } else {
-            snapshot = this.getWorldDelta();
+            //snapshot = this.getWorldDelta();
+            snapshot = this.getWorldSnapshot();
         }
 
         if(snapshot) {
