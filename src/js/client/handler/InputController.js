@@ -23,6 +23,8 @@ export default class InputController {
             this.actionButton.scale = 0.8;
             this.actionButton.alignBottomRight(0);
 
+            game.paintLayers.controls.add(this.stick.sprite);
+            game.paintLayers.controls.add(this.actionButton.sprite);
         } else {
             this.cursors = game.input.keyboard.createCursorKeys();
             this.spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);

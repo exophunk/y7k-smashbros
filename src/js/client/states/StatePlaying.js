@@ -30,7 +30,8 @@ export default class StatePlaying extends Phaser.State {
         game.paintLayers.throwables = game.add.group(this.level);
         game.paintLayers.chars = game.add.group(this.level);
         game.paintLayers.overlay = game.add.group(this.level);
-        game.paintLayers.ui = game.add.group();
+        game.paintLayers.controls = game.add.group();
+        game.paintLayers.controls.fixedToCamera = true;
 
         this.initMap();
         this.initPhysics();
