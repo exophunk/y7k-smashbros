@@ -85,7 +85,6 @@ export default class StatePlaying extends Phaser.State {
         player.char.setPhysics();
         game.paintLayers.chars.add(player.char);
         game.gameState.player = player;
-        player.spawn();
     }
 
 

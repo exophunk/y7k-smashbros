@@ -1,4 +1,5 @@
 import SnapshotHelper from 'shared/util/SnapshotHelper';
+import SpawnPointHelper from 'shared/util/SpawnPointHelper';
 import MathHelper from 'shared/util/MathHelper';
 import {PlayerConfig, GameConfig} from 'shared/configs/GameConfig';
 import {PlayerStates} from 'shared/configs/ObjectStates';
@@ -65,7 +66,16 @@ export default class Player {
      *
      */
     spawn() {
+        let safetyCounter = 0;
         let randomSpawnPoint = game.spawnPoints[Math.floor(Math.random() * game.spawnPoints.length)]
+        while(!SpawnPointHelper.isSpawnPointFree(randomSpawnPoint)) {
+            randomSpawnPoint = game.spawnPoints[Math.floor(Math.random() * game.spawnPoints.length)]
+            if(safetyCounter > 30) {
+                break;
+            }
+            safetyCounter++;
+        }
+
         this.char.body.x = randomSpawnPoint.x;
         this.char.body.y = randomSpawnPoint.y;
         this.char.blink(250, PlayerConfig.SPAWN_FREEZE_TIME);

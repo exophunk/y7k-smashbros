@@ -156,6 +156,7 @@ export default class Networking {
         this.syncWorldSnapshot(data.worldSnapshot);
 
         if(!game.gameState.spectate) {
+            game.gameState.player.spawn();
             this.inputSendLoop();
         }
 
