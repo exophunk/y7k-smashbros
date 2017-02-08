@@ -6,11 +6,9 @@ export default class StateTutorial extends Phaser.State {
      *
      */
 	create() {
-
         this.initBackground();
         this.initTutorialBoxes();
-
-        game.input.onTap.add(this.startPlaying, this);
+        this.initControls();
 	}
 
 
@@ -26,9 +24,9 @@ export default class StateTutorial extends Phaser.State {
         titleText.anchor.setTo(0.5, 0);
         titleText.position.setTo(game.centerX, 40);
 
-        let textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
-        textContinue.anchor.setTo(0.5, 1);
-        textContinue.position.setTo(game.centerX, game.world.height - 40);
+        this.textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
+        this.textContinue.anchor.setTo(0.5, 1);
+        this.textContinue.position.setTo(game.centerX, game.world.height - 40);
     }
 
 
@@ -37,10 +35,12 @@ export default class StateTutorial extends Phaser.State {
      */
     initTutorialBoxes() {
 
-        this.video1 = game.add.video('tutorial-video-1');
-        this.video2 = game.add.video('tutorial-video-2');
-        this.video1.play(true);
-        this.video2.play(true);
+        if(!game.mobile) {
+            this.video1 = game.add.video('tutorial-video-1');
+            this.video2 = game.add.video('tutorial-video-2');
+            this.video1.play(true);
+            this.video2.play(true);
+        }
 
         this.box1 = game.add.sprite(game.centerX - 50, game.centerY, 'tutorial-box');
         this.box1.anchor.setTo(1, 0.5);
@@ -70,6 +70,19 @@ export default class StateTutorial extends Phaser.State {
 
 
 
+    }
+
+
+    /**
+     *
+     */
+    initControls() {
+        if(game.mobile) {
+            this.textContinue.inputEnabled = true;
+            this.textContinue.events.onInputDown.add(() => {
+                this.startPlaying();
+            }, this);
+        }
     }
 
 
