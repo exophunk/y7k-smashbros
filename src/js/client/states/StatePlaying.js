@@ -365,7 +365,7 @@ export default class StatePlaying extends Phaser.State {
             enemy.char.body.setCollisionGroup(game.physicsState.enemiesCollisionGroup);
             enemy.char.updateHealthBar(true);
 
-        }, GameConfig.PLAYER_DEAD_TIME);
+        }, GameConfig.PLAYER_DEAD_TIME + 400);
     }
 
 
