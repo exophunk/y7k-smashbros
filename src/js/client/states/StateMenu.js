@@ -66,7 +66,6 @@ export default class StateMenu extends Phaser.State {
      *
      */
     spectate() {
-        game.isDebug = true;
         game.state.start('StatePlaying');
     }
 
@@ -79,7 +78,6 @@ export default class StateMenu extends Phaser.State {
         let char = allChars[Math.floor(Math.random() * allChars.length)];
         game.gameState.selectedCharKey = char.key;
         game.gameState.selectedName = 'Peter';
-        game.isDebug = false;
         game.state.start('StatePlaying');
         //game.state.start('StateTutorial');
     }

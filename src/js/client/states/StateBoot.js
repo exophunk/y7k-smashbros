@@ -87,8 +87,10 @@ export default class StateBoot extends Phaser.State {
             }
         }
 
-        game.gameState.spectate = params.spectate ? true : false;
+        game.gameState.spectate = params.spectate == true ? true : false;
         game.gameState.forcedRoom = params.room ? params.room : null;
+        game.isDebug = params.debug == true ? true : false;
+
     }
 
 
