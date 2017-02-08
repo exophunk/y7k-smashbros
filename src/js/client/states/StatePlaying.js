@@ -26,6 +26,7 @@ export default class StatePlaying extends Phaser.State {
 
         this.level = game.add.group();
         game.paintLayers.background = game.add.group(this.level);
+        game.paintLayers.collision = game.add.group(this.level);
         game.paintLayers.throwables = game.add.group(this.level);
         game.paintLayers.chars = game.add.group(this.level);
         game.paintLayers.overlay = game.add.group(this.level);
@@ -64,15 +65,13 @@ export default class StatePlaying extends Phaser.State {
         game.stage.backgroundColor = '#000000';
 
         this.map = game.add.tilemap('tilemap_data');
-        this.map.addTilesetImage('tileset_1', 'tilemap_tiles');
+        this.map.addTilesetImage('tile-collision', 'tile-collision');
+        game.add.image(0, 0, 'map-ground', null, game.paintLayers.background);
+        game.add.image(0, 0, 'map-overlay', null, game.paintLayers.overlay);
 
-        this.layerCollision = this.map.createLayer('collision', null, null, game.paintLayers.background);
-        this.layerGround = this.map.createLayer('ground', null, null, game.paintLayers.background);
-        this.layerGround2 = this.map.createLayer('ground2', null, null, game.paintLayers.background);
-        this.layerWalls = this.map.createLayer('walls', null, null, game.paintLayers.background);
-        this.layerFurniture = this.map.createLayer('furniture', null, null, game.paintLayers.background);
-        this.layerDeco = this.map.createLayer('deco', null, null, game.paintLayers.overlay);
-        this.layerGround.resizeWorld();
+        this.layerCollision = this.map.createLayer('collision', null, null, game.paintLayers.collision);
+        this.layerCollision.resizeWorld();
+        game.paintLayers.collision.visible = game.isDebug;
 
     }
 

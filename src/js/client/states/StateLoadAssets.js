@@ -55,8 +55,10 @@ export default class StateLoadAssets extends Phaser.State {
      *
      */
     loadMap() {
-        game.load.tilemap('tilemap_data', '/build/assets/tilemaps/tilemap-y7k.json', null, Phaser.Tilemap.TILED_JSON);
-        game.load.image('tilemap_tiles', '/build/assets/tilemaps/tilemap-y7k.png');
+        game.load.tilemap('tilemap_data', '/build/assets/tilemaps/tilemap-y7k-collision-only.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image('tile-collision', '/build/assets/tilemaps/tile-collision.png');
+        game.load.image('map-ground', '/build/assets/tilemaps/tilemap-y7k-ground.png');
+        game.load.image('map-overlay', '/build/assets/tilemaps/tilemap-y7k-overlay.png');
     }
 
 
