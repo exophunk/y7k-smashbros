@@ -155,6 +155,18 @@ export default class GameRoom {
         if(delta.players == null) delta.players = {};
         if(delta.throwables == null) delta.throwables = {};
 
+        for(let player of Object.values(delta.players)) {
+            if(Object.keys(player).length == 1 && Object.keys(player)[0] == 'id') {
+                delete delta.players[player.id];
+            }
+        }
+
+        for(let throwable of Object.values(delta.throwables)) {
+            if(Object.keys(throwable).length == 1 && Object.keys(throwable)[0] == 'id') {
+                delete delta.throwables[throwable.id];
+            }
+        }
+
         this.lastWorldSnapshot = snapshot;
         return delta;
     }
