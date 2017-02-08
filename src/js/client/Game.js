@@ -26,7 +26,7 @@ export default class Game extends Phaser.Game {
             gameHeight = 375;
         }
 
-		super(gameWidth, gameHeight, Phaser.AUTO, 'app', null);
+		super(gameWidth, gameHeight, Phaser.CANVAS, 'app', null);
 
         this.state.add('StateBoot', StateBoot, false);
         this.state.add('StateLoadAssets', StateLoadAssets, false);
