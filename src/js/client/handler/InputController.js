@@ -11,7 +11,7 @@ export default class InputController {
         this.actionInputPressed = false;
         this.lastActionInputPressed = 0;
 
-        if(game.mobile) {
+        if(isTouchDevice) {
             this.pad = game.plugins.add(Phaser.VirtualJoystick);
             this.stick = this.pad.addDPad(0, 0, 200, 'dpad');
             this.stick.scale = 0.6;
@@ -78,7 +78,7 @@ export default class InputController {
             return;
         }
 
-        if(game.mobile) {
+        if(isTouchDevice) {
             this.handleMobileInput();
         } else {
             this.handleInput();

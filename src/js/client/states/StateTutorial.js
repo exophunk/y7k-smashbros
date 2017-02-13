@@ -77,7 +77,7 @@ export default class StateTutorial extends Phaser.State {
      *
      */
     initControls() {
-        if(game.mobile) {
+        if(isTouchDevice) {
             this.textContinue.inputEnabled = true;
             this.textContinue.events.onInputDown.add(() => {
                 this.startPlaying();

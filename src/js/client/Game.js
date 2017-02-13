@@ -14,14 +14,12 @@ export default class Game extends Phaser.Game {
         // const canvasWidth = window.innerWidth * window.devicePixelRatio * 0.6;
         // const canvasHeight = window.innerHeight * window.devicePixelRatio * 0.6;
 
-        let gameWidth, gameHeight, mobile;
+        let gameWidth, gameHeight;
 
-        if(window.innerWidth > 667) {
-            mobile = false;
+        if(!isTouchDevice) {
             gameWidth = 640;
             gameHeight = 480;
         } else {
-            mobile = true;
             gameWidth = 667;
             gameHeight = 375;
         }
@@ -41,7 +39,6 @@ export default class Game extends Phaser.Game {
         this.gameWidth = gameWidth;
         this.centerX = this.gameWidth / 2;
         this.centerY = this.gameHeight / 2;
-        this.mobile = mobile;
         this.scaleFactor = this.gameHeight / 480;
 
     }

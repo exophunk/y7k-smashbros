@@ -68,7 +68,7 @@ export default class OverlayRoundOver {
 
         this.parent.addChild(this.scoreTable);
 
-        if(game.mobile) {
+        if(isTouchDevice) {
             this.scoreTable.scale.set(game.scaleFactor, game.scaleFactor);
             this.scoreTable.y = 120;
         }

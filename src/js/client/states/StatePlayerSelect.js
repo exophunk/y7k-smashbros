@@ -81,7 +81,7 @@ export default class StatePlayerSelect extends Phaser.State {
         this.upPressed = false;
         this.downPressed = false;
 
-        if(game.mobile) {
+        if(isTouchDevice) {
             this.portraits.forEach((portrait) => {
                 portrait.portraitBox.inputEnabled = true;
                 portrait.portraitBox.events.onInputDown.add(() => {

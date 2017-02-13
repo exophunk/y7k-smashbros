@@ -4,9 +4,10 @@ import 'pixi';
 import 'p2';
 import Phaser from 'phaser';
 
-global.game = new Game();
 global.isClient = true;
 global.isServer = false;
+global.isTouchDevice = Modernizr.touchevents;
+global.game = new Game();
 
 game.start();
 

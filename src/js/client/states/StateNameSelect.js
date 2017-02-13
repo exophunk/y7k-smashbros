@@ -74,7 +74,7 @@ export default class StateNameSelect extends Phaser.State {
         this.keyListenerFunc = this.checkKeydown.bind(this);
         document.addEventListener('keydown', this.keyListenerFunc);
 
-        if(game.mobile) {
+        if(isTouchDevice) {
             this.textContinue.inputEnabled = true;
             this.textContinue.events.onInputDown.add(() => {
                 this.nextStep();

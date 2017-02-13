@@ -41,7 +41,10 @@ gulp.task('build-server', ['copy-admin-templates'], () =>
 
 
 
-
+gulp.task('copy-vendor-js', () =>
+    gulp.src(['src/js/vendor/**'])
+    .pipe(gulp.dest('public/build/js/vendor'))
+)
 
 gulp.task('copy-assets', () =>
     gulp.src(['src/assets/**/*.*'])
@@ -99,7 +102,7 @@ gulp.task('run-server', () => {
 })
 
 
-gulp.task('prepare-build', ['concat-vendor', 'copy-assets', 'build-sass', 'build-server'], () => {
+gulp.task('prepare-build', ['copy-vendor-js', 'concat-vendor', 'copy-assets', 'build-sass', 'build-server'], () => {
 
 })
 

@@ -14,13 +14,13 @@ body {
 }
 
 @mixin bp-s() {
-    @media only screen and (max-width: 667px){
+    @media only screen and (max-width: 750px) {
         @content;
     }
 }
 
-@mixin bp-s-portrait() {
-    @media only screen and (max-width: 667px) and (orientation:portrait) {
+@mixin bp-portrait() {
+    @media only screen and (orientation:portrait) {
         @content;
     }
 }
@@ -40,17 +40,18 @@ body {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
 
-    @include bp-s {
-        width: 100vw;
-        height: 56.22vw;
-    }
-
     canvas {
         width: 100% !important;
         height: 100% !important;
     }
 
 }
+
+html.touchevents .game-wrapper {
+    width: 100vw;
+    height: 56.22vw;
+}
+
 
 .nav {
     @include bp-s { display: none; }
@@ -92,10 +93,12 @@ body {
 }
 
 .mobile-info {
-
     display: none;
+}
 
-    @include bp-s-portrait {
+
+html.touchevents .mobile-info {
+    @include bp-portrait {
         display: block;
         background: #111 url('/build/assets/images/bg-mobile-portrait.jpg') center center no-repeat;
         background-size: cover;
@@ -114,6 +117,7 @@ body {
         }
     }
 }
+
 
 .credits-modal {
     .bg {
