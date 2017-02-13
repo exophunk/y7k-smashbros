@@ -112,6 +112,8 @@ export default class StateLoadAssets extends Phaser.State {
         game.load.image('hearth', '/build/assets/images/hearth.png');
         game.load.image('leave-1', '/build/assets/sprites/particles/leave-1.png');
         game.load.image('leave-2', '/build/assets/sprites/particles/leave-2.png');
+        game.load.image('tutorial-1', '/build/assets/images/tutorial-1.png');
+        game.load.image('tutorial-2', '/build/assets/images/tutorial-2.png');
         game.load.atlas('dpad', '/build/assets/tilemaps/dpad.png', '/build/assets/tilemaps/dpad.json');
     }
 

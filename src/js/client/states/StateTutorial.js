@@ -35,7 +35,10 @@ export default class StateTutorial extends Phaser.State {
      */
     initTutorialBoxes() {
 
-        if(!game.mobile) {
+        if(isTouchDevice) {
+            this.video1 = 'tutorial-1';
+            this.video2 = 'tutorial-2';
+        } else {
             this.video1 = game.add.video('tutorial-video-1');
             this.video2 = game.add.video('tutorial-video-2');
             this.video1.play(true);
@@ -45,7 +48,7 @@ export default class StateTutorial extends Phaser.State {
         this.box1 = game.add.sprite(game.centerX - 50, game.centerY, 'tutorial-box');
         this.box1.anchor.setTo(1, 0.5);
 
-        this.video1Pane = game.add.sprite(game.centerX - 54, game.centerY, this.video1);
+        this.video1Pane = game.add.sprite(game.centerX - 53, game.centerY, this.video1);
         this.video1Pane.anchor.setTo(1, 0.5);
 
         this.box2 = game.add.sprite(game.centerX + 50, game.centerY, 'tutorial-box');
