@@ -2,9 +2,9 @@
 
 # Y7K Smash Bros
 
-![Smashbros](https://raw.githubusercontent.com/exophunk/y7k-smashbros/master/readme-image.jpg)
+![Smashbros](https://raw.githubusercontent.com/exophunk/y7k-smashbros/master/src/assets/images/meta/readme-image.jpg)
 
-![Smashbros Game](https://raw.githubusercontent.com/exophunk/y7k-smashbros/master/readme-image2.jpg)
+![Smashbros Game](https://raw.githubusercontent.com/exophunk/y7k-smashbros/master/src/assets/images/meta/readme-image2.jpg)
 
 **Version 1.0.0**
 
