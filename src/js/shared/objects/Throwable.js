@@ -266,9 +266,7 @@ export default class Throwable {
         interpolatedSnapshot.item.body.angle = MathHelper.interpolate(previousSnapshot.item.body.angle, interpolatedSnapshot.item.body.angle, lerpAmmount);
         this.update(interpolatedSnapshot);
 
-        if(previousSnapshot.state != interpolatedSnapshot.state) {
-            this.item.setStatePhysics();
-        }
+        this.item.setStatePhysics();
 
     }
 
