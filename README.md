@@ -29,12 +29,22 @@ Javascript Code is based on ES2016/Babel and built with Webpack. Serverside-Code
 - Use `gulp watch` to run webpack with filewatching and running the nodeserver with nodemon.
 - Check gulpfile for other, more specific run tasks
 
-The client side game code is built on [Phaser](https://phaser.io). Phaser renders the game to HTML5 Canvas (Canvas mode is forced over WebGL for performance reasons). For the physics simulation, [p2.js](https://github.com/schteppe/p2.js) (phaser built-in release) is used. 
+#### Game Engine
 
-The serverside Code is built based on [Socket.io](https://socket.io) and exchanges game state between different game clients via websockets. The game simulation is not run serverside and the server is therefore only authorative in some cases. 
+The client side game code is built on [Phaser](https://phaser.io). Phaser renders the game to HTML5 Canvas (Canvas mode is forced over WebGL for performance reasons). For the physics simulation, [p2.js](https://github.com/schteppe/p2.js) (phaser built-in release) is used. 
 
 Most Game Logic is handled in the main game state [StatePlaying](https://github.com/exophunk/y7k-smashbros/blob/master/src/js/client/states/StatePlaying.js).
 
-Most Networking Logic is handled by the clientside Networking Handler and the serverside GameRoom 
+There are two main entities in the game: Players and Throwables (Objects that a player can throw).
+    
+#### Networking
+
+The serverside Code is built based on [Socket.io](https://socket.io) and exchanges game state between different game clients via websockets. The game simulation is not run serverside and the server is therefore only authorative in some cases. The client is authorative about the own player position and any throwable object the player currently interacts with. By default, the client updates the server with a rate of 30x/s.
+
+The server sends updates of the world state to all connected clients at a rate of 20x/s (Tick rate). The world state snapshots are compressed by a simplified delta compression that only sends data to clients, that actually changed.
+
+To make enemy character movement smooth, entity interpolation is used with a default *Lerp Time* of 80ms. This gives clients enough time to smoothly render the entities positions even with network latency.
+
+Most Networking Logic is handled by the clientside [Networking](https://github.com/exophunk/y7k-smashbros/blob/master/src/js/client/handler/Networking.js) Handler and the serverside [GameRoom](https://github.com/exophunk/y7k-smashbros/blob/master/src/js/server/GameRoom.js).
 
 You can monitor the current server state and active rooms by visiting `/admin`. For accessing the serveradmin page, you need to set up `ADMIN_USER` and `ADMIN_PWHASH` (BCrypt hash) in the `.env` file.
