@@ -1,5 +1,6 @@
 # Config
 .env
+.idea
 
 # Build Folder
 /public/build
