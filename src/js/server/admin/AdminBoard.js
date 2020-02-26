@@ -1,7 +1,7 @@
 import path from 'path';
 import twig from 'twig';
 import basicAuth from 'basic-auth';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import bodyParser from 'body-parser';
 import {ServerConfig, GameConfig, PlayerConfig} from 'shared/configs/GameConfig';
 
