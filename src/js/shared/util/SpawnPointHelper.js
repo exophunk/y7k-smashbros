@@ -28,4 +28,4 @@ class SpawnPointHelper {
 
 }
 
-module.exports = new SpawnPointHelper();
+export default new SpawnPointHelper();

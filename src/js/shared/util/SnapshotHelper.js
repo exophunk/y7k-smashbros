@@ -42,4 +42,4 @@ class SnapshotHelper {
 
 }
 
-module.exports = new SnapshotHelper();
+export default new SnapshotHelper();

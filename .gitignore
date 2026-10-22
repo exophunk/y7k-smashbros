@@ -9,3 +9,7 @@
 
 # Node Modules
 /node_modules
+
+/dist
+/output
+/.playwright-cli

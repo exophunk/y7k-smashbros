@@ -48,7 +48,7 @@ export const ServerConfig = {
     SERVER_UPDATE_RATE: 22,
     MAX_ROOMS: 10,
     MAX_ROOM_PLAYERS: 8,
-    THROWABLES_DATA_PATH: 'public/build/assets/data/throwables.json',
+    THROWABLES_DATA_PATH: 'build/assets/data/throwables.json',
 }
 
 
@@ -70,7 +70,6 @@ export const SoundTypes = {
     THROW: 'throw',
     TAUNT: 'taunt',
     PICK: 'pick',
-    THROW: 'throw',
     LAND: 'land',
 }
 

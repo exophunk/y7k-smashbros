@@ -17,17 +17,55 @@ The game supports multiple game rooms with up to 8 players per room.
 
 ## Installation
 
-1. Run `npm install` to install all dependencies.
-2. Run `gulp build-prod` or `gulp build-dev` to build all bundles (You can also use `npm run`)
-3. Run the node server with `node server/server.js` or `npm run start`
-4. Open the game in the browser at `localhost:3000` 
+Use **Node.js 26** (the version is pinned in `.nvmrc`). With nvm installed:
+
+```sh
+nvm install
+nvm use
+npm ci
+```
+
+Dependencies install without building the game automatically.
 
 ## Development
 
-Javascript Code is based on ES2016/Babel and built with Webpack. Serverside-Code is also bundled with Webpack, because we use Babel aswell. vendor packages are packed in their own build bundle.
+```sh
+npm run dev
+```
 
-- Use `gulp watch` to run webpack with filewatching and running the nodeserver with nodemon.
-- Check gulpfile for other, more specific run tasks
+Open **http://127.0.0.1:5173**. This starts Vite and the multiplayer server together.
+Vite reloads the browser when game modules or assets change, updates styles live,
+and proxies `/socket.io` (including WebSockets) and `/admin` to the Node server.
+Server and shared-code edits rebuild the server and restart it automatically;
+restarting the server clears active rooms. Stop both processes with Ctrl+C.
+
+The backend uses port 3000 by default. Set `PORT` in your environment or `.env`
+to change it; the Vite proxy uses the same value. Vite uses port 5173.
+Copy `.env.example` to `.env` if you need local admin credentials.
+
+## Production build
+
+```sh
+npm run build
+npm start
+```
+
+Open **http://localhost:3000**. Vite writes the browser build to `dist/`; esbuild
+writes the Node 26 server bundle and admin templates to `server/`. Run commands
+from the project root. Deploy `dist/`, `server/`, `package.json`, and
+`package-lock.json`, then use `npm ci --omit=dev` and `NODE_ENV=production npm start`.
+Supply `PORT`, `ADMIN_USER`, and `ADMIN_PWHASH` through the production environment.
+
+`npm run build-prod` remains an alias for the production build.
+`npm run build-dev` produces a non-minified browser build with source maps, without
+starting watchers. `npm test` builds the app and checks HTTP assets, authenticated
+admin rendering, and a two-player round over polling and WebSocket connections.
+
+The build uses Vite 8, Dart Sass, and esbuild, with no Gulp, Webpack, Babel, or native
+Node Sass dependency. Phaser CE and the multiplayer/runtime libraries remain at
+their previous locked versions to preserve gameplay and protocol behavior. The
+Phaser plugins still load as ordered classic scripts because they share browser
+globals. Updating those legacy runtime dependencies is a separate migration.
 
 #### Game Engine
 

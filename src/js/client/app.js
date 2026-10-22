@@ -1,13 +1,9 @@
 import Game from 'client/Game';
 
-import 'pixi';
-import 'p2';
-import Phaser from 'phaser';
-
-global.isClient = true;
-global.isServer = false;
-global.isTouchDevice = Modernizr.touchevents;
-global.game = new Game();
+globalThis.isClient = true;
+globalThis.isServer = false;
+globalThis.isTouchDevice = Modernizr.touchevents;
+globalThis.game = new Game();
 
 game.start();
 

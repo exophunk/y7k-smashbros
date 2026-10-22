@@ -12,4 +12,4 @@ class FormatHelper {
 
 }
 
-module.exports = new FormatHelper();
+export default new FormatHelper();

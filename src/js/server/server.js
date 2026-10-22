@@ -1,4 +1,3 @@
-import "babel-polyfill";
 import express from 'express';
 import http from 'http';
 import SocketIO from 'socket.io';
@@ -11,7 +10,7 @@ import AdminBoard from 'server/admin/AdminBoard';
 import GameRoom from 'server/GameRoom';
 import Player from 'shared/objects/Player';
 
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+if (process.env.NODE_ENV !== 'production' && fs.existsSync('.env')) process.loadEnvFile();
 
 global.isClient = false;
 global.isServer = true;
@@ -27,14 +26,15 @@ export default class Server {
         this.app = express();
         this.server = http.Server(this.app);
         this.port = process.env.PORT || 3000;
-        this.app.use(express.static(path.resolve('public')))
+        this.publicDir = path.resolve(process.env.GAME_PUBLIC_DIR || 'dist');
+        this.app.use(express.static(this.publicDir))
         this.server.listen(this.port, () => { this.onListen() });
 
         this.io = new SocketIO(this.server);
 
         this.gameRooms = [];
         this.data = {};
-        this.data.throwablesData = JSON.parse(fs.readFileSync(ServerConfig.THROWABLES_DATA_PATH, 'utf8'));
+        this.data.throwablesData = JSON.parse(fs.readFileSync(path.join(this.publicDir, ServerConfig.THROWABLES_DATA_PATH), 'utf8'));
 
         this.io.on('connection', (socket) => { this.onConnection(socket) });
 
@@ -51,7 +51,7 @@ export default class Server {
      *
      */
     onListen() {
-        console.log('Listening on Port ' + this.port + '...');
+        console.log('Listening on Port ' + this.server.address().port + '...');
     }
 
 

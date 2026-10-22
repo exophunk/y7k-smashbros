@@ -29,4 +29,4 @@ class MathHelper {
 
 }
 
-module.exports = new MathHelper();
+export default new MathHelper();
