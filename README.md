@@ -56,6 +56,38 @@ from the project root. Deploy `dist/`, `server/`, `package.json`, and
 `package-lock.json`, then use `npm ci --omit=dev` and `NODE_ENV=production npm start`.
 Supply `PORT`, `ADMIN_USER`, and `ADMIN_PWHASH` through the production environment.
 
+### Process count and reverse proxy
+
+Run **one Node process / one replica** for this game. Socket sessions and game rooms
+live in process memory. Round-robin routing between workers causes polling requests
+to fail with `400 Session ID unknown`, and the client's disconnect handler reloads
+the page. If using PM2, use `exec_mode: 'fork'` and `instances: 1`. Sticky sessions
+alone do not make the game's room state shared between workers.
+
+When nginx terminates HTTPS, forward WebSocket upgrades to the same Node process.
+For example, add this location to the existing HTTPS server block, adjusting port
+3000 to match the application's `PORT`:
+
+```nginx
+location /socket.io/ {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_read_timeout 120s;
+    proxy_send_timeout 120s;
+    proxy_buffering off;
+}
+```
+
+Keep the existing `/` proxy for the rest of the app. A successful WebSocket upgrade
+returns `101 Switching Protocols`. Socket.IO 1.x uses a 25-second ping interval and
+60-second ping timeout, so the proxy timeout above exceeds their 85-second total.
+See the [nginx WebSocket proxy documentation](https://nginx.org/en/docs/http/websocket.html).
+
 `npm run build-prod` remains an alias for the production build.
 `npm run build-dev` produces a non-minified browser build with source maps, without
 starting watchers. `npm test` builds the app and checks HTTP assets, authenticated
