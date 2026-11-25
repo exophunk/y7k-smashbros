@@ -86,6 +86,25 @@ html.touchevents {
 }
 
 
+.player-name-input {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+    padding: 0 4px;
+    background: transparent;
+    color: #fff;
+    caret-color: #fff;
+    font-family: 'Press Start 2P', Courier, monospace;
+    text-align: center;
+    touch-action: manipulation;
+    user-select: text;
+    -webkit-user-select: text;
+}
+
 .nav {
     @include bp-s { display: none; }
 

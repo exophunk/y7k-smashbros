@@ -1,4 +1,3 @@
-import Portrait from 'client/objects/Portrait';
 import addContinueTouchArea from 'client/ui/ContinueTouchArea';
 
 export default class StateNameSelect extends Phaser.State {
@@ -26,7 +25,8 @@ export default class StateNameSelect extends Phaser.State {
         titleText.anchor.setTo(0.5, 0);
         titleText.position.setTo(game.centerX, 40);
 
-        this.textContinue = game.add.bitmapText(0, 0, 'font-white-big', game.texts.PRESS_TO_CONTINUE, 28);
+        const continueLabel = isTouchDevice ? game.texts.PRESS_TO_CONTINUE : 'PRESS ENTER TO CONTINUE';
+        this.textContinue = game.add.bitmapText(0, 0, 'font-white-big', continueLabel, 28);
         this.textContinue.anchor.setTo(0.5, 1);
         this.textContinue.position.setTo(game.centerX, game.world.height - 40);
     }
@@ -40,29 +40,17 @@ export default class StateNameSelect extends Phaser.State {
         this.nameBox = game.add.sprite(game.centerX, game.centerY, 'name-box');
         this.nameBox.anchor.setTo(0.5,0.5);
 
-        let fontSize = 25;
-        let nameFieldWidth = 400;
-        let nameFieldHeight = fontSize;
-        let nameFieldX = game.centerX - nameFieldWidth / 2;
-        let nameFieldY = game.centerY - nameFieldHeight / 2;
-
-        this.nameField = game.add.inputField(nameFieldX, nameFieldY, {
-            width: nameFieldWidth,
-            padding: 0,
-            fillAlpha: 0,
-            textAlign: 'center',
-            font: fontSize +'px Press Start 2P',
-            fontWeight: 'normal',
-            fill: '#ffffff',
-            cursorColor: '#ffffff',
-            max: 10
-        });
-        this.nameField.blockInput = false;
-        this.nameField.focusOutOnEnter = false;
-
-        game.time.events.add(300, () => {
-            this.nameField.startFocus();
-        }, this);
+        this.nameField = document.createElement('input');
+        this.nameField.type = 'text';
+        this.nameField.className = 'player-name-input';
+        this.nameField.setAttribute('aria-label', 'Player name');
+        this.nameField.setAttribute('enterkeyhint', 'done');
+        this.nameField.autocomplete = 'off';
+        this.nameField.autocapitalize = 'off';
+        this.nameField.spellcheck = false;
+        this.nameField.maxLength = 10;
+        document.getElementById('app').appendChild(this.nameField);
+        this.render();
 
     }
 
@@ -86,7 +74,9 @@ export default class StateNameSelect extends Phaser.State {
      *
      */
     checkKeydown(e) {
-        if(e.keyCode == Phaser.Keyboard.ENTER || e.keyCode == Phaser.Keyboard.SPACEBAR) {
+        if (e.isComposing) return;
+        if(e.keyCode == Phaser.Keyboard.ENTER ||
+            (e.keyCode == Phaser.Keyboard.SPACEBAR && e.target !== this.nameField)) {
             e.preventDefault();
             this.nextStep();
         }
@@ -97,21 +87,37 @@ export default class StateNameSelect extends Phaser.State {
      *
      */
     nextStep() {
-        // Read the native value: mobile suggestions may not emit a keyup event.
-        let name = this.nameField.domElement.value;
+        let name = this.nameField.value;
         name = name.replace(/\s/g, '');
         name = name.trim();
 
         if(name.length > 3 && name.length <= 10) {
             game.gameState.selectedName = name;
-            this.nameField.endFocus();
-            document.removeEventListener('keydown', this.keyListenerFunc);
+            this.nameField.blur();
             game.sounds.ui.clickOk.play();
             game.state.start('StateTutorial');
         }
 
     }
 
+    render() {
+        // Keep the native input over the canvas box when the keyboard or browser
+        // bars change the canvas size. Moving it never changes its focus.
+        const canvas = game.canvas.getBoundingClientRect();
+        const parent = game.canvas.parentElement.getBoundingClientRect();
+        const scaleX = canvas.width / game.gameWidth;
+        const scaleY = canvas.height / game.gameHeight;
+        const style = this.nameField.style;
+        style.left = `${canvas.left - parent.left + game.centerX * scaleX}px`;
+        style.top = `${canvas.top - parent.top + game.centerY * scaleY}px`;
+        style.width = `${(this.nameBox.width - 16) * scaleX}px`;
+        style.height = `${(this.nameBox.height - 16) * scaleY}px`;
+        style.fontSize = `${Math.max(16, 25 * scaleY)}px`;
+    }
 
+    shutdown() {
+        document.removeEventListener('keydown', this.keyListenerFunc);
+        this.nameField.remove();
+    }
 }
 
