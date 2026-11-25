@@ -1,5 +1,9 @@
 {
- "name": "App",
+ "name": "Y7K Smash Bros",
+ "short_name": "Smash Bros",
+ "start_url": "/",
+ "scope": "/",
+ "display": "standalone",
  "icons": [
   {
    "src": "\/build\/assets\/images\/meta\/android-icon-36x36.png",

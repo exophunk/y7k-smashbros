@@ -1,4 +1,4 @@
-
+import addContinueTouchArea from 'client/ui/ContinueTouchArea';
 export default class StateTutorial extends Phaser.State {
 
 
@@ -81,10 +81,7 @@ export default class StateTutorial extends Phaser.State {
      */
     initControls() {
         if(isTouchDevice) {
-            this.textContinue.inputEnabled = true;
-            this.textContinue.events.onInputDown.add(() => {
-                this.startPlaying();
-            }, this);
+            addContinueTouchArea(this.startPlaying, this);
         }
     }
 

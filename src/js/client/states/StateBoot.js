@@ -2,6 +2,7 @@ import CharacterFactory from 'client/handler/CharacterFactory';
 import ThrowableItemFactory from 'client/handler/ThrowableItemFactory';
 import Networking from 'client/handler/Networking';
 import {GameConfig} from 'shared/configs/GameConfig';
+import fitMobileViewport from 'client/ui/MobileViewport';
 
 export default class StateBoot extends Phaser.State {
 
@@ -12,6 +13,11 @@ export default class StateBoot extends Phaser.State {
 	create() {
 
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        if (isTouchDevice) {
+            game.scale.pageAlignHorizontally = true;
+            game.scale.pageAlignVertically = true;
+            fitMobileViewport(game);
+        }
         game.add.plugin(Fabrique.Plugins.InputField);
         game.characterFactory = new CharacterFactory();
         game.throwableItemFactory = new ThrowableItemFactory();

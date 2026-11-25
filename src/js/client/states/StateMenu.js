@@ -37,9 +37,8 @@ export default class StateMenu extends Phaser.State {
 
         game.sounds.music.play();
 
-        game.input.onTap.add((pointer, doubleTap) => {
-            this.nextStep();
-        }, this);
+        // onTap ignores presses held longer than Phaser's short tap threshold.
+        game.input.onDown.addOnce(this.nextStep, this);
 	}
 
 

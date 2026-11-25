@@ -1,4 +1,5 @@
 import Portrait from 'client/objects/Portrait';
+import addContinueTouchArea from 'client/ui/ContinueTouchArea';
 
 export default class StatePlayerSelect extends Phaser.State {
 
@@ -9,6 +10,7 @@ export default class StatePlayerSelect extends Phaser.State {
 	create() {
 
         this.selectIndex = 0;
+        this.continuing = false;
 
         this.initBackground();
         this.initPortraits();
@@ -89,10 +91,7 @@ export default class StatePlayerSelect extends Phaser.State {
                 }, this);
             });
 
-            this.textContinue.inputEnabled = true;
-            this.textContinue.events.onInputDown.add(() => {
-                this.nextStep();
-            }, this);
+            addContinueTouchArea(this.nextStep, this);
         }
 
     }
@@ -102,6 +101,8 @@ export default class StatePlayerSelect extends Phaser.State {
      *
      */
     nextStep() {
+        if (this.continuing) return;
+        this.continuing = true;
         let chosenCharacterKey = this.portraits[this.selectIndex].key;
         game.gameState.selectedCharKey = chosenCharacterKey;
 

@@ -1,4 +1,5 @@
 import Portrait from 'client/objects/Portrait';
+import addContinueTouchArea from 'client/ui/ContinueTouchArea';
 
 export default class StateNameSelect extends Phaser.State {
 
@@ -59,9 +60,9 @@ export default class StateNameSelect extends Phaser.State {
         this.nameField.blockInput = false;
         this.nameField.focusOutOnEnter = false;
 
-        setTimeout(() => {
+        game.time.events.add(300, () => {
             this.nameField.startFocus();
-        }, 300);
+        }, this);
 
     }
 
@@ -75,10 +76,7 @@ export default class StateNameSelect extends Phaser.State {
         document.addEventListener('keydown', this.keyListenerFunc);
 
         if(isTouchDevice) {
-            this.textContinue.inputEnabled = true;
-            this.textContinue.events.onInputDown.add(() => {
-                this.nextStep();
-            }, this);
+            addContinueTouchArea(this.nextStep, this);
         }
 
     }
@@ -99,7 +97,8 @@ export default class StateNameSelect extends Phaser.State {
      *
      */
     nextStep() {
-        let name = this.nameField.value;
+        // Read the native value: mobile suggestions may not emit a keyup event.
+        let name = this.nameField.domElement.value;
         name = name.replace(/\s/g, '');
         name = name.trim();
 
